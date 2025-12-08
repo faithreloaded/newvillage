@@ -24,12 +24,12 @@ const { lang } = Astro.params as { lang: Locale };
     
     <div class="hero-content">
       <div class="container">
-        <h1 class="hero-title">Move better. Live better.</h1>
-        <p class="hero-subtitle">Pilates, Barre, Yoga & Functional training in Poblenou.</p>
+        <h1 class="hero-title">Muévete mejor. Vive mejor.</h1>
+        <p class="hero-subtitle">Pilates, Barre, Yoga y entrenamiento funcional en Poblenou.</p>
         
         <div class="hero-buttons">
-          <a href={`/${lang}/book`} class="btn btn-primary">Book your class</a>
-          <a href={`/${lang}/join`} class="btn btn-outline-light">Join now</a>
+          <a href={`/${lang}/book`} class="btn btn-primary">Reserva tu clase</a>
+          <a href={`/${lang}/join`} class="btn btn-outline-light">Únete ahora</a>
         </div>
         
         <div class="hero-features">
@@ -40,7 +40,7 @@ const { lang } = Astro.params as { lang: Locale };
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            Small groups
+            Grupos pequeños
           </span>
           <span class="hero-feature">
             <svg class="hero-feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -48,14 +48,14 @@ const { lang } = Astro.params as { lang: Locale };
               <line x1="2" y1="12" x2="22" y2="12"></line>
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
-            Bilingual classes
+            Clases bilingües
           </span>
           <span class="hero-feature">
             <svg class="hero-feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            No long-term commitment
+            Sin permanencias
           </span>
         </div>
       </div>
@@ -66,6 +66,330 @@ const { lang } = Astro.params as { lang: Locale };
         <path d="M6 9l6 6 6-6"></path>
       </svg>
     </div>
+  </section>
+
+  <section class="about-section">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2 class="about-title">Un estudio de bienestar moderno en Poblenou</h2>
+          <p class="about-description">
+            NewVillage es un estudio de movimiento en el corazón del distrito 22@.<br />
+            Ofrecemos Pilates, Barre, Yoga y entrenamiento funcional en grupos pequeños, con clases bilingües y total flexibilidad.
+          </p>
+        </div>
+
+        <div class="about-image-placeholder" style="background-image: url('/images/section1.webp');"></div>
+
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="about-feature-title">Grupos pequeños</h3>
+            <p class="about-feature-text">Atención personalizada en cada clase.</p>
+          </div>
+
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <h3 class="about-feature-title">Clases bilingües</h3>
+            <p class="about-feature-text">Inglés y español.</p>
+          </div>
+
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <h3 class="about-feature-title">Sin permanencias</h3>
+            <p class="about-feature-text">Entrena a tu ritmo.</p>
+          </div>
+        </div>
+
+        <div class="about-cta">
+          <a href={`/${lang}/classes`} class="btn btn-primary">Ver clases</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="disciplines-section">
+    <div class="container">
+      <div class="disciplines-content">
+        <div class="disciplines-header">
+          <h2 class="disciplines-title">Elige cómo quieres moverte</h2>
+          <p class="disciplines-subtitle">Una membresía. Cuatro formas de entrenar.</p>
+        </div>
+
+        <div class="disciplines-grid">
+          <div class="discipline-card">
+            <div class="discipline-image" style="background-image: url('/images/services/pilates.webp');"></div>
+            <div class="discipline-gradient"></div>
+            <div class="discipline-content">
+              <h3 class="discipline-title">Pilates</h3>
+              <p class="discipline-description">Fuerza, control y postura.</p>
+            </div>
+          </div>
+
+          <div class="discipline-card">
+            <div class="discipline-image" style="background-image: url('/images/services/barre.webp');"></div>
+            <div class="discipline-gradient"></div>
+            <div class="discipline-content">
+              <h3 class="discipline-title">Barre</h3>
+              <p class="discipline-description">Tono, energía y ritmo.</p>
+            </div>
+          </div>
+
+          <div class="discipline-card">
+            <div class="discipline-image" style="background-image: url('/images/services/yoga.webp');"></div>
+            <div class="discipline-gradient"></div>
+            <div class="discipline-content">
+              <h3 class="discipline-title">Yoga</h3>
+              <p class="discipline-description">Equilibrio, movilidad y respiración.</p>
+            </div>
+          </div>
+
+          <div class="discipline-card">
+            <div class="discipline-image" style="background-image: url('/images/services/funcional.webp');"></div>
+            <div class="discipline-gradient"></div>
+            <div class="discipline-content">
+              <h3 class="discipline-title">Funcional</h3>
+              <p class="discipline-description">Potencia, cardio y cuerpo completo.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="disciplines-cta">
+          <a href={`/${lang}/schedule`} class="btn btn-primary">Ver horarios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-content">
+        <div class="contact-info">
+          <h2 class="contact-title">Contacta con nosotros</h2>
+          <p class="contact-description">Estamos aquí para ayudarte. Escríbenos o visítanos.</p>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <a href="mailto:info@newvillage.com" class="contact-link">info@newvillage.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <a href="tel:+34912345678" class="contact-link">+34 912 345 678</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <p class="contact-address">
+                  Calle del Bienestar, 15<br />
+                  28001 Madrid, España
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-whatsapp">
+            <a href="https://wa.me/34912345678" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="whatsapp-icon">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              Hablar por WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+          <form class="contact-form" id="contact-form">
+            <input type="text" name="name" class="form-input" placeholder="Nombre" required />
+            <input type="email" name="email" class="form-input" placeholder="Email" required />
+            <input type="tel" name="phone" class="form-input" placeholder="Teléfono" />
+            <textarea name="message" rows="5" class="form-textarea" placeholder="Mensaje" required></textarea>
+            <button type="submit" class="btn btn-primary form-submit">Enviar mensaje</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-map-section">
+      <div class="container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.5!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI1JzAwLjQiTiAzwrA0MicxMy42Ilc!5e0!3m2!1ses!2ses!4v1234567890123!5m2!1ses!2ses"
+          width="100%"
+          height="400"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/34912345678" target="_blank" rel="noopener noreferrer" class="whatsapp-float" id="whatsapp-float">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="whatsapp-float-icon">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+
+  <section class="pricing-section">
+    <div class="container">
+      <div class="pricing-content">
+        <div class="pricing-header">
+          <h2 class="pricing-title">Encuentra tu plan ideal</h2>
+          <p class="pricing-subtitle">Entrena a tu ritmo. Sin permanencias.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Say Hi Pack -->
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <h3 class="pricing-card-title">Say Hi Pack</h3>
+              <div class="pricing-price">
+                <span class="pricing-amount">29</span>
+                <span class="pricing-currency">€</span>
+              </div>
+            </div>
+            <p class="pricing-description">3 clases para probar</p>
+            <a href={`/${lang}/book`} class="btn btn-primary pricing-btn">Empezar</a>
+          </div>
+
+          <!-- Membresías -->
+          <div class="pricing-card pricing-card-featured">
+            <div class="pricing-card-header">
+              <h3 class="pricing-card-title">Membresías</h3>
+              <div class="pricing-price">
+                <span class="pricing-amount">89</span>
+                <span class="pricing-currency">€</span>
+                <span class="pricing-period">/mes</span>
+              </div>
+            </div>
+            <p class="pricing-description">Clases ilimitadas</p>
+            <a href={`/${lang}/join`} class="btn btn-primary pricing-btn">Unirme</a>
+          </div>
+
+          <!-- Bonos de clases -->
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <h3 class="pricing-card-title">Bonos de clases</h3>
+            </div>
+            <div class="pricing-options">
+              <div class="pricing-option">
+                <span class="pricing-option-label">5 clases</span>
+                <span class="pricing-option-price">75 €</span>
+              </div>
+              <div class="pricing-option">
+                <span class="pricing-option-label">10 clases</span>
+                <span class="pricing-option-price">140 €</span>
+              </div>
+            </div>
+            <a href={`/${lang}/book`} class="btn btn-primary pricing-btn">Comprar bono</a>
+          </div>
+        </div>
+
+        <p class="pricing-footer">Sin contratos. Cancela cuando quieras.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="community-section">
+    <div class="container">
+      <div class="community-content">
+        <div class="community-header">
+          <h2 class="community-title">Más que clases, una comunidad</h2>
+          <p class="community-description">Entrena, conecta y comparte en un espacio moderno, abierto y cercano.</p>
+        </div>
+
+        <div class="community-cta">
+          <a href="https://instagram.com/newvillage" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="instagram-icon">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+            Síguenos en Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="instagram-carousel-wrapper">
+      <div class="instagram-carousel">
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <!-- Duplicados para efecto infinito -->
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+        </div>
+        <div class="instagram-slide">
+          <img src="/images/services/yoga.webp" alt="Instagram post" class="instagram-image" />
+      </div>
+    </div>
+  </div>
   </section>
 </BaseLayout>
 
@@ -265,4 +589,898 @@ const { lang } = Astro.params as { lang: Locale };
       font-size: var(--font-size-base);
     }
   }
+
+  /* About Section */
+  .about-section {
+    padding: var(--space-7) 0;
+    background: var(--color-background);
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .about-text {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .about-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-light);
+    color: var(--color-text);
+    margin: 0 0 var(--space-3) 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .about-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+
+  .about-image-placeholder {
+    width: 100%;
+    height: 400px;
+    background: var(--color-container);
+    background-image: url('/images/section1.webp');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: var(--radius-lg);
+    margin: var(--space-4) 0;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin: var(--space-4) 0;
+  }
+
+  .about-feature {
+    text-align: center;
+    padding: var(--space-4);
+  }
+
+  .about-feature-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--space-3);
+    color: var(--color-terracotta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-feature-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .about-feature-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .about-feature-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+
+  .about-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-4);
+  }
+
+  @media (max-width: 768px) {
+    .about-section {
+      padding: var(--space-6) 0;
+    }
+
+    .about-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .about-description {
+      font-size: var(--font-size-base);
+    }
+
+    .about-image-placeholder {
+      height: 300px;
+    }
+
+    .about-features {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+
+    .about-feature {
+      padding: var(--space-3);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .about-image-placeholder {
+      height: 250px;
+    }
+  }
+
+  /* Disciplines Section */
+  .disciplines-section {
+    padding: var(--space-7) 0;
+    background: var(--color-background-alt);
+  }
+
+  .disciplines-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .disciplines-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .disciplines-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-light);
+    color: var(--color-text);
+    margin: 0 0 var(--space-2) 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .disciplines-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .disciplines-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    margin: var(--space-5) 0;
+  }
+
+  .discipline-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    min-height: 320px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+  }
+
+  .discipline-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .discipline-card:hover .discipline-image {
+    transform: scale(1.05);
+  }
+
+  .discipline-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.1) 85%, transparent 100%);
+    backdrop-filter: blur(1px);
+    z-index: 1;
+  }
+
+  .discipline-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-4);
+    width: 100%;
+  }
+
+  .discipline-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-light);
+    color: #ffffff;
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .discipline-description {
+    font-size: var(--font-size-base);
+    color: rgba(255, 255, 255, 0.95);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+
+  .disciplines-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-4);
+  }
+
+  @media (max-width: 1024px) {
+    .disciplines-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .discipline-card {
+      min-height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .disciplines-section {
+      padding: var(--space-6) 0;
+    }
+
+    .disciplines-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .disciplines-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .disciplines-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .discipline-card {
+      min-height: 280px;
+    }
+
+    .discipline-card:hover .discipline-image {
+      transform: scale(1.06);
+    }
+
+    .discipline-content {
+      padding: var(--space-3);
+    }
+
+    .discipline-gradient {
+      height: 35%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .disciplines-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .discipline-card {
+      min-height: 250px;
+    }
+
+    .discipline-title {
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  /* Contact Section */
+  .contact-section {
+    padding: var(--space-7) 0;
+    background: var(--color-background);
+  }
+
+  .contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .contact-content > * {
+    height: fit-content;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-self: flex-start;
+  }
+
+  .contact-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-light);
+    color: var(--color-text);
+    margin: 0 0 var(--space-2) 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .contact-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--space-4) 0;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .contact-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-terracotta);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .contact-text {
+    flex: 1;
+  }
+
+  .contact-link {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: var(--font-size-base);
+    transition: color 0.2s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--color-terracotta);
+  }
+
+  .contact-address {
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+
+  .contact-whatsapp {
+    margin-top: var(--space-3);
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(37, 211, 102, 0.1);
+    color: #25d366;
+    border: 1px solid rgba(37, 211, 102, 0.2);
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-medium);
+    transition: all 0.3s ease;
+    border-radius: var(--radius-md);
+  }
+
+  .btn-whatsapp:hover {
+    background: rgba(37, 211, 102, 0.15);
+    border-color: rgba(37, 211, 102, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .whatsapp-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .contact-map-section {
+    width: 100%;
+    margin-top: var(--space-7);
+    padding: 0;
+  }
+
+  .contact-map-section iframe {
+    width: 100%;
+    height: 400px;
+    border: 0;
+    display: block;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Botón flotante de WhatsApp */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: var(--color-terracotta);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(201, 125, 96, 0.4);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+  }
+
+  .whatsapp-float.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(201, 125, 96, 0.5);
+  }
+
+  .whatsapp-float-icon {
+    width: 32px;
+    height: 32px;
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    .whatsapp-float {
+      width: 56px;
+      height: 56px;
+      bottom: 1.5rem;
+      right: 1.5rem;
+    }
+
+    .whatsapp-float-icon {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .contact-form-wrapper {
+    background: var(--color-background-alt);
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-family: inherit;
+    color: var(--color-text);
+    background: var(--color-background);
+    transition: all 0.2s ease;
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--color-terracotta);
+    box-shadow: 0 0 0 3px rgba(201, 125, 96, 0.08);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-submit {
+    width: 100%;
+    margin-top: var(--space-1);
+  }
+
+  @media (max-width: 1024px) {
+    .contact-content {
+      gap: var(--space-6);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-section {
+      padding: var(--space-6) 0;
+    }
+
+    .contact-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .contact-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .contact-description {
+      font-size: var(--font-size-base);
+    }
+
+    .contact-form-wrapper {
+      padding: var(--space-5);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .contact-form-wrapper {
+      padding: var(--space-4);
+    }
+  }
+
+  /* Pricing Section */
+  .pricing-section {
+    padding: var(--space-7) 0;
+    background: var(--color-background);
+  }
+
+  .pricing-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .pricing-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .pricing-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-light);
+    color: var(--color-text);
+    margin: 0 0 var(--space-2) 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .pricing-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin: var(--space-5) 0;
+  }
+
+  .pricing-card {
+    background: var(--color-background-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border-light);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-terracotta);
+  }
+
+  .pricing-card-featured {
+    border-color: var(--color-terracotta);
+    border-width: 2px;
+  }
+
+  .pricing-card-header {
+    margin-bottom: var(--space-4);
+  }
+
+  .pricing-card-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .pricing-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+
+  .pricing-amount {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text);
+  }
+
+  .pricing-currency {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+  }
+
+  .pricing-period {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-left: 0.25rem;
+  }
+
+  .pricing-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--space-4) 0;
+    line-height: var(--line-height-relaxed);
+    flex: 1;
+  }
+
+  .pricing-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    flex: 1;
+  }
+
+  .pricing-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .pricing-option:last-child {
+    border-bottom: none;
+  }
+
+  .pricing-option-label {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    font-weight: var(--font-medium);
+  }
+
+  .pricing-option-price {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+  }
+
+  .pricing-btn {
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .pricing-footer {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: var(--space-4) 0 0 0;
+  }
+
+  @media (max-width: 1024px) {
+    .pricing-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pricing-section {
+      padding: var(--space-6) 0;
+    }
+
+    .pricing-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .pricing-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .pricing-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .pricing-card {
+      padding: var(--space-4);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .pricing-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .pricing-amount {
+      font-size: var(--font-size-3xl);
+    }
+  }
+
+  /* Community Section */
+  .community-section {
+    padding: var(--space-7) 0 0;
+    background: var(--color-background-alt);
+    position: relative;
+  }
+
+  .community-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: 0;
+    padding-bottom: var(--space-6);
+  }
+
+  .community-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .community-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-light);
+    color: var(--color-text);
+    margin: 0 0 var(--space-2) 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .community-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--space-4) 0;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .community-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .instagram-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.5rem;
+  }
+
+  /* Instagram Carousel */
+  .instagram-carousel-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: 0;
+  }
+
+  .instagram-carousel-wrapper::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(to top, var(--color-background-alt) 0%, rgba(250, 250, 250, 0.5) 50%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .instagram-carousel {
+    display: flex;
+    gap: var(--space-3);
+    animation: scrollCarousel 50s linear infinite;
+    width: fit-content;
+  }
+
+  .instagram-slide {
+    flex-shrink: 0;
+    width: 280px;
+  }
+
+  .instagram-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
+  @keyframes scrollCarousel {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .community-section {
+      padding: var(--space-6) 0 0;
+    }
+
+    .community-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .community-description {
+      font-size: var(--font-size-base);
+    }
+
+
+    .instagram-slide {
+      width: 240px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .community-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .community-features {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .instagram-slide {
+      width: 200px;
+    }
+  }
 </style>
+
+<script>
+  // Mostrar/ocultar botón flotante de WhatsApp al hacer scroll
+  const whatsappFloat = document.getElementById('whatsapp-float');
+  
+  function handleScroll() {
+    if (window.scrollY > 300) {
+      whatsappFloat?.classList.add('visible');
+    } else {
+      whatsappFloat?.classList.remove('visible');
+    }
+  }
+  
+  window.addEventListener('scroll', handleScroll);
+  // Verificar posición inicial
+  handleScroll();
+</script>
