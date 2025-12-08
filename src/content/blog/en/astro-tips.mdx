@@ -1,0 +1,42 @@
+---
+title: "Astro Tips and Tricks"
+date: 2024-01-20
+excerpt: "Some useful tips for working with Astro and creating fast websites."
+image: "/images/placeholder.jpg"
+category: "Tips"
+---
+
+import TextBlock from '../../../components/block/block-blocks/TextBlock.astro'
+import ImageBlock from '../../../components/block/block-blocks/ImageBlock.astro'
+import QuoteBlock from '../../../components/block/block-blocks/QuoteBlock.astro'
+
+<TextBlock
+  title="Islands Architecture"
+  text="Astro uses the 'islands' architecture where you only hydrate components that need interactivity. This allows creating super fast websites with minimal JavaScript."
+/>
+
+<TextBlock
+  title="Image Optimization"
+  text="Use Astro's Image component to automatically optimize images. This significantly improves your website's performance."
+/>
+
+<ImageBlock
+  src="/images/placeholder.jpg"
+  alt="Astro framework in action"
+  caption="Astro allows creating modern and fast websites"
+/>
+
+<TextBlock
+  title="Static Site Generation"
+  text="With SSG you can create super fast sites that are generated at build time. This means better performance and optimized SEO."
+/>
+
+<TextBlock
+  title="Content Collections"
+  text="Content Collections allow you to organize your content in a structured way. Like this blog, you can manage posts efficiently."
+/>
+
+<QuoteBlock
+  quote="Astro is great for creating modern and fast websites. Its performance-focused approach makes it perfect for professional projects."
+  author="Development Team"
+/>

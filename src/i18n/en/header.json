@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "Home",
+    "classes": "Classes",
+    "prices": "Prices",
+    "schedule": "Schedule",
+    "contact": "Contact",
+    "buttons": "Buttons"
+  },
+  "actions": {
+    "bookNow": "Book now"
+  },
+  "lang": {
+    "es": "ES",
+    "en": "EN",
+    "sep": "/"
+  }
+}
+
+

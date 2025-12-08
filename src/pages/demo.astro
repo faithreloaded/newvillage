@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página Demo - Mi Sitio Web" description="Página de demostración para probar el boilerplate">
+  <div class="demo-page">
+    <div class="container">
+      <div class="hero">
+        <h1 class="hero-title">¡Página Demo!</h1>
+        <p class="hero-description">
+          Esta es una página de demostración para probar que el boilerplate funciona correctamente.
+          El header y footer están incluidos automáticamente.
+        </p>
+        <div class="hero-actions">
+          <a href="/" class="btn btn-primary">Volver al Inicio</a>
+          <a href="/about" class="btn btn-secondary">Acerca de</a>
+        </div>
+      </div>
+
+      <div class="demo-content">
+        <div class="demo-section">
+          <h2 class="demo-title">Características del Boilerplate</h2>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <h3 class="demo-card-title">Ligero y Rápido</h3>
+              <p class="demo-card-description">
+                Solo incluye lo esencial: tokens CSS, layout base, header y footer simples.
+              </p>
+            </div>
+            <div class="demo-card">
+              <h3 class="demo-card-title">Responsive</h3>
+              <p class="demo-card-description">
+                Diseño adaptable que funciona perfectamente en todos los dispositivos.
+              </p>
+            </div>
+            <div class="demo-card">
+              <h3 class="demo-card-title">Moderno</h3>
+              <p class="demo-card-description">
+                Utiliza las últimas tecnologías web con Astro y CSS moderno.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <h2 class="demo-title">Tokens CSS Disponibles</h2>
+          <div class="tokens-demo">
+            <div class="token-group">
+              <h4>Colores Primarios</h4>
+              <div class="color-swatches">
+                <div class="color-swatch" style="background: var(--color-primary)"></div>
+                <div class="color-swatch" style="background: var(--color-secondary)"></div>
+                <div class="color-swatch" style="background: var(--color-accent)"></div>
+              </div>
+            </div>
+            <div class="token-group">
+              <h4>Tipografía</h4>
+              <div class="typography-demo">
+                <p class="text-large">Texto grande</p>
+                <p class="text-medium">Texto mediano</p>
+                <p class="text-small">Texto pequeño</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .demo-page {
+    padding: 2rem 0;
+  }
+
+
+  .hero {
+    text-align: center;
+    padding: 4rem 0;
+    background: var(--color-background-secondary);
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 2rem 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .demo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .demo-section {
+    padding: 2rem 0;
+  }
+
+  .demo-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 2rem 0;
+    text-align: center;
+  }
+
+  .demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .demo-card {
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .demo-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+  }
+
+  .demo-card-description {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .tokens-demo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .token-group {
+    background: var(--color-background-secondary);
+    border-radius: 0.75rem;
+    padding: 2rem;
+  }
+
+  .token-group h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+  }
+
+  .color-swatches {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .color-swatch {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .typography-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .text-large {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .text-medium {
+    font-size: 1rem;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .text-small {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .demo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

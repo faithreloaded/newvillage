@@ -1,0 +1,94 @@
+{
+  "globalStyles": {
+  "headTitle": "Global Styles | Starter UI",
+  "headDescription": "Global styles, design tokens, and CSS variables for consistent design across the entire template",
+  "pageTitle": "Global Styles",
+  "pageDescription": "Design system, CSS variables, and global styles that ensure consistency across all components",
+  "colorPalette": {
+    "title": "Color Palette",
+    "description": "Primary colors used throughout the template",
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "background": "Background",
+    "backgroundAlt": "Background Alt",
+    "accent": "Accent",
+    "container": "Container",
+    "hover": "Hover",
+    "previewBackground": "Preview Background",
+    "text": "Text",
+    "textSecondary": "Text Secondary",
+    "textMuted": "Text Muted",
+    "textAccent": "Text Accent"
+  },
+  "typography": {
+    "title": "Typography",
+    "description": "Complete typography system using Inter font with fallbacks, including all heading levels, body text, and weight variations",
+    "h1": "Heading 1 - Main Title",
+    "h2": "Heading 2 - Section Title",
+    "h3": "Heading 3 - Subsection",
+    "h4": "Heading 4 - Card Title",
+    "h5": "Heading 5 - Small Title",
+    "h6": "Heading 6 - Label",
+    "bodyText": "Body text - Regular paragraph text used throughout the template for readability and consistency.",
+    "smallText": "Small text - Used for captions, labels, and secondary information.",
+    "mediumWeight": "Medium weight text - Used for emphasis and important information.",
+    "semiBold": "Semi-bold text - Used for strong emphasis and call-to-action elements.",
+    "bold": "Bold text - Used for maximum emphasis and important headings.",
+    "captionText": "Caption text - Used for very small text like footnotes and metadata.",
+    "interFont": "Inter Font Family - Modern, highly legible typeface designed for user interfaces.",
+    "fontSans": "Font Sans - System font stack with Inter as primary, includes fallbacks for maximum compatibility."
+  },
+  "spacingSystem": {
+    "title": "Spacing System",
+    "description": "Consistent spacing variables used across components",
+    "space1Usage": "Inner padding, small gaps",
+    "space2Usage": "Small margins, button padding",
+    "space3Usage": "Spacing between elements",
+    "space4Usage": "Container padding",
+    "space5Usage": "Spacing between sections",
+    "space6Usage": "Large margins",
+    "space7Usage": "Hero sections spacing",
+    "space8Usage": "Maximum spacing between pages"
+  },
+  "borderRadius": {
+    "title": "Border radius",
+    "description": "Consistent border radius values for rounded corners across all components",
+    "extraSmall": "Extra Small",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "extraLarge": "Extra Large",
+    "2xLarge": "2X Large",
+    "3xLarge": "3X Large",
+    "full": "Full"
+  },
+  "breakpoints": {
+    "title": "Breakpoints",
+    "description": "Breakpoint tokens for responsive media queries."
+  },
+  "transitions": {
+    "title": "Transitions",
+    "description": "Tiered transition tokens for subtle, consistent animations.",
+    "xfast": "--transition-xfast = 120ms ease",
+    "fast": "--transition-fast = 160ms ease",
+    "base": "--transition-base = 200ms ease",
+    "slow": "--transition-slow = 250ms ease",
+    "xslow": "--transition-xslow = 320ms ease"
+  },
+  "cssVariables": {
+    "title": "CSS Variables",
+    "description": "All available CSS custom properties",
+    "colorsSemantic": "Colors (Semantic)",
+    "colorsLegacy": "Colors (Legacy)",
+    "typographyFontSizes": "Typography - Font Sizes",
+    "typographyFontWeights": "Typography - Font Weights",
+    "typographyLineHeights": "Typography - Line Heights",
+    "typographyFontFamily": "Typography - Font Family",
+    "spacing": "Spacing",
+    "layout": "Layout",
+    "shadows": "Shadows (Box Shadows)"
+  }
+  }
+}
+
+

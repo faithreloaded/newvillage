@@ -1,0 +1,168 @@
+{
+  "header": {
+    "nav": { 
+      "home": "Home", 
+      "about": "About us", 
+      "services": "Services", 
+      "blog": "Blog", 
+      "contact": "Contact" 
+    },
+    "actions": { "buy": "Buy template" },
+    "lang": { "es": "ES", "en": "EN", "sep": "/" }
+  },
+  "docs": {
+    "title": "Documentation",
+    "description": "Complete guide to get started with Starter UI template",
+    "sidebarTitle": "Contents"
+  },
+  "globalStyles": {
+    "headTitle": "Global Styles | Starter UI",
+    "headDescription": "Global styles, design tokens, and CSS variables for consistent design across the entire template",
+    "pageTitle": "Global Styles",
+    "pageDescription": "Design system, CSS variables, and global styles that ensure consistency across all components",
+    "colorPalette": {
+      "title": "Color Palette",
+      "description": "Primary colors used throughout the template",
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "background": "Background",
+      "backgroundAlt": "Background Alt",
+      "accent": "Accent",
+      "container": "Container",
+      "hover": "Hover",
+      "previewBackground": "Preview Background",
+      "text": "Text",
+      "textSecondary": "Text Secondary",
+      "textMuted": "Text Muted",
+      "textAccent": "Text Accent"
+    },
+    "typography": {
+      "title": "Typography",
+      "description": "Complete typography system using Inter font with fallbacks, including all heading levels, body text, and weight variations",
+      "h1": "Heading 1 - Main Title",
+      "h2": "Heading 2 - Section Title",
+      "h3": "Heading 3 - Subsection",
+      "h4": "Heading 4 - Card Title",
+      "h5": "Heading 5 - Small Title",
+      "h6": "Heading 6 - Label",
+      "bodyText": "Body text - Regular paragraph text used throughout the template for readability and consistency.",
+      "smallText": "Small text - Used for captions, labels, and secondary information.",
+      "mediumWeight": "Medium weight text - Used for emphasis and important information.",
+      "semiBold": "Semi-bold text - Used for strong emphasis and call-to-action elements.",
+      "bold": "Bold text - Used for maximum emphasis and important headings.",
+      "captionText": "Caption text - Used for very small text like footnotes and metadata.",
+      "interFont": "Inter Font Family - Modern, highly legible typeface designed for user interfaces.",
+      "fontSans": "Font Sans - System font stack with Inter as primary, includes fallbacks for maximum compatibility."
+    },
+    "spacingSystem": {
+      "title": "Spacing System",
+      "description": "Consistent spacing variables used across components",
+      "space1Usage": "Inner padding, small gaps",
+      "space2Usage": "Small margins, button padding",
+      "space3Usage": "Spacing between elements",
+      "space4Usage": "Container padding",
+      "space5Usage": "Spacing between sections",
+      "space6Usage": "Large margins",
+      "space7Usage": "Hero sections spacing",
+      "space8Usage": "Maximum spacing between pages"
+    },
+    "borderRadius": {
+      "title": "Border radius",
+      "description": "Consistent border radius values for rounded corners across all components",
+      "extraSmall": "Extra Small",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "extraLarge": "Extra Large",
+      "2xLarge": "2X Large",
+      "3xLarge": "3X Large",
+      "full": "Full"
+    },
+    "cssVariables": {
+      "title": "CSS Variables",
+      "description": "All available CSS custom properties",
+      "colorsSemantic": "Colors (Semantic)",
+      "colorsLegacy": "Colors (Legacy)",
+      "typographyFontSizes": "Typography - Font Sizes",
+      "typographyFontWeights": "Typography - Font Weights",
+      "typographyLineHeights": "Typography - Line Heights",
+      "typographyFontFamily": "Typography - Font Family",
+      "spacing": "Spacing",
+      "layout": "Layout",
+      "shadows": "Shadows (Box Shadows)"
+    }
+  },
+  "homeHero": {
+    "pill": "New",
+    "title": "Code less, build faster.",
+    "description": "A clean component kit for developers who value speed and good taste.",
+    "ctaPrimary": "Get Started",
+    "ctaSecondary": "View Components",
+    "card": {
+      "title": "Premium Components",
+      "price": "€199",
+      "description": "Access to our complete library of clean and responsive components with lifetime updates",
+      "tag1": "Components",
+      "tag2": "Lifetime",
+      "cta": "Get Started"
+    }
+  },
+  "homeFaq": {
+    "pill": "FAQ",
+    "title": "Frequently Asked Questions",
+    "q1": {
+      "question": "What is Starter UI?",
+      "answer": "Starter UI is a professional template made with Astro, designed to build clean and fast websites without starting from scratch. It includes ready sections like Hero, Pricing, FAQ or Blog, with modern design, well-organized CSS tokens and production-ready components."
+    },
+    "q2": {
+      "question": "Does it support multiple languages?",
+      "answer": "Yes. The system uses separate folders by language (ES, EN, etc.) along with JSON dictionaries for texts. Blog posts can also have linked translations from their frontmatter, so all content easily adapts to the user's language."
+    },
+    "q3": {
+      "question": "Can I write posts in MDX?",
+      "answer": "Of course. Starter UI supports Content Collections with MDX, which allows mixing text with Astro or React components. In addition, each post is validated with Zod, so you maintain total control over the format and avoid content errors."
+    },
+    "q4": {
+      "question": "How do I customize the design?",
+      "answer": "All styling is controlled from tokens in src/styles/tokens.css: colors, typography, spacing, shadows and animations. Just change those values and the entire design adapts to your brand. Each section has its own isolated CSS so you can modify without breaking the rest."
+    }
+  },
+  "home": {
+    "placeholder": "Content will be here in the future"
+  },
+  "footer": {
+    "description": "A clean, professional component library designed for developers who value speed, quality, and modern design principles.",
+    "linksTitle": "Links",
+    "legalTitle": "Legal",
+    "privacy": "Privacy Policy",
+    "legal": "Legal Notice",
+    "contactTitle": "Contact",
+    "credit1": "© {year} Starter UI. All rights reserved.",
+    "credit2": "Web design by "
+  },
+  "componentsDashboard": {
+    "title": "Components",
+    "groups": {
+      "elements": "Elements",
+      "sections": "Sections"
+    }
+  },
+  "sections": {
+    "heroes": { "label": "Hero" },
+    "headers": { "label": "Headers" },
+    "footers": { "label": "Footers" },
+    "buttons": { "label": "Buttons" },
+    "badges": { "label": "Badges" },
+    "pills": { "label": "Pills" },
+    "cards": { "label": "Cards" },
+    "features": { "label": "Features" },
+    "ctas": { "label": "CTA" },
+    "pricing": { "label": "Pricing" },
+    "faqs": { "label": "FAQ" },
+    "testimonials": { "label": "Testimonials" },
+    "services": { "label": "Services" },
+    "logo-clouds": { "label": "Logo Clouds" },
+    "gallery": { "label": "Gallery" },
+    "errors": { "label": "Errors" }
+  }
+}

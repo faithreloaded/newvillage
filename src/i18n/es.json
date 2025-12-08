@@ -1,0 +1,168 @@
+{
+  "header": {
+    "nav": { 
+      "home": "Inicio", 
+      "about": "Sobre nosotros", 
+      "services": "Servicios", 
+      "blog": "Blog", 
+      "contact": "Contacto" 
+    },
+    "actions": { "buy": "Comprar plantilla" },
+    "lang": { "es": "ES", "en": "EN", "sep": "/" }
+  },
+  "docs": {
+    "title": "Documentación",
+    "description": "Guía completa para empezar con la plantilla Starter UI",
+    "sidebarTitle": "Contenidos"
+  },
+  "globalStyles": {
+    "headTitle": "Estilos Globales | Starter UI",
+    "headDescription": "Estilos globales, design tokens y variables CSS para un diseño consistente en toda la plantilla",
+    "pageTitle": "Estilos globales",
+    "pageDescription": "Design system, variables CSS y estilos globales que garantizan consistencia en todos los componentes",
+    "colorPalette": {
+      "title": "Paleta de colores",
+      "description": "Colores principales utilizados en toda la plantilla",
+      "primary": "Primario",
+      "secondary": "Secundario",
+      "background": "Fondo",
+      "backgroundAlt": "Fondo alternativo",
+      "accent": "Acento",
+      "container": "Contenedor",
+      "hover": "Hover",
+      "previewBackground": "Fondo de preview",
+      "text": "Texto",
+      "textSecondary": "Texto secundario",
+      "textMuted": "Texto atenuado",
+      "textAccent": "Texto acentuado"
+    },
+    "typography": {
+      "title": "Tipografía",
+      "description": "Sistema tipográfico completo usando Inter con fallbacks, incluyendo todos los niveles de encabezado, cuerpo de texto y variaciones de peso",
+      "h1": "Encabezado 1 - Título principal",
+      "h2": "Encabezado 2 - Título de sección",
+      "h3": "Encabezado 3 - Subsección",
+      "h4": "Encabezado 4 - Título de tarjeta",
+      "h5": "Encabezado 5 - Título pequeño",
+      "h6": "Encabezado 6 - Etiqueta",
+      "bodyText": "Texto de cuerpo - Párrafo regular utilizado en toda la plantilla por legibilidad y consistencia.",
+      "smallText": "Texto pequeño - Usado para captions, etiquetas e información secundaria.",
+      "mediumWeight": "Peso medio - Para énfasis e información importante.",
+      "semiBold": "Seminegrita - Para énfasis fuerte y llamadas a la acción.",
+      "bold": "Negrita - Para máximo énfasis y encabezados importantes.",
+      "captionText": "Texto de pie - Para textos muy pequeños como notas y metadatos.",
+      "interFont": "Familia Inter - Tipografía moderna y muy legible pensada para interfaces.",
+      "fontSans": "Sans - Pila de sistema con Inter como primaria y fallbacks para compatibilidad."
+    },
+    "spacingSystem": {
+      "title": "Sistema de espaciado",
+      "description": "Variables de espacio consistentes usadas en los componentes",
+      "space1Usage": "Padding interno, gaps pequeños",
+      "space2Usage": "Márgenes pequeños, padding de botones",
+      "space3Usage": "Espaciado entre elementos",
+      "space4Usage": "Padding de contenedores",
+      "space5Usage": "Espaciado entre secciones",
+      "space6Usage": "Márgenes grandes",
+      "space7Usage": "Espaciado en secciones hero",
+      "space8Usage": "Espaciado máximo entre páginas"
+    },
+    "borderRadius": {
+      "title": "Border radius",
+      "description": "Valores consistentes de border radius para esquinas redondeadas en todos los componentes",
+      "extraSmall": "Extra pequeño",
+      "small": "Pequeño",
+      "medium": "Mediano",
+      "large": "Grande",
+      "extraLarge": "Extra grande",
+      "2xLarge": "2X grande",
+      "3xLarge": "3X grande",
+      "full": "Completo"
+    },
+    "cssVariables": {
+      "title": "Variables CSS",
+      "description": "Todas las propiedades personalizadas disponibles",
+      "colorsSemantic": "Colores (Semánticos)",
+      "colorsLegacy": "Colores (Legado)",
+      "typographyFontSizes": "Tipografía - Tamaños de fuente",
+      "typographyFontWeights": "Tipografía - Pesos de fuente",
+      "typographyLineHeights": "Tipografía - Alturas de línea",
+      "typographyFontFamily": "Tipografía - Familia",
+      "spacing": "Espaciado",
+      "layout": "Layout",
+      "shadows": "Sombras (Box Shadows)"
+    }
+  },
+  "homeHero": {
+    "pill": "Nuevo",
+    "title": "Programa menos, construye más rápido.",
+    "description": "Un kit de componentes limpio para desarrolladores que valoran la velocidad y el buen gusto.",
+    "ctaPrimary": "Empezar",
+    "ctaSecondary": "Ver componentes",
+    "card": {
+      "title": "Componentes premium",
+      "price": "199€",
+      "description": "Acceso a nuestra librería completa de componentes limpios y responsivos con actualizaciones de por vida",
+      "tag1": "Componentes",
+      "tag2": "De por vida",
+      "cta": "Empezar"
+    }
+  },
+  "homeFaq": {
+    "pill": "FAQ",
+    "title": "Preguntas frecuentes",
+    "q1": {
+      "question": "¿Qué es Starter UI?",
+      "answer": "Starter UI es una plantilla profesional hecha con Astro, pensada para construir webs limpias y rápidas sin partir desde cero. Incluye secciones listas como Hero, Pricing, FAQ o Blog, con un diseño moderno, tokens CSS bien organizados y componentes listos para producción."
+    },
+    "q2": {
+      "question": "¿Soporta varios idiomas?",
+      "answer": "Sí. El sistema usa carpetas separadas por idioma (ES, EN, etc.) junto a diccionarios JSON para los textos. Los posts en el blog también pueden tener traducciones vinculadas desde su frontmatter, así todo el contenido se adapta fácilmente al idioma del usuario."
+    },
+    "q3": {
+      "question": "¿Puedo escribir posts en MDX?",
+      "answer": "Claro. Starter UI soporta Content Collections con MDX, lo que permite mezclar texto con componentes de Astro o React. Además, cada post se valida con Zod, así mantienes un control total sobre el formato y evitas errores de contenido."
+    },
+    "q4": {
+      "question": "¿Cómo personalizo el diseño?",
+      "answer": "Todo el estilo se controla desde los tokens en src/styles/tokens.css: colores, tipografía, espaciado, sombras y animaciones. Solo cambias esos valores y el diseño completo se adapta a tu marca. Cada sección tiene su propio CSS aislado para que puedas modificar sin romper el resto."
+    }
+  },
+  "home": {
+    "placeholder": "Aquí será el contenido en un futuro"
+  },
+  "footer": {
+    "description": "Una librería de componentes limpia y profesional diseñada para desarrolladores que valoran la velocidad, calidad y principios de diseño moderno.",
+    "linksTitle": "Enlaces",
+    "legalTitle": "Legal",
+    "privacy": "Política de privacidad",
+    "legal": "Aviso legal",
+    "contactTitle": "Contacto",
+    "credit1": "© {year} Starter UI. Todos los derechos reservados.",
+    "credit2": "Diseño web por "
+  },
+  "componentsDashboard": {
+    "title": "Componentes",
+    "groups": {
+      "elements": "Elementos",
+      "sections": "Secciones"
+    }
+  },
+  "sections": {
+    "heroes": { "label": "Hero" },
+    "headers": { "label": "Headers" },
+    "footers": { "label": "Footers" },
+    "buttons": { "label": "Botones" },
+    "badges": { "label": "Badges" },
+    "pills": { "label": "Pills" },
+    "cards": { "label": "Tarjetas" },
+    "features": { "label": "Features" },
+    "ctas": { "label": "CTA" },
+    "pricing": { "label": "Precios" },
+    "faqs": { "label": "FAQ" },
+    "testimonials": { "label": "Testimonios" },
+    "services": { "label": "Servicios" },
+    "logo-clouds": { "label": "Nubes de logos" },
+    "gallery": { "label": "Galería" },
+    "errors": { "label": "Errores" }
+  }
+}

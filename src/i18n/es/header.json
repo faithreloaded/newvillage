@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "classes": "Clases",
+    "prices": "Precios",
+    "schedule": "Horarios",
+    "contact": "Contacto",
+    "buttons": "Botones"
+  },
+  "actions": {
+    "bookNow": "Reservar ahora"
+  },
+  "lang": {
+    "es": "ES",
+    "en": "EN",
+    "sep": "/"
+  }
+}
+
+

@@ -1,0 +1,94 @@
+{
+  "globalStyles": {
+  "headTitle": "Estilos Globales | Starter UI",
+  "headDescription": "Estilos globales, design tokens y variables CSS para un diseño consistente en toda la plantilla",
+  "pageTitle": "Estilos globales",
+  "pageDescription": "Design system, variables CSS y estilos globales que garantizan consistencia en todos los componentes",
+  "colorPalette": {
+    "title": "Paleta de colores",
+    "description": "Colores principales utilizados en toda la plantilla",
+    "primary": "Primario",
+    "secondary": "Secundario",
+    "background": "Fondo",
+    "backgroundAlt": "Fondo alternativo",
+    "accent": "Acento",
+    "container": "Contenedor",
+    "hover": "Hover",
+    "previewBackground": "Fondo de preview",
+    "text": "Texto",
+    "textSecondary": "Texto secundario",
+    "textMuted": "Texto atenuado",
+    "textAccent": "Texto acentuado"
+  },
+  "typography": {
+    "title": "Tipografía",
+    "description": "Sistema tipográfico completo usando Inter con fallbacks, incluyendo todos los niveles de encabezado, cuerpo de texto y variaciones de peso",
+    "h1": "Encabezado 1 - Título principal",
+    "h2": "Encabezado 2 - Título de sección",
+    "h3": "Encabezado 3 - Subsección",
+    "h4": "Encabezado 4 - Título de tarjeta",
+    "h5": "Encabezado 5 - Título pequeño",
+    "h6": "Encabezado 6 - Etiqueta",
+    "bodyText": "Texto de cuerpo - Párrafo regular utilizado en toda la plantilla por legibilidad y consistencia.",
+    "smallText": "Texto pequeño - Usado para captions, etiquetas e información secundaria.",
+    "mediumWeight": "Peso medio - Para énfasis e información importante.",
+    "semiBold": "Seminegrita - Para énfasis fuerte y llamadas a la acción.",
+    "bold": "Negrita - Para máximo énfasis y encabezados importantes.",
+    "captionText": "Texto de pie - Para textos muy pequeños como notas y metadatos.",
+    "interFont": "Familia Inter - Tipografía moderna y muy legible pensada para interfaces.",
+    "fontSans": "Sans - Pila de sistema con Inter como primaria y fallbacks para compatibilidad."
+  },
+  "spacingSystem": {
+    "title": "Sistema de espaciado",
+    "description": "Variables de espacio consistentes usadas en los componentes",
+    "space1Usage": "Padding interno, gaps pequeños",
+    "space2Usage": "Márgenes pequeños, padding de botones",
+    "space3Usage": "Espaciado entre elementos",
+    "space4Usage": "Padding de contenedores",
+    "space5Usage": "Espaciado entre secciones",
+    "space6Usage": "Márgenes grandes",
+    "space7Usage": "Espaciado en secciones hero",
+    "space8Usage": "Espaciado máximo entre páginas"
+  },
+  "borderRadius": {
+    "title": "Border radius",
+    "description": "Valores consistentes de border radius para esquinas redondeadas en todos los componentes",
+    "extraSmall": "Extra pequeño",
+    "small": "Pequeño",
+    "medium": "Mediano",
+    "large": "Grande",
+    "extraLarge": "Extra grande",
+    "2xLarge": "2X grande",
+    "3xLarge": "3X grande",
+    "full": "Completo"
+  },
+  "breakpoints": {
+    "title": "Breakpoints",
+    "description": "Tokens de breakpoints para media queries responsivas."
+  },
+  "transitions": {
+    "title": "Transiciones",
+    "description": "Tokens de transición escalonados para animaciones sutiles y consistentes.",
+    "xfast": "--transition-xfast = 120ms ease",
+    "fast": "--transition-fast = 160ms ease",
+    "base": "--transition-base = 200ms ease",
+    "slow": "--transition-slow = 250ms ease",
+    "xslow": "--transition-xslow = 320ms ease"
+  },
+  "cssVariables": {
+    "title": "Variables CSS",
+    "description": "Todas las propiedades personalizadas disponibles",
+    "colorsSemantic": "Colores (Semánticos)",
+    "colorsLegacy": "Colores (Legado)",
+    "typographyFontSizes": "Tipografía - Tamaños de fuente",
+    "typographyFontWeights": "Tipografía - Pesos de fuente",
+    "typographyLineHeights": "Tipografía - Alturas de línea",
+    "typographyFontFamily": "Tipografía - Familia",
+    "spacing": "Espaciado",
+    "layout": "Layout",
+    "shadows": "Sombras (Box Shadows)"
+  }
+  }
+}
+
+

@@ -1,0 +1,31 @@
+---
+export const prerender = true;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Starter UI</title>
+    <script>
+      (function() {
+        try {
+          var stored = localStorage.getItem('preferredLang');
+          var nav = ((navigator && navigator.language) ? navigator.language : 'en').toLowerCase();
+          var inferred = nav.indexOf('es') === 0 ? 'es' : 'en';
+          var lang = (stored === 'es' || stored === 'en') ? stored : inferred;
+          if (lang !== 'en' && lang !== 'es') lang = 'en';
+          if (location.pathname === '/' || location.pathname === '') {
+            location.replace('/' + lang + '/');
+          }
+        } catch (e) {
+          location.replace('/en/');
+        }
+      })();
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=/en/" />
+    </noscript>
+  </head>
+  <body></body>
+</html>

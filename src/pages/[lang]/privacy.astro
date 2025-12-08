@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { LOCALES, type Locale, loadT } from '../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home']);
+---
+
+<BaseLayout 
+  title={`${lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'} | New Village`} 
+  description="Privacy policy and data protection information."
+  lang={lang}
+>
+  
+  <main class="main">
+    <div class="container">
+      <div class="legal-page">
+        <h1>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</h1>
+        
+        <div class="legal-content">
+          <h2>{lang === 'es' ? 'Información General' : 'General Information'}</h2>
+          <p>
+            <strong>{lang === 'es' ? 'Responsable del tratamiento:' : 'Data Controller:'}</strong><br />
+            NEW VILLAGE JMC SL<br />
+            <strong>{lang === 'es' ? 'CIF:' : 'Tax ID:'}</strong> B22782759
+          </p>
+          <p>
+            {lang === 'es' 
+              ? 'Esta política de privacidad describe cómo recopilamos, usamos y protegemos su información personal cuando utiliza nuestro sitio web.'
+              : 'This privacy policy describes how we collect, use, and protect your personal information when you use our website.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Información que Recopilamos' : 'Information We Collect'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Recopilamos información que nos proporciona directamente, como cuando se registra en nuestro sitio, se suscribe a nuestro boletín o se pone en contacto con nosotros.'
+              : 'We collect information you provide directly to us, such as when you register on our site, subscribe to our newsletter, or contact us.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Uso de la Información' : 'Use of Information'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Utilizamos la información recopilada para proporcionar, mantener y mejorar nuestros servicios, comunicarnos con usted y personalizar su experiencia.'
+              : 'We use the collected information to provide, maintain, and improve our services, communicate with you, and personalize your experience.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Protección de Datos' : 'Data Protection'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Implementamos medidas de seguridad apropiadas para proteger su información personal contra acceso no autorizado, alteración, divulgación o destrucción.'
+              : 'We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Cookies' : 'Cookies'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Nuestro sitio web utiliza cookies para mejorar su experiencia de navegación. Puede configurar su navegador para rechazar cookies si lo prefiere.'
+              : 'Our website uses cookies to enhance your browsing experience. You can configure your browser to reject cookies if you prefer.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Contacto' : 'Contact'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Si tiene preguntas sobre esta política de privacidad, puede contactarnos en info@newvillage.com.'
+              : 'If you have questions about this privacy policy, you can contact us at info@newvillage.com.'
+            }
+          </p>
+
+          <p class="legal-updated">
+            {lang === 'es' 
+              ? 'Última actualización: Diciembre 2024'
+              : 'Last updated: December 2024'
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: var(--space-6) 0;
+  }
+
+  .legal-page h1 {
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+    text-align: left;
+  }
+
+  .legal-content {
+    text-align: left;
+  }
+
+  .legal-content h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .legal-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2);
+  }
+
+  .legal-updated {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin-top: var(--space-6);
+    font-style: italic;
+  }
+</style>

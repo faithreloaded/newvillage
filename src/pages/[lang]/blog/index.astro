@@ -1,0 +1,486 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { LOCALES, type Locale, loadT } from '../../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home']);
+
+// Obtener posts del blog según el idioma
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((post: any) => post.slug.startsWith(`${lang}/`))
+  .sort((a: any, b: any) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout 
+  title={`${lang === 'es' ? 'Blog' : 'Blog'} | Mi Sitio Web`} 
+  description="Descubre nuestros últimos artículos y noticias."
+>
+  <div class="blog-page">
+    <div class="container">
+      <div class="blog-header">
+        <h1 class="blog-title">
+          {lang === 'es' ? 'Blog' : 'Blog'}
+        </h1>
+        <p class="blog-description">
+          {lang === 'es' 
+            ? 'Descubre nuestros últimos artículos y consejos.' 
+            : 'Discover our latest articles and tips.'
+          }
+        </p>
+      </div>
+
+      <div class="blog-filters">
+        <div class="filters-container">
+          <div class="filters-left">
+            <div class="filter-pills">
+              <span class="pill-filter active" data-filter="all">
+                {lang === 'es' ? 'Todos' : 'All'}
+              </span>
+              <span class="pill-filter" data-filter="desarrollo">
+                {lang === 'es' ? 'Desarrollo' : 'Development'}
+              </span>
+              <span class="pill-filter" data-filter="consejos">
+                {lang === 'es' ? 'Consejos' : 'Tips'}
+              </span>
+              <span class="pill-filter" data-filter="general">
+                {lang === 'es' ? 'General' : 'General'}
+              </span>
+            </div>
+          </div>
+          <div class="filters-right">
+            <div class="search-container">
+              <div class="search-input-wrapper">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input 
+                  type="text" 
+                  class="search-input" 
+                  placeholder={lang === 'es' ? 'Buscar artículos...' : 'Search articles...'}
+                  id="blog-search"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-grid" id="blog-grid">
+        {posts.map((post: any) => (
+          <article class="blog-card">
+            <a href={`/${lang}/blog/${post.slug.split('/')[1]}`} class="blog-card-link">
+              <div class="blog-card-image">
+                <img src={post.data.image || '/images/placeholder.jpg'} alt={post.data.title} />
+                <div class="blog-card-category-overlay">
+                  <span class="pill-category">
+                    {post.data.category}
+                  </span>
+                </div>
+              </div>
+              <div class="blog-card-content">
+                <div class="blog-card-meta">
+                  <span class="pill-date">
+                    {post.data.date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US')}
+                  </span>
+                </div>
+                <h2 class="blog-card-title">
+                  {post.data.title}
+                </h2>
+                <p class="blog-card-excerpt">
+                  {post.data.excerpt}
+                </p>
+                <div class="blog-card-footer">
+                  <span class="btn-read-more">
+                    {lang === 'es' ? 'Leer más' : 'Read more'}
+                    <span class="arrow">→</span>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="blog-empty">
+          <p>{lang === 'es' ? 'No hay posts disponibles.' : 'No posts available.'}</p>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .blog-page {
+    padding: 6rem 0;
+  }
+
+
+  .blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .blog-title {
+    font-size: 3rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+  }
+
+  .blog-description {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin: 0 auto;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .blog-filters {
+    margin: 4rem 0 4rem 0;
+  }
+
+  .filters-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .filters-left {
+    flex: 1;
+  }
+
+  .filters-right {
+    flex: 0 0 auto;
+  }
+
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .search-container {
+    width: 500px;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--color-text-muted);
+    z-index: 1;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-size: 14px;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .search-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .search-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+  }
+
+  .blog-card {
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .blog-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .blog-card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .blog-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover .blog-card-image img {
+    transform: scale(1.05);
+  }
+
+  .blog-card-category-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+  }
+
+  .blog-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .blog-card-meta {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .blog-card-footer {
+    padding-top: 1rem;
+  }
+
+  /* Asegurar que el botón se vea */
+  .btn-read-more {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-primary) !important;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all var(--transition-fast);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .btn-read-more:hover {
+    color: var(--color-primary-dark) !important;
+  }
+
+  .btn-read-more .arrow {
+    transition: transform var(--transition-fast);
+    display: inline-block;
+  }
+
+  .btn-read-more:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  .blog-card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+  }
+
+  .blog-card-title {
+    color: inherit;
+  }
+
+  .blog-card-excerpt {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    flex-grow: 1;
+  }
+
+  .blog-empty {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--color-text-secondary);
+  }
+
+  /* Responsive breakpoints */
+  @media (max-width: 1200px) {
+    .blog-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .blog-page {
+      padding: 4rem 0;
+    }
+    
+    .blog-title {
+      font-size: 2rem;
+    }
+
+    .blog-description {
+      font-size: 1.125rem;
+    }
+
+    .blog-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .filters-container {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .search-container {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('blog-search') as HTMLInputElement;
+    const blogGrid = document.getElementById('blog-grid');
+    const filterPills = document.querySelectorAll('.pill-filter');
+    
+    if (searchInput && blogGrid && filterPills.length > 0) {
+      const blogCards = blogGrid.querySelectorAll('.blog-card');
+      let currentFilter = 'all';
+      let currentSearch = '';
+      
+      // Función para filtrar cards
+      function filterCards() {
+        let visibleCards = 0;
+        
+        blogCards.forEach(card => {
+          const title = card.querySelector('.blog-card-title');
+          const category = card.querySelector('.pill-category');
+          
+          let showCard = true;
+          
+          // Filtro por categoría
+          if (currentFilter !== 'all') {
+            if (category && category.textContent) {
+              const categoryText = category.textContent.toLowerCase();
+              const filterText = currentFilter.toLowerCase();
+              
+              // Mapeo de filtros a categorías
+              let matches = false;
+              if (filterText === 'desarrollo' && (categoryText.includes('desarrollo') || categoryText.includes('development'))) {
+                matches = true;
+              } else if (filterText === 'consejos' && (categoryText.includes('consejos') || categoryText.includes('tips'))) {
+                matches = true;
+              } else if (filterText === 'general' && categoryText.includes('general')) {
+                matches = true;
+              }
+              
+              if (!matches) {
+                showCard = false;
+              }
+            } else {
+              showCard = false;
+            }
+          }
+          
+          // Filtro por búsqueda
+          if (showCard && currentSearch.length >= 1) {
+            if (title && title.textContent) {
+              const titleText = title.textContent.toLowerCase();
+              if (!titleText.includes(currentSearch)) {
+                showCard = false;
+              }
+            } else {
+              showCard = false;
+            }
+          }
+          
+          (card as HTMLElement).style.display = showCard ? 'flex' : 'none';
+          
+          if (showCard) {
+            visibleCards++;
+          }
+        });
+        
+        // Aplicar ancho fijo solo cuando hay pocas cards visibles
+        const blogGrid = document.getElementById('blog-grid');
+        if (blogGrid) {
+          if (visibleCards <= 2) {
+            blogGrid.style.gridTemplateColumns = visibleCards === 1 
+              ? 'minmax(300px, 400px)' 
+              : 'repeat(2, minmax(300px, 400px))';
+            blogGrid.style.justifyContent = 'center';
+          } else {
+            // Resetear al grid responsive normal
+            blogGrid.style.gridTemplateColumns = '';
+            blogGrid.style.justifyContent = '';
+          }
+        }
+      }
+      
+      // Event listeners para filtros
+      filterPills.forEach(pill => {
+        pill.addEventListener('click', function(this: HTMLElement) {
+          // Remover active de todas las pills
+          filterPills.forEach(p => p.classList.remove('active'));
+          // Añadir active a la pill clickeada
+          this.classList.add('active');
+          
+          currentFilter = this.getAttribute('data-filter') || 'all';
+          filterCards();
+        });
+      });
+      
+      // Event listener para búsqueda
+      if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+          const target = e.target as HTMLInputElement;
+          currentSearch = target.value.toLowerCase().trim();
+          filterCards();
+        });
+      }
+    }
+  });
+</script>

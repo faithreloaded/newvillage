@@ -1,0 +1,143 @@
+/* ===== TOKENS BÁSICOS ===== */
+
+:root {
+  /* Colores básicos (mantener para compatibilidad) */
+  --color-black: #2c2c2c;
+  --color-white: #ffffff;
+  --color-cream: #fafafa;
+  --color-gray: #6b6b6b;
+  --color-light-gray: #d4d4d4;
+  
+  /* Paleta de colores del estudio de bienestar */
+  --color-coral: #ff8c8c;           /* Coral suave */
+  --color-coral-light: #ffb3b3;     /* Coral muy claro */
+  --color-coral-dark: #e67373;      /* Coral más oscuro */
+  --color-terracotta: #c97d60;      /* Terracota suave */
+  --color-terracotta-light: #e09a7f; /* Terracota claro */
+  --color-terracotta-dark: #b0684d;  /* Terracota oscuro */
+  --color-blue-soft: #a8d5e2;       /* Azul suave */
+  --color-blue-soft-light: #c4e5f0; /* Azul muy suave */
+  --color-blue-soft-dark: #8bc4d4;  /* Azul suave oscuro */
+  
+  /* Colores semánticos (nuevo sistema) */
+  --color-primary: #2c2c2c;         /* Color principal - gris oscuro suave */
+  --color-secondary: #6b6b6b;       /* Color secundario - gris medio */
+  --color-background: #ffffff;      /* Fondo principal - blanco limpio */
+  --color-background-alt: #fafafa;  /* Fondo alternativo - crema muy claro */
+  --color-accent: #f5f5f5;          /* Color de acento - gris muy claro */
+  --color-container: #f8f8f8;       /* Fondo de contenedores/cards - gris muy sutil */
+  --color-hover: #f0f0f0;           /* Color para hovers - gris claro suave */
+  --color-text: #2c2c2c;            /* Texto principal - gris oscuro suave */
+  --color-text-secondary: #6b6b6b;  /* Texto secundario - gris medio */
+  --color-text-muted: #a8a8a8;      /* Texto atenuado - gris claro */
+  --color-text-accent: #8b8b8b;     /* Texto acentuado */
+  --color-border: rgba(44, 44, 44, 0.08); /* Bordes - muy sutiles */
+  --color-border-light: rgba(44, 44, 44, 0.04); /* Bordes ultra sutiles */
+  --color-link: #8bc4d4;            /* Color de enlaces - azul suave */
+  --color-link-hover: #6b9fb0;      /* Color de enlaces hover - azul suave oscuro */
+  
+  /* Colores de preview */
+  --color-preview-bg: #fafafa;
+  
+  /* Tipografía */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  
+  /* Font Sizes */
+  --font-size-xs: 12px;      /* Captions, footnotes */
+  --font-size-sm: 14px;      /* Small text, labels */
+  --font-size-base: 16px;    /* Body text */
+  --font-size-lg: 18px;      /* Large body text */
+  --font-size-xl: 20px;      /* H5 headings */
+  --font-size-2xl: 24px;     /* H3 headings */
+  --font-size-3xl: 32px;     /* H2 headings */
+  --font-size-4xl: 36px;     /* Large headings */
+  --font-size-5xl: 48px;     /* H1 headings */
+  --font-size-6xl: 64px;     /* Hero titles */
+  --font-size-section-title: 70px; /* Section titles */
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.8;
+  
+  /* Pesos de fuente (Inter 100–900) */
+  --font-weight-thin: 100;
+  --font-weight-extra-light: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --font-weight-black: 900;
+
+  /* Border Radius - 8px Grid System */
+  --radius-xs: 2px;    /* Elementos muy pequeños */
+  --radius-sm: 4px;    /* Elementos pequeños */
+  --radius-md: 6px;    /* Elementos medianos */
+  --radius-lg: 8px;    /* Elementos grandes */
+  --radius-xl: 12px;   /* Elementos extra grandes */
+  --radius-2xl: 16px;  /* Elementos muy grandes */
+  --radius-3xl: 24px;  /* Elementos enormes */
+  --radius-full: 9999px; /* Círculos perfectos */
+
+  /* Weights (nuevas variables) */
+  --font-thin: 100;
+  --font-extralight: 200;
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+
+  /* Styles */
+  --font-normal: normal;
+  --font-italic: italic;
+  
+  /* Espaciados */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 80px;
+  --space-8: 96px;
+  
+  /* Layout */
+  --max-width: 1200px;
+  
+  /* Breakpoints */
+  --bp-xs: 360px;
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+  
+  /* Radios de borde */
+  --radius-lg: 8px;
+  
+  /* Sombras (box-shadows) */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 2px 6px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 20px rgba(0,0,0,0.12);
+  --shadow-xl: 0 16px 40px rgba(0,0,0,0.16);
+  --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.08);
+  
+    /* Transiciones */
+    --transition-xfast: 120ms ease;
+    --transition-fast: 160ms ease;
+    --transition-base: 200ms ease;
+    --transition-slow: 250ms ease;
+    --transition-xslow: 320ms ease;
+    /* Compatibilidad: token base */
+    --transition: var(--transition-base);
+  }
+

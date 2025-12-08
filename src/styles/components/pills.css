@@ -1,0 +1,193 @@
+/* ===============================================
+   PILLS COMPONENT STYLES
+   =============================================== */
+
+/* Section Pill Global */
+.section-pill {
+  display: inline-block !important;
+  background: rgba(201, 125, 96, 0.1); /* Terracotta muy suave */
+  color: var(--color-terracotta-dark);
+  padding: 8px 14px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+}
+
+.section-pill:hover {
+  background: rgba(201, 125, 96, 0.15);
+  color: var(--color-terracotta-dark);
+  cursor: default;
+}
+
+/* Pill Outline */
+.pill-outline {
+  display: inline-block !important;
+  background: transparent;
+  color: var(--color-text);
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+}
+
+.pill-outline:hover {
+  background: var(--color-hover);
+  border-color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
+  cursor: default;
+}
+
+/* Pill Outline con animación para hero sections */
+.pill-outline-hero {
+  display: inline-block !important;
+  background: transparent;
+  color: rgba(255,255,255,0.9);
+  padding: 8px 14px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pillFadeInUp 0.6s ease 0.1s forwards;
+}
+
+.pill-outline-hero:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,1);
+}
+
+@keyframes pillFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pill original con animación para hero sections */
+.pill-outline-hero-original {
+  display: inline-block;
+  background: rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.8);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  align-self: flex-start;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pillFadeInUp 0.6s ease 0.1s forwards;
+}
+
+/* Pill Outline Dark */
+.pill-outline-dark {
+  display: inline-block !important;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+}
+
+.pill-outline-dark:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 1);
+  cursor: default;
+}
+
+/* Pill Date - Para fechas en blog cards */
+  .pill-date {
+    display: inline-block;
+    background: var(--color-container);
+    color: var(--color-text-secondary);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 0;
+    transition: background var(--transition-fast);
+    cursor: default;
+  }
+
+.pill-date:hover {
+  background: var(--color-hover);
+}
+
+/* Pills translúcidas para filtros */
+.pill-filter {
+  display: inline-block;
+  background: var(--color-container);
+  color: var(--color-text-secondary);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 400;
+  margin: 0 3px 6px 0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid var(--color-border-light);
+}
+
+.pill-filter:hover {
+  background: var(--color-hover);
+  border-color: var(--color-border);
+}
+
+.pill-filter.active {
+  background: rgba(201, 125, 96, 0.1);
+  border-color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
+}
+
+/* Pills para categorías en blog cards */
+.pill-category {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { LOCALES, type Locale, loadT } from '../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home']);
+---
+
+<BaseLayout 
+  title={`${lang === 'es' ? 'Aviso Legal' : 'Legal Notice'} | New Village`} 
+  description="Legal notice and terms of service information."
+  lang={lang}
+>
+  <main class="main">
+    <div class="container">
+      <div class="legal-page">
+        <h1>{lang === 'es' ? 'Aviso Legal' : 'Legal Notice'}</h1>
+        
+        <div class="legal-content">
+          <h2>{lang === 'es' ? 'Información de la Empresa' : 'Company Information'}</h2>
+          <p>
+            <strong>{lang === 'es' ? 'Denominación social:' : 'Company name:'}</strong> NEW VILLAGE JMC SL<br />
+            <strong>{lang === 'es' ? 'CIF:' : 'Tax ID:'}</strong> B22782759
+          </p>
+          <p>
+            {lang === 'es' 
+              ? 'NEW VILLAGE JMC SL es una empresa dedicada al estudio del bienestar, ofreciendo clases de Pilates, barre, yoga y entrenamiento funcional.'
+              : 'NEW VILLAGE JMC SL is a company dedicated to wellness, offering Pilates, barre, yoga, and functional training classes.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Condiciones de Uso' : 'Terms of Use'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Al acceder y utilizar este sitio web, acepta cumplir con estos términos y condiciones. El uso no autorizado está estrictamente prohibido.'
+              : 'By accessing and using this website, you agree to comply with these terms and conditions. Unauthorized use is strictly prohibited.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Propiedad Intelectual' : 'Intellectual Property'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Todo el contenido de este sitio web, incluyendo textos, imágenes, código y diseño, está protegido por derechos de autor y otras leyes de propiedad intelectual.'
+              : 'All content on this website, including texts, images, code, and design, is protected by copyright and other intellectual property laws.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Limitación de Responsabilidad' : 'Limitation of Liability'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'No nos hacemos responsables de daños directos o indirectos que puedan resultar del uso de este sitio web o de la información contenida en él.'
+              : 'We are not liable for direct or indirect damages that may result from the use of this website or the information contained therein.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Enlaces Externos' : 'External Links'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Nuestro sitio web puede contener enlaces a sitios web de terceros. No somos responsables del contenido o las prácticas de privacidad de estos sitios.'
+              : 'Our website may contain links to third-party websites. We are not responsible for the content or privacy practices of these sites.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Modificaciones' : 'Modifications'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación.'
+              : 'We reserve the right to modify these terms at any time. Changes will take effect immediately after their publication.'
+            }
+          </p>
+
+          <h2>{lang === 'es' ? 'Contacto' : 'Contact'}</h2>
+          <p>
+            {lang === 'es' 
+              ? 'Para cualquier consulta legal, puede contactarnos en info@newvillage.com.'
+              : 'For any legal inquiries, you can contact us at info@newvillage.com.'
+            }
+          </p>
+
+          <p class="legal-updated">
+            {lang === 'es' 
+              ? 'Última actualización: Diciembre 2024'
+              : 'Last updated: December 2024'
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: var(--space-6) 0;
+  }
+
+  .legal-page h1 {
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+    text-align: left;
+  }
+
+  .legal-content {
+    text-align: left;
+  }
+
+  .legal-content h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .legal-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2);
+  }
+
+  .legal-updated {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin-top: var(--space-6);
+    font-style: italic;
+  }
+</style>
