@@ -7,11 +7,12 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home', 'header', 'footer']);
 ---
 
 <BaseLayout 
-  title="NewVillage Poblenou | Pilates, Barre, Yoga & Functional Training 22@"
-  description="Estudio de pilates, barre, yoga y entrenamiento funcional en Poblenou – 22@ Barcelona. Clases bilingües, sin permanencias. Reserva tu clase."
+  title={t('meta.title')}
+  description={t('meta.description')}
   lang={lang}
 >
   <section class="hero">
@@ -24,12 +25,12 @@ const { lang } = Astro.params as { lang: Locale };
     
     <div class="hero-content">
       <div class="container">
-        <h1 class="hero-title">Muévete mejor. Vive mejor.</h1>
-        <p class="hero-subtitle">Pilates, Barre, Yoga y entrenamiento funcional en Poblenou.</p>
+        <h1 class="hero-title">{t('hero.title')}</h1>
+        <p class="hero-subtitle">{t('hero.subtitle')}</p>
         
         <div class="hero-buttons">
-          <a href={`/${lang}/book`} class="btn btn-primary">Reserva tu clase</a>
-          <a href={`/${lang}/join`} class="btn btn-outline-light">Únete ahora</a>
+          <a href={`/${lang}/book`} class="btn btn-primary">{t('hero.bookClass')}</a>
+          <a href={`/${lang}/join`} class="btn btn-outline-light">{t('hero.joinNow')}</a>
         </div>
         
         <div class="hero-features">
@@ -40,7 +41,7 @@ const { lang } = Astro.params as { lang: Locale };
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            Grupos pequeños
+            {t('hero.smallGroups')}
           </span>
           <span class="hero-feature">
             <svg class="hero-feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -48,14 +49,14 @@ const { lang } = Astro.params as { lang: Locale };
               <line x1="2" y1="12" x2="22" y2="12"></line>
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
-            Clases bilingües
+            {t('hero.bilingual')}
           </span>
           <span class="hero-feature">
             <svg class="hero-feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            Sin permanencias
+            {t('hero.noCommitment')}
           </span>
         </div>
       </div>
@@ -72,10 +73,9 @@ const { lang } = Astro.params as { lang: Locale };
     <div class="container">
       <div class="about-content">
         <div class="about-text">
-          <h2 class="about-title">Un estudio de bienestar moderno en Poblenou</h2>
+          <h2 class="about-title">{t('about.title')}</h2>
           <p class="about-description">
-            NewVillage es un estudio de movimiento en el corazón del distrito 22@.<br />
-            Ofrecemos Pilates, Barre, Yoga y entrenamiento funcional en grupos pequeños, con clases bilingües y total flexibilidad.
+            {t('about.description')}
           </p>
         </div>
 
@@ -91,8 +91,8 @@ const { lang } = Astro.params as { lang: Locale };
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
               </svg>
             </div>
-            <h3 class="about-feature-title">Grupos pequeños</h3>
-            <p class="about-feature-text">Atención personalizada en cada clase.</p>
+            <h3 class="about-feature-title">{t('about.smallGroupsTitle')}</h3>
+            <p class="about-feature-text">{t('about.smallGroupsText')}</p>
           </div>
 
           <div class="about-feature">
@@ -103,8 +103,8 @@ const { lang } = Astro.params as { lang: Locale };
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
               </svg>
             </div>
-            <h3 class="about-feature-title">Clases bilingües</h3>
-            <p class="about-feature-text">Inglés y español.</p>
+            <h3 class="about-feature-title">{t('about.bilingualTitle')}</h3>
+            <p class="about-feature-text">{t('about.bilingualText')}</p>
           </div>
 
           <div class="about-feature">
@@ -114,13 +114,13 @@ const { lang } = Astro.params as { lang: Locale };
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
             </div>
-            <h3 class="about-feature-title">Sin permanencias</h3>
-            <p class="about-feature-text">Entrena a tu ritmo.</p>
+            <h3 class="about-feature-title">{t('about.noCommitmentTitle')}</h3>
+            <p class="about-feature-text">{t('about.noCommitmentText')}</p>
           </div>
         </div>
 
         <div class="about-cta">
-          <a href={`/${lang}/classes`} class="btn btn-primary">Ver clases</a>
+          <a href={`/${lang}/classes`} class="btn btn-primary">{t('about.viewClasses')}</a>
         </div>
       </div>
     </div>
@@ -130,8 +130,8 @@ const { lang } = Astro.params as { lang: Locale };
     <div class="container">
       <div class="disciplines-content">
         <div class="disciplines-header">
-          <h2 class="disciplines-title">Elige cómo quieres moverte</h2>
-          <p class="disciplines-subtitle">Una membresía. Cuatro formas de entrenar.</p>
+          <h2 class="disciplines-title">{t('disciplines.title')}</h2>
+          <p class="disciplines-subtitle">{t('disciplines.subtitle')}</p>
         </div>
 
         <div class="disciplines-grid">
@@ -139,8 +139,8 @@ const { lang } = Astro.params as { lang: Locale };
             <div class="discipline-image" style="background-image: url('/images/services/pilates.webp');"></div>
             <div class="discipline-gradient"></div>
             <div class="discipline-content">
-              <h3 class="discipline-title">Pilates</h3>
-              <p class="discipline-description">Fuerza, control y postura.</p>
+              <h3 class="discipline-title">{t('disciplines.pilates')}</h3>
+              <p class="discipline-description">{t('disciplines.pilatesDesc')}</p>
             </div>
           </div>
 
@@ -148,8 +148,8 @@ const { lang } = Astro.params as { lang: Locale };
             <div class="discipline-image" style="background-image: url('/images/services/barre.webp');"></div>
             <div class="discipline-gradient"></div>
             <div class="discipline-content">
-              <h3 class="discipline-title">Barre</h3>
-              <p class="discipline-description">Tono, energía y ritmo.</p>
+              <h3 class="discipline-title">{t('disciplines.barre')}</h3>
+              <p class="discipline-description">{t('disciplines.barreDesc')}</p>
             </div>
           </div>
 
@@ -157,8 +157,8 @@ const { lang } = Astro.params as { lang: Locale };
             <div class="discipline-image" style="background-image: url('/images/services/yoga.webp');"></div>
             <div class="discipline-gradient"></div>
             <div class="discipline-content">
-              <h3 class="discipline-title">Yoga</h3>
-              <p class="discipline-description">Equilibrio, movilidad y respiración.</p>
+              <h3 class="discipline-title">{t('disciplines.yoga')}</h3>
+              <p class="discipline-description">{t('disciplines.yogaDesc')}</p>
             </div>
           </div>
 
@@ -166,14 +166,14 @@ const { lang } = Astro.params as { lang: Locale };
             <div class="discipline-image" style="background-image: url('/images/services/funcional.webp');"></div>
             <div class="discipline-gradient"></div>
             <div class="discipline-content">
-              <h3 class="discipline-title">Funcional</h3>
-              <p class="discipline-description">Potencia, cardio y cuerpo completo.</p>
+              <h3 class="discipline-title">{t('disciplines.functional')}</h3>
+              <p class="discipline-description">{t('disciplines.functionalDesc')}</p>
             </div>
           </div>
         </div>
 
         <div class="disciplines-cta">
-          <a href={`/${lang}/schedule`} class="btn btn-primary">Ver horarios</a>
+          <a href={`/${lang}/schedule`} class="btn btn-primary">{t('disciplines.viewSchedule')}</a>
         </div>
       </div>
     </div>
@@ -183,8 +183,8 @@ const { lang } = Astro.params as { lang: Locale };
     <div class="container">
       <div class="contact-content">
         <div class="contact-info">
-          <h2 class="contact-title">Contacta con nosotros</h2>
-          <p class="contact-description">Estamos aquí para ayudarte. Escríbenos o visítanos.</p>
+          <h2 class="contact-title">{t('contact.title')}</h2>
+          <p class="contact-description">{t('contact.description')}</p>
           
           <div class="contact-details">
             <div class="contact-item">
@@ -231,18 +231,18 @@ const { lang } = Astro.params as { lang: Locale };
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="whatsapp-icon">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
               </svg>
-              Hablar por WhatsApp
+              {t('contact.whatsapp')}
             </a>
           </div>
         </div>
 
         <div class="contact-form-wrapper">
           <form class="contact-form" id="contact-form">
-            <input type="text" name="name" class="form-input" placeholder="Nombre" required />
-            <input type="email" name="email" class="form-input" placeholder="Email" required />
-            <input type="tel" name="phone" class="form-input" placeholder="Teléfono" />
-            <textarea name="message" rows="5" class="form-textarea" placeholder="Mensaje" required></textarea>
-            <button type="submit" class="btn btn-primary form-submit">Enviar mensaje</button>
+            <input type="text" name="name" class="form-input" placeholder={t('contact.formName')} required />
+            <input type="email" name="email" class="form-input" placeholder={t('contact.formEmail')} required />
+            <input type="tel" name="phone" class="form-input" placeholder={t('contact.formPhone')} />
+            <textarea name="message" rows="5" class="form-textarea" placeholder={t('contact.formMessage')} required></textarea>
+            <button type="submit" class="btn btn-primary form-submit">{t('contact.formSubmit')}</button>
           </form>
         </div>
       </div>
@@ -274,58 +274,100 @@ const { lang } = Astro.params as { lang: Locale };
     <div class="container">
       <div class="pricing-content">
         <div class="pricing-header">
-          <h2 class="pricing-title">Encuentra tu plan ideal</h2>
-          <p class="pricing-subtitle">Entrena a tu ritmo. Sin permanencias.</p>
+          <h2 class="pricing-title">{t('pricing.title')}</h2>
+          <p class="pricing-subtitle">{t('pricing.subtitle')}</p>
         </div>
 
         <div class="pricing-grid">
           <!-- Say Hi Pack -->
           <div class="pricing-card">
             <div class="pricing-card-header">
-              <h3 class="pricing-card-title">Say Hi Pack</h3>
+              <h3 class="pricing-card-title">{t('pricing.sayHiPack')}</h3>
               <div class="pricing-price">
                 <span class="pricing-amount">29</span>
                 <span class="pricing-currency">€</span>
               </div>
             </div>
-            <p class="pricing-description">3 clases para probar</p>
-            <a href={`/${lang}/book`} class="btn btn-primary pricing-btn">Empezar</a>
+            <hr class="pricing-divider" />
+            <p class="pricing-description">{t('pricing.sayHiPackDesc')}</p>
+            <ul class="pricing-features">
+              {(t('pricing.sayHiPackFeatures') as string[]).map((feature) => (
+                <li class="pricing-feature">
+                  <svg class="pricing-feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <a href={`/${lang}/book`} class="btn btn-primary pricing-btn">{t('pricing.start')}</a>
           </div>
 
           <!-- Membresías -->
           <div class="pricing-card pricing-card-featured">
             <div class="pricing-card-header">
-              <h3 class="pricing-card-title">Membresías</h3>
+              <h3 class="pricing-card-title">{t('pricing.memberships')}</h3>
               <div class="pricing-price">
                 <span class="pricing-amount">89</span>
                 <span class="pricing-currency">€</span>
                 <span class="pricing-period">/mes</span>
               </div>
             </div>
-            <p class="pricing-description">Clases ilimitadas</p>
-            <a href={`/${lang}/join`} class="btn btn-primary pricing-btn">Unirme</a>
+            <hr class="pricing-divider" />
+            <p class="pricing-description">{t('pricing.membershipsDesc')}</p>
+            <ul class="pricing-features">
+              {(t('pricing.membershipsFeatures') as string[]).map((feature) => (
+                <li class="pricing-feature">
+                  <svg class="pricing-feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <a href={`/${lang}/join`} class="btn btn-primary pricing-btn">{t('pricing.join')}</a>
           </div>
 
           <!-- Bonos de clases -->
-          <div class="pricing-card">
+          <div class="pricing-card pricing-card-packages">
             <div class="pricing-card-header">
-              <h3 class="pricing-card-title">Bonos de clases</h3>
+              <h3 class="pricing-card-title">{t('pricing.classPackages')}</h3>
             </div>
-            <div class="pricing-options">
-              <div class="pricing-option">
-                <span class="pricing-option-label">5 clases</span>
-                <span class="pricing-option-price">75 €</span>
-              </div>
-              <div class="pricing-option">
-                <span class="pricing-option-label">10 clases</span>
-                <span class="pricing-option-price">140 €</span>
+            <hr class="pricing-divider" />
+            
+            <!-- Toggle Selector -->
+            <div class="pricing-toggle-wrapper">
+              <button class="pricing-toggle-option active" data-option="5" data-price="75">
+                {t('pricing.classPackages5')}
+              </button>
+              <button class="pricing-toggle-option" data-option="10" data-price="140">
+                {t('pricing.classPackages10')}
+              </button>
+            </div>
+
+            <!-- Selected Price Display -->
+            <div class="pricing-selected-price">
+              <div class="pricing-price">
+                <span class="pricing-amount" id="package-amount">75</span>
+                <span class="pricing-currency">€</span>
               </div>
             </div>
-            <a href={`/${lang}/book`} class="btn btn-primary pricing-btn">Comprar bono</a>
+
+            <ul class="pricing-features">
+              {(t('pricing.classPackagesFeatures') as string[]).map((feature) => (
+                <li class="pricing-feature">
+                  <svg class="pricing-feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <a href={`/${lang}/book`} class="btn btn-primary pricing-btn" id="package-buy-btn">{t('pricing.buyPackage')}</a>
           </div>
         </div>
 
-        <p class="pricing-footer">Sin contratos. Cancela cuando quieras.</p>
+        <p class="pricing-footer">{t('pricing.footer')}</p>
       </div>
     </div>
   </section>
@@ -334,8 +376,8 @@ const { lang } = Astro.params as { lang: Locale };
     <div class="container">
       <div class="community-content">
         <div class="community-header">
-          <h2 class="community-title">Más que clases, una comunidad</h2>
-          <p class="community-description">Entrena, conecta y comparte en un espacio moderno, abierto y cercano.</p>
+          <h2 class="community-title">{t('community.title')}</h2>
+          <p class="community-description">{t('community.description')}</p>
         </div>
 
         <div class="community-cta">
@@ -343,7 +385,7 @@ const { lang } = Astro.params as { lang: Locale };
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="instagram-icon">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
             </svg>
-            Síguenos en Instagram
+            {t('community.followInstagram')}
           </a>
         </div>
       </div>
@@ -1223,6 +1265,17 @@ const { lang } = Astro.params as { lang: Locale };
     margin: 0 0 var(--space-3) 0;
   }
 
+  .pricing-divider {
+    border: none;
+    border-top: 1px solid var(--color-border-light);
+    margin: var(--space-4) 0;
+    width: 100%;
+  }
+
+  .pricing-card-featured .pricing-divider {
+    border-top-color: rgba(201, 125, 96, 0.2);
+  }
+
   .pricing-price {
     display: flex;
     align-items: baseline;
@@ -1252,7 +1305,76 @@ const { lang } = Astro.params as { lang: Locale };
     color: var(--color-text-secondary);
     margin: 0 0 var(--space-4) 0;
     line-height: var(--line-height-relaxed);
+  }
+
+  .pricing-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
     flex: 1;
+  }
+
+  .pricing-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .pricing-feature-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--color-terracotta);
+    flex-shrink: 0;
+  }
+
+  /* Package Toggle Styles */
+  .pricing-toggle-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--color-background);
+    padding: 0.25rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+    margin-bottom: var(--space-4);
+  }
+
+  .pricing-toggle-option {
+    flex: 1;
+    padding: 0.625rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-medium);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .pricing-toggle-option:hover {
+    color: var(--color-text);
+    background: var(--color-hover);
+  }
+
+  .pricing-toggle-option.active {
+    background: var(--color-terracotta);
+    color: #ffffff;
+  }
+
+  .pricing-selected-price {
+    margin-bottom: var(--space-4);
+    text-align: left;
+  }
+
+  .pricing-card-packages .pricing-price {
+    justify-content: flex-start;
   }
 
   .pricing-options {
@@ -1483,4 +1605,25 @@ const { lang } = Astro.params as { lang: Locale };
   window.addEventListener('scroll', handleScroll);
   // Verificar posición inicial
   handleScroll();
+
+  // Package Toggle Functionality
+  const toggleOptions = document.querySelectorAll('.pricing-toggle-option');
+  const packageAmount = document.getElementById('package-amount');
+  const packageBuyBtn = document.getElementById('package-buy-btn');
+
+  toggleOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      // Remove active class from all options
+      toggleOptions.forEach(opt => opt.classList.remove('active'));
+      
+      // Add active class to clicked option
+      this.classList.add('active');
+      
+      // Update price
+      const price = this.getAttribute('data-price');
+      if (packageAmount) {
+        packageAmount.textContent = price;
+      }
+    });
+  });
 </script>

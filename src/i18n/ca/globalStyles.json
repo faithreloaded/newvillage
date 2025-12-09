@@ -1,0 +1,93 @@
+{
+  "globalStyles": {
+  "headTitle": "Estils Globals | Starter UI",
+  "headDescription": "Estils globals, design tokens i variables CSS per a un disseny consistent en tota la plantilla",
+  "pageTitle": "Estils globals",
+  "pageDescription": "Sistema de disseny, variables CSS i estils globals que garanteixen consistència en tots els components",
+  "colorPalette": {
+    "title": "Paleta de colors",
+    "description": "Colors principals utilitzats en tota la plantilla",
+    "primary": "Primari",
+    "secondary": "Secundari",
+    "background": "Fons",
+    "backgroundAlt": "Fons alternatiu",
+    "accent": "Accent",
+    "container": "Contenidor",
+    "hover": "Hover",
+    "previewBackground": "Fons de previsualització",
+    "text": "Text",
+    "textSecondary": "Text secundari",
+    "textMuted": "Text atenuat",
+    "textAccent": "Text accentuat"
+  },
+  "typography": {
+    "title": "Tipografia",
+    "description": "Sistema tipogràfic complet utilitzant Inter amb fallbacks, incloent tots els nivells de capçalera, cos de text i variacions de pes",
+    "h1": "Capçalera 1 - Títol principal",
+    "h2": "Capçalera 2 - Títol de secció",
+    "h3": "Capçalera 3 - Subsecció",
+    "h4": "Capçalera 4 - Títol de targeta",
+    "h5": "Capçalera 5 - Títol petit",
+    "h6": "Capçalera 6 - Etiqueta",
+    "bodyText": "Text de cos - Paràgraf regular utilitzat en tota la plantilla per llegibilitat i consistència.",
+    "smallText": "Text petit - Utilitzat per a subtítols, etiquetes i informació secundària.",
+    "mediumWeight": "Pes mitjà - Per a èmfasi i informació important.",
+    "semiBold": "Semi-negreta - Per a èmfasi fort i crides a l'acció.",
+    "bold": "Negreta - Per a màxim èmfasi i capçaleres importants.",
+    "captionText": "Text de peu - Per a textos molt petits com notes i metadades.",
+    "interFont": "Família Inter - Tipografia moderna i molt llegible pensada per a interfícies.",
+    "fontSans": "Sans - Pila de sistema amb Inter com a primària i fallbacks per a compatibilitat."
+  },
+  "spacingSystem": {
+    "title": "Sistema d'espaiat",
+    "description": "Variables d'espai consistents utilitzades en els components",
+    "space1Usage": "Padding intern, gaps petits",
+    "space2Usage": "Màrgens petits, padding de botons",
+    "space3Usage": "Espaiat entre elements",
+    "space4Usage": "Padding de contenidors",
+    "space5Usage": "Espaiat entre seccions",
+    "space6Usage": "Màrgens grans",
+    "space7Usage": "Espaiat en seccions hero",
+    "space8Usage": "Espaiat màxim entre pàgines"
+  },
+  "borderRadius": {
+    "title": "Border radius",
+    "description": "Valors consistents de border radius per a cantonades arrodonides en tots els components",
+    "extraSmall": "Extra petit",
+    "small": "Petit",
+    "medium": "Mitjà",
+    "large": "Gran",
+    "extraLarge": "Extra gran",
+    "2xLarge": "2X gran",
+    "3xLarge": "3X gran",
+    "full": "Complet"
+  },
+  "breakpoints": {
+    "title": "Breakpoints",
+    "description": "Tokens de breakpoints per a media queries responsives."
+  },
+  "transitions": {
+    "title": "Transicions",
+    "description": "Tokens de transició escalonats per a animacions subtils i consistents.",
+    "xfast": "--transition-xfast = 120ms ease",
+    "fast": "--transition-fast = 160ms ease",
+    "base": "--transition-base = 200ms ease",
+    "slow": "--transition-slow = 250ms ease",
+    "xslow": "--transition-xslow = 320ms ease"
+  },
+  "cssVariables": {
+    "title": "Variables CSS",
+    "description": "Totes les propietats personalitzades disponibles",
+    "colorsSemantic": "Colors (Semàntics)",
+    "colorsLegacy": "Colors (Llegat)",
+    "typographyFontSizes": "Tipografia - Mides de font",
+    "typographyFontWeights": "Tipografia - Pesos de font",
+    "typographyLineHeights": "Tipografia - Alçades de línia",
+    "typographyFontFamily": "Tipografia - Família",
+    "spacing": "Espaiat",
+    "layout": "Layout",
+    "shadows": "Ombres (Box Shadows)"
+  }
+  }
+}
+

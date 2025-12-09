@@ -1,3 +1,72 @@
 {
-  "placeholder": "Aquí será el contenido en un futuro"
+  "hero": {
+    "title": "Muévete mejor. Vive mejor.",
+    "subtitle": "Pilates, Barre, Yoga y entrenamiento funcional en Poblenou.",
+    "bookClass": "Reserva tu clase",
+    "joinNow": "Únete ahora",
+    "smallGroups": "Grupos pequeños",
+    "bilingual": "Clases bilingües",
+    "noCommitment": "Sin permanencias"
+  },
+  "about": {
+    "title": "Un estudio de bienestar moderno en Poblenou",
+    "description": "NewVillage es un estudio de movimiento en el corazón del distrito 22@. Ofrecemos Pilates, Barre, Yoga y entrenamiento funcional en grupos pequeños, con clases bilingües y total flexibilidad.",
+    "smallGroupsTitle": "Grupos pequeños",
+    "smallGroupsText": "Atención personalizada en cada clase.",
+    "bilingualTitle": "Clases bilingües",
+    "bilingualText": "Inglés y español.",
+    "noCommitmentTitle": "Sin permanencias",
+    "noCommitmentText": "Entrena a tu ritmo.",
+    "viewClasses": "Ver clases"
+  },
+  "disciplines": {
+    "title": "Elige cómo quieres moverte",
+    "subtitle": "Una membresía. Cuatro formas de entrenar.",
+    "pilates": "Pilates",
+    "pilatesDesc": "Fuerza, control y postura.",
+    "barre": "Barre",
+    "barreDesc": "Tono, energía y ritmo.",
+    "yoga": "Yoga",
+    "yogaDesc": "Equilibrio, movilidad y respiración.",
+    "functional": "Funcional",
+    "functionalDesc": "Potencia, cardio y cuerpo completo.",
+    "viewSchedule": "Ver horarios"
+  },
+  "contact": {
+    "title": "Contacta con nosotros",
+    "description": "Estamos aquí para ayudarte. Escríbenos o visítanos.",
+    "whatsapp": "Hablar por WhatsApp",
+    "formName": "Nombre",
+    "formEmail": "Email",
+    "formPhone": "Teléfono",
+    "formMessage": "Mensaje",
+    "formSubmit": "Enviar mensaje"
+  },
+  "pricing": {
+    "title": "Encuentra tu plan ideal",
+    "subtitle": "Entrena a tu ritmo. Sin permanencias.",
+    "sayHiPack": "Say Hi Pack",
+    "sayHiPackDesc": "3 clases para probar",
+    "sayHiPackFeatures": ["3 clases", "Válido 30 días", "Sin permanencia"],
+    "memberships": "Membresías",
+    "membershipsDesc": "Clases ilimitadas",
+    "membershipsFeatures": ["Clases ilimitadas", "Todas las disciplinas", "Sin permanencia"],
+    "classPackages": "Bonos de clases",
+    "classPackages5": "5 clases",
+    "classPackages10": "10 clases",
+    "classPackagesFeatures": ["Válido 3 meses", "Todas las disciplinas", "Sin permanencia"],
+    "start": "Empezar",
+    "join": "Unirme",
+    "buyPackage": "Comprar bono",
+    "footer": "Sin contratos. Cancela cuando quieras."
+  },
+  "community": {
+    "title": "Más que clases, una comunidad",
+    "description": "Entrena, conecta y comparte en un espacio moderno, abierto y cercano.",
+    "followInstagram": "Síguenos en Instagram"
+  },
+  "meta": {
+    "title": "NewVillage Poblenou | Pilates, Barre, Yoga & Functional Training 22@",
+    "description": "Estudio de pilates, barre, yoga y entrenamiento funcional en Poblenou – 22@ Barcelona. Clases bilingües, sin permanencias. Reserva tu clase."
+  }
 }

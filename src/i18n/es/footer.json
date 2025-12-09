@@ -1,12 +1,12 @@
 {
   "description": "Una librería de componentes limpia y profesional para desarrolladores modernos.",
-  "linksTitle": "Enlaces",
+  "linksTitle": "Navegación",
   "legalTitle": "Legal",
   "privacy": "Política de privacidad",
   "legal": "Aviso legal",
   "contactTitle": "Contacto",
-  "credit1": "© {year} Starter UI. Todos los derechos reservados.",
-  "credit2": "Diseño web por "
+  "copyright": "Todos los derechos reservados.",
+  "webDesign": "Diseño web ",
+  "address": "Calle del Bienestar, 15",
+  "addressCity": "28001 Madrid, España"
 }
-
-

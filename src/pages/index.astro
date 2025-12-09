@@ -12,9 +12,9 @@ export const prerender = true;
         try {
           var stored = localStorage.getItem('preferredLang');
           var nav = ((navigator && navigator.language) ? navigator.language : 'en').toLowerCase();
-          var inferred = nav.indexOf('es') === 0 ? 'es' : 'en';
-          var lang = (stored === 'es' || stored === 'en') ? stored : inferred;
-          if (lang !== 'en' && lang !== 'es') lang = 'en';
+          var inferred = nav.indexOf('ca') === 0 ? 'ca' : (nav.indexOf('es') === 0 ? 'es' : 'en');
+          var lang = (stored === 'es' || stored === 'en' || stored === 'ca') ? stored : inferred;
+          if (lang !== 'en' && lang !== 'es' && lang !== 'ca') lang = 'es';
           if (location.pathname === '/' || location.pathname === '') {
             location.replace('/' + lang + '/');
           }

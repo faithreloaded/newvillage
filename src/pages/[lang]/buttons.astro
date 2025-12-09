@@ -1,28 +1,27 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadT } from '../../i18n/index';
+import { LOCALES, type Locale, loadT } from '../../i18n/index';
 
 export async function getStaticPaths() {
-  return [
-    { params: { lang: 'es' } },
-    { params: { lang: 'en' } }
-  ];
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
 }
 
-const { lang } = Astro.params;
-const t = await loadT(lang as 'es' | 'en', ['header', 'footer']);
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['header', 'footer']);
 ---
 
-<BaseLayout title={lang === 'es' ? 'Botones - New Village' : 'Buttons - New Village'} description={lang === 'es' ? 'Explora nuestra colección de botones modernos y elegantes' : 'Explore our collection of modern and elegant buttons'} lang={lang as 'es' | 'en'}>
+<BaseLayout title={lang === 'es' ? 'Botones - New Village' : lang === 'ca' ? 'Botons - New Village' : 'Buttons - New Village'} description={lang === 'es' ? 'Explora nuestra colección de botones modernos y elegantes' : lang === 'ca' ? 'Explora la nostra col·lecció de botons moderns i elegants' : 'Explore our collection of modern and elegant buttons'} lang={lang}>
   <main class="buttons-page">
     <div class="container">
       <div class="buttons-header">
         <h1 class="buttons-title">
-          {lang === 'es' ? 'Colección de Botones' : 'Button Collection'}
+          {lang === 'es' ? 'Colección de Botones' : lang === 'ca' ? 'Col·lecció de Botons' : 'Button Collection'}
         </h1>
         <p class="buttons-description">
           {lang === 'es' 
             ? 'Explora nuestra selección de botones modernos y elegantes para tus proyectos' 
+            : lang === 'ca'
+            ? 'Explora la nostra selecció de botons moderns i elegants per als teus projectes'
             : 'Explore our selection of modern and elegant buttons for your projects'
           }
         </p>

@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "Inici",
+    "classes": "Classes",
+    "prices": "Preus",
+    "schedule": "Horaris",
+    "contact": "Contacte",
+    "buttons": "Botons"
+  },
+  "actions": {
+    "bookNow": "Reserva ara"
+  },
+  "lang": {
+    "es": "ES",
+    "en": "EN",
+    "ca": "CA",
+    "sep": "/"
+  }
+}
+

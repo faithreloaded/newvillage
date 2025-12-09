@@ -1,11 +1,27 @@
 ---
-import { getLangFromUrl, type Locale, loadT } from '../../i18n';
+import { getLangFromUrl, type Locale, loadT, LOCALES } from '../../i18n';
 
 const lang: Locale = getLangFromUrl(Astro.url);
 const t = await loadT(lang, ['header']);
+
+// Función para obtener la URL con el idioma cambiado
+function getLangUrl(newLang: Locale): string {
+  const currentPath = Astro.url.pathname;
+  const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
+  return `/${newLang}${pathWithoutLang || '/'}`;
+}
+
+const langLabels: Record<Locale, string> = {
+  es: 'ES',
+  en: 'EN',
+  ca: 'CA'
+};
+
+// Detectar si estamos en una página legal o privacy
+const isLegalPage = Astro.url.pathname.includes('/legal') || Astro.url.pathname.includes('/privacy');
 ---
 
-<header class="header" id="main-header">
+<header class={`header ${isLegalPage ? 'scrolled' : ''}`} id="main-header">
   <div class="container">
     <div class="header-content">
       <!-- Logo -->
@@ -33,15 +49,33 @@ const t = await loadT(lang, ['header']);
           <li class="nav-item">
             <a href={`/${lang}/contact`} class="nav-link">{t('nav.contact')}</a>
           </li>
-          <li class="nav-item">
-            <a href={`/${lang}/buttons`} class="nav-link">{t('nav.buttons')}</a>
-          </li>
         </ul>
       </nav>
       
       <!-- Actions (Desktop) -->
       <div class="header-actions desktop-only">
         <a href={`/${lang}/book`} class="btn btn-primary btn-glass-header">{t('actions.bookNow')}</a>
+        <div class="lang-toggle-wrapper">
+          <div class="lang-toggle" id="lang-toggle">
+            <button class="lang-toggle-btn" id="lang-toggle-btn" aria-label="Change language">
+              <span class="lang-current">{langLabels[lang]}</span>
+              <svg class="lang-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 4.5L6 7.5L9 4.5"/>
+              </svg>
+            </button>
+            <div class="lang-dropdown" id="lang-dropdown">
+              {(LOCALES as readonly Locale[]).map((locale) => (
+                <a 
+                  href={getLangUrl(locale)} 
+                  class={`lang-option ${locale === lang ? 'active' : ''}`}
+                  data-lang={locale}
+                >
+                  {langLabels[locale]}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       
       <!-- Mobile Controls -->
@@ -92,11 +126,18 @@ const t = await loadT(lang, ['header']);
         <li class="mobile-nav-item">
           <a href={`/${lang}/contact`} class="mobile-nav-link">{t('nav.contact')}</a>
         </li>
-        <li class="mobile-nav-item">
-          <a href={`/${lang}/buttons`} class="mobile-nav-link">{t('nav.buttons')}</a>
-        </li>
       </ul>
       <div class="mobile-nav-actions">
+        <div class="mobile-lang-toggle">
+          {(LOCALES as readonly Locale[]).map((locale) => (
+            <a 
+              href={getLangUrl(locale)} 
+              class={`mobile-lang-option ${locale === lang ? 'active' : ''}`}
+            >
+              {langLabels[locale]}
+            </a>
+          ))}
+        </div>
         <a href={`/${lang}/book`} class="btn btn-primary mobile-book-btn">{t('actions.bookNow')}</a>
       </div>
     </nav>
@@ -186,6 +227,119 @@ const t = await loadT(lang, ['header']);
   .header-actions {
     display: flex;
     align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+  }
+
+  .header-actions .btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Language Toggle */
+  .lang-toggle-wrapper {
+    position: relative;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  .lang-toggle {
+    position: relative;
+  }
+
+  .lang-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+    border-radius: var(--radius-sm);
+  }
+
+  .header:not(.scrolled) .lang-toggle-btn {
+    color: #ffffff;
+  }
+
+  .lang-toggle-btn:hover {
+    color: var(--color-terracotta);
+  }
+
+  .header:not(.scrolled) .lang-toggle-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .lang-current {
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .lang-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .lang-toggle.active .lang-arrow {
+    transform: rotate(180deg);
+  }
+
+  .lang-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    min-width: 80px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .lang-toggle.active .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .lang-option {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .lang-option:first-child {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
+  .lang-option:last-child {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
+
+  .lang-option:hover {
+    background: var(--color-hover);
+    color: var(--color-terracotta);
+  }
+
+  .lang-option.active {
+    color: var(--color-terracotta);
+    font-weight: 500;
   }
 
   .btn-glass-header {
@@ -353,6 +507,35 @@ const t = await loadT(lang, ['header']);
     justify-content: center;
   }
 
+  .mobile-lang-toggle {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+
+  .mobile-lang-option {
+    padding: 0.5rem 1rem;
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+  }
+
+  .mobile-lang-option:hover {
+    background: var(--color-hover);
+    color: var(--color-terracotta);
+  }
+
+  .mobile-lang-option.active {
+    color: var(--color-terracotta);
+    font-weight: 500;
+  }
+
 
   /* Responsive */
   @media (max-width: 768px) {
@@ -389,7 +572,16 @@ const t = await loadT(lang, ['header']);
     const closeBtn = document.getElementById('mobile-close-btn');
 
     // Handle scroll to change header style
+    // No cambiar el estilo en páginas legal/privacy (siempre scrolled)
+    const isLegalPage = window.location.pathname.includes('/legal') || window.location.pathname.includes('/privacy');
+    
     function handleScroll() {
+      if (isLegalPage) {
+        // En páginas legal/privacy, siempre mantener scrolled
+        header?.classList.add('scrolled');
+        return;
+      }
+      
       if (window.scrollY > 50) {
         header?.classList.add('scrolled');
       } else {
@@ -421,6 +613,39 @@ const t = await loadT(lang, ['header']);
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
     mobileNavLinks.forEach(link => {
       link.addEventListener('click', closeMenu);
+    });
+
+    // Language Toggle
+    const langToggle = document.getElementById('lang-toggle');
+    const langToggleBtn = document.getElementById('lang-toggle-btn');
+    const langDropdown = document.getElementById('lang-dropdown');
+
+    function toggleLangDropdown() {
+      langToggle?.classList.toggle('active');
+    }
+
+    function closeLangDropdown() {
+      langToggle?.classList.remove('active');
+    }
+
+    langToggleBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleLangDropdown();
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (langToggle && !langToggle.contains(e.target as Node)) {
+        closeLangDropdown();
+      }
+    });
+
+    // Close dropdown when selecting a language
+    const langOptions = document.querySelectorAll('.lang-option');
+    langOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        closeLangDropdown();
+      });
     });
   });
 </script>

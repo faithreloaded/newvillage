@@ -1,0 +1,72 @@
+{
+  "hero": {
+    "title": "Mou-te millor. Viu millor.",
+    "subtitle": "Pilates, Barre, Ioga i entrenament funcional al Poblenou.",
+    "bookClass": "Reserva la teva classe",
+    "joinNow": "Uneix-te ara",
+    "smallGroups": "Grups petits",
+    "bilingual": "Classes bilingües",
+    "noCommitment": "Sense permanències"
+  },
+  "about": {
+    "title": "Un estudi de benestar modern al Poblenou",
+    "description": "NewVillage és un estudi de moviment al cor del districte 22@. Oferim Pilates, Barre, Ioga i entrenament funcional en grups petits, amb classes bilingües i total flexibilitat.",
+    "smallGroupsTitle": "Grups petits",
+    "smallGroupsText": "Atenció personalitzada a cada classe.",
+    "bilingualTitle": "Classes bilingües",
+    "bilingualText": "Anglès i castellà.",
+    "noCommitmentTitle": "Sense permanències",
+    "noCommitmentText": "Entrena al teu ritme.",
+    "viewClasses": "Veure classes"
+  },
+  "disciplines": {
+    "title": "Tria com vols moure't",
+    "subtitle": "Una membresia. Quatre formes d'entrenar.",
+    "pilates": "Pilates",
+    "pilatesDesc": "Força, control i postura.",
+    "barre": "Barre",
+    "barreDesc": "Tó, energia i ritme.",
+    "yoga": "Ioga",
+    "yogaDesc": "Equilibri, mobilitat i respiració.",
+    "functional": "Funcional",
+    "functionalDesc": "Potència, cardio i cos complet.",
+    "viewSchedule": "Veure horaris"
+  },
+  "contact": {
+    "title": "Contacta amb nosaltres",
+    "description": "Estem aquí per ajudar-te. Escriu-nos o visita'ns.",
+    "whatsapp": "Parla per WhatsApp",
+    "formName": "Nom",
+    "formEmail": "Email",
+    "formPhone": "Telèfon",
+    "formMessage": "Missatge",
+    "formSubmit": "Enviar missatge"
+  },
+  "pricing": {
+    "title": "Troba el teu pla ideal",
+    "subtitle": "Entrena al teu ritme. Sense permanències.",
+    "sayHiPack": "Say Hi Pack",
+    "sayHiPackDesc": "3 classes per provar",
+    "sayHiPackFeatures": ["3 classes", "Vàlid 30 dies", "Sense permanència"],
+    "memberships": "Membresies",
+    "membershipsDesc": "Classes il·limitades",
+    "membershipsFeatures": ["Classes il·limitades", "Totes les disciplines", "Sense permanència"],
+    "classPackages": "Bonos de classes",
+    "classPackages5": "5 classes",
+    "classPackages10": "10 classes",
+    "classPackagesFeatures": ["Vàlid 3 mesos", "Totes les disciplines", "Sense permanència"],
+    "start": "Començar",
+    "join": "Unir-me",
+    "buyPackage": "Comprar bono",
+    "footer": "Sense contractes. Cancela quan vulguis."
+  },
+  "community": {
+    "title": "Més que classes, una comunitat",
+    "description": "Entrena, connecta i comparteix en un espai modern, obert i proper.",
+    "followInstagram": "Segueix-nos a Instagram"
+  },
+  "meta": {
+    "title": "NewVillage Poblenou | Pilates, Barre, Ioga i Entrenament Funcional 22@",
+    "description": "Estudi de pilates, barre, ioga i entrenament funcional al Poblenou – 22@ Barcelona. Classes bilingües, sense permanències. Reserva la teva classe."
+  }
+}

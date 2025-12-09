@@ -1,3 +1,72 @@
 {
-  "placeholder": "Content will be here in the future"
+  "hero": {
+    "title": "Move better. Live better.",
+    "subtitle": "Pilates, Barre, Yoga & Functional training in Poblenou.",
+    "bookClass": "Book your class",
+    "joinNow": "Join now",
+    "smallGroups": "Small groups",
+    "bilingual": "Bilingual classes",
+    "noCommitment": "No long-term commitment"
+  },
+  "about": {
+    "title": "A modern wellness studio in Poblenou",
+    "description": "NewVillage is a movement studio in the heart of the 22@ district. We offer Pilates, Barre, Yoga and Functional training in small groups, with bilingual classes and total flexibility.",
+    "smallGroupsTitle": "Small groups",
+    "smallGroupsText": "Personal attention in every class.",
+    "bilingualTitle": "Bilingual classes",
+    "bilingualText": "English & Spanish.",
+    "noCommitmentTitle": "No long-term commitment",
+    "noCommitmentText": "Train at your own pace.",
+    "viewClasses": "View classes"
+  },
+  "disciplines": {
+    "title": "Choose how you want to move",
+    "subtitle": "One membership. Four ways to train.",
+    "pilates": "Pilates",
+    "pilatesDesc": "Strength, control and posture.",
+    "barre": "Barre",
+    "barreDesc": "Tone, energy and rhythm.",
+    "yoga": "Yoga",
+    "yogaDesc": "Balance, mobility and breath.",
+    "functional": "Functional",
+    "functionalDesc": "Power, cardio and full body.",
+    "viewSchedule": "View schedule"
+  },
+  "contact": {
+    "title": "Contact us",
+    "description": "We're here to help you. Write to us or visit us.",
+    "whatsapp": "Chat on WhatsApp",
+    "formName": "Name",
+    "formEmail": "Email",
+    "formPhone": "Phone",
+    "formMessage": "Message",
+    "formSubmit": "Send message"
+  },
+  "pricing": {
+    "title": "Find your ideal plan",
+    "subtitle": "Train at your own pace. No long-term commitment.",
+    "sayHiPack": "Say Hi Pack",
+    "sayHiPackDesc": "3 classes to try",
+    "sayHiPackFeatures": ["3 classes", "Valid 30 days", "No commitment"],
+    "memberships": "Memberships",
+    "membershipsDesc": "Unlimited classes",
+    "membershipsFeatures": ["Unlimited classes", "All disciplines", "No commitment"],
+    "classPackages": "Class packages",
+    "classPackages5": "5 classes",
+    "classPackages10": "10 classes",
+    "classPackagesFeatures": ["Valid 3 months", "All disciplines", "No commitment"],
+    "start": "Start",
+    "join": "Join",
+    "buyPackage": "Buy package",
+    "footer": "No contracts. Cancel anytime."
+  },
+  "community": {
+    "title": "More than classes, a community",
+    "description": "Train, connect and share in a modern, open and welcoming space.",
+    "followInstagram": "Follow us on Instagram"
+  },
+  "meta": {
+    "title": "NewVillage Poblenou | Pilates, Barre, Yoga & Functional Training 22@",
+    "description": "Pilates, barre, yoga and functional training studio in Poblenou – 22@ Barcelona. Bilingual classes, no long-term commitment. Book your class."
+  }
 }

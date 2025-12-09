@@ -1,9 +1,9 @@
-export const LOCALES = ['es','en'] as const;
-export type Locale = 'es' | 'en';
+export const LOCALES = ['es','en','ca'] as const;
+export type Locale = 'es' | 'en' | 'ca';
 export const DEFAULT_LANG: Locale = 'es';
 
 export function getLangFromUrl(url: URL): Locale {
-  const m = url.pathname.match(/^\/(es|en)(\/|$)/i);
+  const m = url.pathname.match(/^\/(es|en|ca)(\/|$)/i);
   if (m) return (m[1].toLowerCase()) as Locale;
   return DEFAULT_LANG;
 }
@@ -12,6 +12,7 @@ export function getLangFromUrl(url: URL): Locale {
 const dictImports = {
   es: import.meta.glob('./es/*.json', { eager: true }) as Record<string, { default: any }>,
   en: import.meta.glob('./en/*.json', { eager: true }) as Record<string, { default: any }>,
+  ca: import.meta.glob('./ca/*.json', { eager: true }) as Record<string, { default: any }>,
 };
 
 function extractName(path: string) {

@@ -1,12 +1,12 @@
 {
   "description": "A clean, professional component library for modern developers.",
-  "linksTitle": "Links",
+  "linksTitle": "Navigation",
   "legalTitle": "Legal",
   "privacy": "Privacy Policy",
   "legal": "Legal Notice",
   "contactTitle": "Contact",
-  "credit1": "© {year} Starter UI. All rights reserved.",
-  "credit2": "Web design by "
+  "copyright": "All rights reserved.",
+  "webDesign": "Web design ",
+  "address": "Wellness Street, 15",
+  "addressCity": "28001 Madrid, Spain"
 }
-
-
