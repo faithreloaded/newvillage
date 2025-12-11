@@ -15,12 +15,12 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
   description={t('meta.description')}
   lang={lang}
 >
-  <!-- Landing Screen -->
-  <div class="landing-screen" id="landing-screen">
+  <!-- Landing Image Full Screen -->
+  <div class="landing-container">
     <img src="/images/landing.svg" alt="NewVillage" class="landing-image" />
   </div>
 
-  <div class="main-content" id="main-content">
+  <div class="main-content" style="display: none !important;">
   <section class="hero">
     <div class="hero-video-wrapper">
       <video class="hero-video" autoplay muted loop playsinline>
@@ -440,37 +440,9 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
   </div>
   </section>
 
-  <script>
-    // Landing Screen
-    const landingScreen = document.getElementById('landing-screen');
-    const mainContent = document.getElementById('main-content');
-
-    // Ocultar pantalla de bienvenida después de 3 segundos o al hacer clic
-    function hideLandingScreen() {
-      if (landingScreen) {
-        landingScreen.style.opacity = '0';
-        landingScreen.style.pointerEvents = 'none';
-        setTimeout(() => {
-          landingScreen.style.display = 'none';
-          if (mainContent) {
-            mainContent.style.opacity = '1';
-          }
-        }, 500);
-      }
-    }
-
-    // Ocultar después de 3 segundos
-    setTimeout(hideLandingScreen, 3000);
-
-    // Ocultar al hacer clic
-    if (landingScreen) {
-      landingScreen.addEventListener('click', hideLandingScreen);
-    }
-  </script>
-
   <style>
-    /* Landing Screen */
-    .landing-screen {
+    /* Landing Container - Full Screen */
+    .landing-container {
       position: fixed;
       top: 0;
       left: 0;
@@ -481,7 +453,7 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.5s ease;
+      overflow: hidden;
     }
 
     .landing-image {
@@ -491,9 +463,9 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
       object-position: center;
     }
 
+    /* Ocultar contenido principal */
     .main-content {
-      opacity: 0;
-      transition: opacity 0.5s ease;
+      display: none !important;
     }
 
     /* Responsive */
