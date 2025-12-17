@@ -477,7 +477,7 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
       height: 100vh;
       min-height: 100vh;
       z-index: 9999;
-      background: linear-gradient(to bottom left, #D48A6F 0%, #C85A39 100%);
+      background: linear-gradient(to bottom, #ED6D65 0%, #ED6D65 20%, #A53716 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -567,23 +567,37 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
       }
 
       .landing-text-top {
-        font-size: 32px;
+        font-size: 42px;
+        font-weight: 400;
+        line-height: 100%;
       }
 
       .text-something {
-        font-size: 75px;
+        font-size: 81px;
+        font-weight: 700;
+        line-height: 100%;
       }
 
       .text-exciting {
-        font-size: 96px;
+        font-size: 104px;
+        font-weight: 700;
+        line-height: 100%;
       }
 
       .text-coming {
-        font-size: 81px;
+        font-size: 88px;
+        font-weight: 700;
+        line-height: 100%;
       }
 
       .landing-text-bottom {
-        font-size: 40px;
+        font-size: 24px !important;
+        font-weight: 400 !important;
+        line-height: 100% !important;
+      }
+
+      .landing-cta {
+        margin-top: 59px;
       }
     }
 
@@ -644,20 +658,20 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
 
     .button-text-main {
       color: #ffffff;
-      font-size: clamp(0.875rem, 1.2vw, 1rem);
+      font-size: 26px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      line-height: 1.2;
+      line-height: 100%;
     }
 
     .button-text-sub {
       color: #91b9c8;
-      font-size: clamp(0.75rem, 1vw, 0.875rem);
-      font-weight: 400;
+      font-size: 23px;
+      font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      line-height: 1.2;
+      line-height: 100%;
     }
 
     .landing-instagram {
@@ -689,8 +703,9 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
       width: 1200px;
       height: auto;
       position: absolute;
-      bottom: 0;
-      left: 0;
+      top: 56%;
+      left: 37%;
+      transform: translate(-50%, -50%) rotate(-90deg);
       filter: brightness(0) invert(1);
       opacity: 0.1;
       z-index: 1;
@@ -752,6 +767,22 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
         border-width: 2px;
       }
 
+      .button-text-main {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 100%;
+      }
+
+      .button-text-sub {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 100%;
+      }
+
+      .landing-cta {
+        margin-top: 48px;
+      }
+
       .landing-instagram {
         bottom: 1.5rem;
         right: 1.5rem;
@@ -760,9 +791,10 @@ const t = await loadT(lang, ['home', 'header', 'footer']);
       }
 
       .landing-logo {
-        width: 700px;
-        bottom: 0;
-        left: 0;
+        width: 850px;
+        top: 82%;
+        left: 15%;
+        transform: translate(-50%, -50%) rotate(-90deg);
       }
     }
 
