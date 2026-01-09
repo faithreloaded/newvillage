@@ -5,10 +5,14 @@
     "prices": "Preus",
     "schedule": "Horaris",
     "contact": "Contacte",
-    "buttons": "Botons"
+    "buttons": "Botons",
+    "movement": "MOVIMENT",
+    "plans": "PLANS",
+    "myAccount": "EL MEU COMPTE"
   },
   "actions": {
-    "bookNow": "Reserva ara"
+    "bookNow": "Reserva ara",
+    "reserve": "RESERVA"
   },
   "lang": {
     "es": "ES",
@@ -17,6 +21,10 @@
     "sep": "/"
   }
 }
+
+
+
+
 
 
 

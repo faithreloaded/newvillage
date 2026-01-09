@@ -1,0 +1,1409 @@
+---
+import { LOCALES, type Locale, getLangFromUrl, loadT } from '../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home', 'header']);
+
+// Función para obtener la URL con el idioma cambiado
+function getLangUrl(newLang: Locale): string {
+  const currentPath = Astro.url.pathname;
+  const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
+  return `/${newLang}${pathWithoutLang || '/home-new'}`;
+}
+
+const langLabels: Record<Locale, string> = {
+  es: 'ESP',
+  en: 'ENG',
+  ca: 'CAT'
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+    </style>
+    <title>NewVillage - Movement Studio</title>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- Header -->
+      <header class="custom-header" id="main-header">
+        <div class="container">
+          <div class="header-content">
+            <!-- Logo izquierda -->
+            <div class="header-logo">
+              <img src="/images/logo.svg" alt="NewVillage" class="logo-icon" />
+            </div>
+            
+            <!-- Grupo derecha (Desktop) -->
+            <div class="header-right desktop-only">
+              <!-- Navegación -->
+              <nav class="header-nav">
+                <a href="#" class="nav-link">{t('nav.movement')}</a>
+                <a href="#" class="nav-link">{t('nav.plans')}</a>
+                <a href="#" class="nav-link">{t('nav.myAccount')}</a>
+              </nav>
+              
+              <!-- Botón Reserva -->
+              <a href="#" class="btn-reserva">{t('actions.reserve')}</a>
+              
+              <!-- Selector de idioma -->
+              <div class="lang-selector">
+                {(() => {
+                  const allLocales = ['ca', 'es', 'en'] as Locale[];
+                  const others = allLocales.filter(l => l !== lang);
+                  const ordered = [others[0], lang, others[1]];
+                  return ordered.map((locale) => (
+                    <a 
+                      href={getLangUrl(locale)} 
+                      class={`lang-item ${locale === lang ? 'active' : ''}`}
+                    >
+                      {langLabels[locale]}
+                    </a>
+                  ));
+                })()}
+              </div>
+            </div>
+
+            <!-- Botón Hamburguesa (Mobile) -->
+            <button class="hamburger-btn mobile-only" id="hamburger-btn" aria-label="Menu">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2c2c2c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Mobile Menu Overlay -->
+      <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+      <!-- Mobile Menu Drawer -->
+      <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+          <div class="header-logo">
+             <img src="/images/logo.svg" alt="NewVillage" class="logo-icon" />
+          </div>
+          <button class="close-menu-btn" id="close-menu-btn" aria-label="Close menu">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2c2c2c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="mobile-menu-content">
+          <nav class="mobile-nav">
+            <a href="#" class="mobile-nav-link">{t('nav.movement')}</a>
+            <a href="#" class="mobile-nav-link">{t('nav.plans')}</a>
+            <a href="#" class="mobile-nav-link">{t('nav.myAccount')}</a>
+          </nav>
+          
+          <a href="#" class="btn-reserva mobile-btn-reserva">{t('actions.reserve')}</a>
+          
+          <div class="mobile-lang-selector">
+            {(LOCALES as readonly Locale[]).map((locale) => (
+              <a 
+                href={getLangUrl(locale)} 
+                class={`mobile-lang-item ${locale === lang ? 'active' : ''}`}
+              >
+                {langLabels[locale]}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-background">
+          <img src="/images/herobg.jpg" alt="Background" class="hero-bg-image" />
+        </div>
+        
+        <div class="container">
+          <div class="hero-content">
+            <!-- Texto izquierda -->
+            <div class="hero-text">
+              <h1 class="hero-title">
+                <span class="hero-line-1">{t('hero.title_line1')}</span>
+                <span class="hero-line-2">{t('hero.title_line2')}</span>
+                <span class="hero-line-3">{t('hero.title_line3')}</span>
+              </h1>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Logo rotado derecha - INCORPORADO SVG INLINE -->
+        <div class="hero-logo-container">
+          <svg 
+            version="1.2" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 610 259" 
+            class="logo-rotated-svg"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <path 
+              d="m510.23 0l-80.36 131.62 1.37-131.62h-83.42-16.06l-75.72 124.02 1.29-124.02h-83.42-16.06l-157.85 258.53h101.12l72.79-120.46v120.46h80.72 20.4l72.79-120.46v120.46h4.55 76.17 24.96l156.21-258.53z" 
+              fill="#A53716" 
+              fill-opacity="0.3"
+            />
+          </svg>
+        </div>
+      </section>
+
+      <!-- Disciplines Section -->
+      <section class="disciplines-section">
+        <div class="disciplines-container">
+          <h2 class="disciplines-title">{t('disciplines.sectionTitle')}</h2>
+          <p class="disciplines-subtitle">{t('disciplines.sectionSubtitle')}</p>
+          
+          <div class="disciplines-grid">
+            <div class="discipline-item" data-discipline="barre">
+              <img src="/images/barre.jpg" alt="Barre" class="discipline-image" />
+              <div class="discipline-overlay">
+                <h3 class="discipline-overlay-title">{t('disciplines.barreTitle')}</h3>
+                <p class="discipline-overlay-tags">{t('disciplines.barreTags')}</p>
+              </div>
+              <div class="discipline-gradient-overlay">
+                <button class="discipline-view-more-btn">
+                  <span>{t('disciplines.viewMore')}</span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="discipline-item" data-discipline="pilates">
+              <img src="/images/pilates.jpg" alt="Pilates" class="discipline-image discipline-image-right" />
+              <div class="discipline-overlay">
+                <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
+                <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
+              </div>
+              <div class="discipline-gradient-overlay">
+                <button class="discipline-view-more-btn">
+                  <span>{t('disciplines.viewMore')}</span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="discipline-item" data-discipline="funcional">
+              <img src="/images/funcional.jpg" alt="Funcional" class="discipline-image discipline-image-right" />
+              <div class="discipline-overlay">
+                <h3 class="discipline-overlay-title">{t('disciplines.functionalTitle')}</h3>
+                <p class="discipline-overlay-tags">{t('disciplines.functionalTags')}</p>
+              </div>
+              <div class="discipline-gradient-overlay">
+                <button class="discipline-view-more-btn">
+                  <span>{t('disciplines.viewMore')}</span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="discipline-item" data-discipline="yoga">
+              <img src="/images/yoga.jpg" alt="Yoga" class="discipline-image discipline-image-right" />
+              <div class="discipline-overlay">
+                <h3 class="discipline-overlay-title">{t('disciplines.yogaTitle')}</h3>
+                <p class="discipline-overlay-tags">{t('disciplines.yogaTags')}</p>
+              </div>
+              <div class="discipline-gradient-overlay">
+                <button class="discipline-view-more-btn">
+                  <span>{t('disciplines.viewMore')}</span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div> <!-- End disciplines-grid -->
+
+          <!-- Barre Detail Section (Expandible) -->
+          <div class="discipline-detail" id="barre-detail">
+            <div class="discipline-detail-content">
+              <h2 class="discipline-detail-title">{t('disciplines.barreDetailTitle')}</h2>
+              <h3 class="discipline-detail-subtitle">{t('disciplines.barreDetailSubtitle')}</h3>
+              <p class="discipline-detail-text">{t('disciplines.barreDetailText')}</p>
+              
+              <div class="discipline-programs">
+                <div class="program-box program-box-1">
+                  <h4 class="program-title">{t('disciplines.barreProgram1Title')}</h4>
+                  <p class="program-line">{t('disciplines.barreProgram1Line1')}</p>
+                  <p class="program-line">{t('disciplines.barreProgram1Line2')}</p>
+                </div>
+                <div class="program-box program-box-2">
+                  <h4 class="program-title">{t('disciplines.barreProgram2Title')}</h4>
+                  <p class="program-line">{t('disciplines.barreProgram2Line1')}</p>
+                  <p class="program-line">{t('disciplines.barreProgram2Line2')}</p>
+                </div>
+                <div class="program-box program-box-3">
+                  <h4 class="program-title">{t('disciplines.barreProgram3Title')}</h4>
+                  <p class="program-line">{t('disciplines.barreProgram3Line1')}</p>
+                  <p class="program-line">{t('disciplines.barreProgram3Line2')}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pilates Detail Section (Expandible) -->
+          <div class="discipline-detail" id="pilates-detail">
+            <div class="discipline-detail-content">
+              <h2 class="discipline-detail-title">{t('disciplines.pilatesDetailTitle')}</h2>
+              <h3 class="discipline-detail-subtitle">{t('disciplines.pilatesDetailSubtitle')}</h3>
+              <p class="discipline-detail-text">{t('disciplines.pilatesDetailText')}</p>
+              
+              <div class="discipline-programs">
+                <div class="program-box program-box-1">
+                  <h4 class="program-title">{t('disciplines.pilatesProgram1Title')}</h4>
+                  <p class="program-line">{t('disciplines.pilatesProgram1Line1')}</p>
+                  <p class="program-line">{t('disciplines.pilatesProgram1Line2')}</p>
+                  <p class="program-line">{t('disciplines.pilatesProgram1Line3')}</p>
+                </div>
+                <div class="program-box program-box-2">
+                  <h4 class="program-title">{t('disciplines.pilatesProgram2Title')}</h4>
+                  <p class="program-line">{t('disciplines.pilatesProgram2Line1')}</p>
+                  <p class="program-line">{t('disciplines.pilatesProgram2Line2')}</p>
+                </div>
+                <div class="program-box program-box-3">
+                  <h4 class="program-title">{t('disciplines.pilatesProgram3Title')}</h4>
+                  <p class="program-line">{t('disciplines.pilatesProgram3Line1')}</p>
+                  <p class="program-line">{t('disciplines.pilatesProgram3Line2')}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Funcional Detail Section (Expandible) -->
+          <div class="discipline-detail" id="funcional-detail">
+            <div class="discipline-detail-content">
+              <h2 class="discipline-detail-title">{t('disciplines.functionalDetailTitle')}</h2>
+              <h3 class="discipline-detail-subtitle">{t('disciplines.functionalDetailSubtitle')}</h3>
+              <p class="discipline-detail-text">{t('disciplines.functionalDetailText')}</p>
+              
+              <div class="discipline-programs discipline-programs-5">
+                <div class="program-row program-row-top">
+                  <div class="program-box program-box-1">
+                    <h4 class="program-title">{t('disciplines.functionalProgram1Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram1Text')}</p>
+                  </div>
+                  <div class="program-box program-box-2">
+                    <h4 class="program-title">{t('disciplines.functionalProgram2Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram2Text')}</p>
+                  </div>
+                  <div class="program-box program-box-3">
+                    <h4 class="program-title">{t('disciplines.functionalProgram3Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram3Text')}</p>
+                  </div>
+                </div>
+                <div class="program-row program-row-bottom">
+                  <div class="program-box program-box-4">
+                    <h4 class="program-title">{t('disciplines.functionalProgram4Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram4Text')}</p>
+                  </div>
+                  <div class="program-box program-box-5">
+                    <h4 class="program-title">{t('disciplines.functionalProgram5Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram5Text')}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Yoga Detail Section (Expandible) -->
+          <div class="discipline-detail" id="yoga-detail">
+            <div class="discipline-detail-content">
+              <h2 class="discipline-detail-title">{t('disciplines.yogaDetailTitle')}</h2>
+              <h3 class="discipline-detail-subtitle">{t('disciplines.yogaDetailSubtitle')}</h3>
+              <p class="discipline-detail-text">{t('disciplines.yogaDetailText')}</p>
+              
+              <div class="discipline-programs discipline-programs-2">
+                <div class="program-box program-box-yoga-1">
+                  <h4 class="program-title">{t('disciplines.yogaProgram1Title')}</h4>
+                  <p class="program-text">{t('disciplines.yogaProgram1Text')}</p>
+                </div>
+                <div class="program-box program-box-yoga-2">
+                  <h4 class="program-title">{t('disciplines.yogaProgram2Title')}</h4>
+                  <p class="program-text">{t('disciplines.yogaProgram2Text')}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Mobile Menu Logic
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const closeMenuBtn = document.getElementById('close-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('mobile-menu-overlay');
+
+      function openMenu() {
+        mobileMenu?.classList.add('active');
+        overlay?.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      }
+
+      function closeMenu() {
+        mobileMenu?.classList.remove('active');
+        overlay?.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+
+      hamburgerBtn?.addEventListener('click', openMenu);
+      closeMenuBtn?.addEventListener('click', closeMenu);
+      overlay?.addEventListener('click', closeMenu);
+
+      // Discipline Detail Toggle
+      function toggleDiscipline(disciplineName) {
+        const item = document.querySelector(`[data-discipline="${disciplineName}"]`);
+        const detail = document.getElementById(`${disciplineName}-detail`);
+        const isOpen = detail?.classList.contains('active');
+
+        // Cerrar todas las demás secciones
+        document.querySelectorAll('.discipline-detail').forEach(d => {
+          if (d.id !== `${disciplineName}-detail`) {
+            d.classList.remove('active');
+          }
+        });
+        document.querySelectorAll('.discipline-item').forEach(i => {
+          if (i.dataset.discipline !== disciplineName) {
+            i.classList.remove('active');
+          }
+        });
+
+        if (isOpen) {
+          detail?.classList.remove('active');
+          item?.classList.remove('active');
+        } else {
+          detail?.classList.add('active');
+          item?.classList.add('active');
+          
+          // Scroll suave: Alinear la imagen cerca de la parte superior para ver el contenido debajo
+          setTimeout(() => {
+            if (item) {
+              const itemRect = item.getBoundingClientRect();
+              const absoluteTop = window.pageYOffset + itemRect.top;
+              const headerOffset = 100; // Espacio para el header
+              
+              window.scrollTo({
+                top: absoluteTop - headerOffset,
+                behavior: 'smooth'
+              });
+            }
+          }, 150);
+        }
+      }
+
+      // Función para manejar clicks en discipline items
+      function setupDisciplineClick(disciplineName) {
+        const item = document.querySelector(`[data-discipline="${disciplineName}"]`);
+        const viewMoreBtn = item?.querySelector('.discipline-view-more-btn');
+        
+        // Click en el item completo
+        item?.addEventListener('click', function(e) {
+          // Solo activar si no se hizo click en el botón "ver más"
+          if (!e.target.closest('.discipline-view-more-btn')) {
+            e.preventDefault();
+            toggleDiscipline(disciplineName);
+          }
+        });
+
+        // Click en el botón "ver más"
+        viewMoreBtn?.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDiscipline(disciplineName);
+        });
+      }
+
+      // Setup para cada disciplina
+      setupDisciplineClick('barre');
+      setupDisciplineClick('pilates');
+      setupDisciplineClick('funcional');
+      setupDisciplineClick('yoga');
+
+      // Mobile Layout Handler
+      function handleMobileLayout() {
+        const isMobile = window.innerWidth <= 768;
+        const container = document.querySelector('.disciplines-container');
+        const details = document.querySelectorAll('.discipline-detail');
+        
+        if (isMobile) {
+          // En mobile, movemos cada detail después de su item correspondiente
+          details.forEach(detail => {
+            const id = detail.id.replace('-detail', '');
+            const item = document.querySelector(`.discipline-item[data-discipline="${id}"]`);
+            if (item && item.nextElementSibling !== detail) {
+               item.after(detail);
+            }
+          });
+        } else {
+          // En desktop, movemos los details de vuelta al final del contenedor
+          // Manteniendo el orden original: barre, pilates, funcional, yoga
+          const order = ['barre-detail', 'pilates-detail', 'funcional-detail', 'yoga-detail'];
+          order.forEach(id => {
+            const detail = document.getElementById(id);
+            if (detail && detail.parentNode !== container) {
+              container.appendChild(detail);
+            }
+          });
+        }
+      }
+
+      window.addEventListener('resize', handleMobileLayout);
+      // Ejecutar al cargar
+      handleMobileLayout();
+    </script>
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Oswald', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Header */
+  .custom-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 0;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .header-logo {
+    flex-shrink: 0;
+    z-index: 101; /* Ensure logo is visible */
+  }
+
+  .logo-icon {
+    height: auto;
+    width: auto;
+    max-height: 50px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .header-nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    color: #2c2c2c;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-link:hover {
+    opacity: 0.7;
+  }
+
+  .btn-reserva {
+    background-color: rgba(237, 109, 100, 0.9);
+    color: #ffffff;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  .btn-reserva:hover {
+    background-color: rgba(237, 109, 100, 1);
+  }
+
+  .lang-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lang-item {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .lang-item.active {
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  /* Mobile Menu Styles */
+  .mobile-only {
+    display: none;
+  }
+
+  .hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: none;
+  }
+
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 85%; /* Más ancho (antes 300px) */
+    max-width: 400px;
+    height: 100%;
+    background: #ffffff;
+    z-index: 999;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  }
+
+  .mobile-menu.active {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .mobile-menu-header .logo-icon {
+    height: 35px; /* Logo más pequeño en menú móvil */
+    width: auto;
+  }
+
+  .close-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .mobile-menu-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .mobile-nav-link {
+    color: #2c2c2c;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .mobile-btn-reserva {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mobile-lang-selector {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .mobile-lang-item {
+    color: #2c2c2c;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .mobile-lang-item.active {
+    font-weight: 600;
+    color: #ED6D64;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+  }
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3; /* Por encima del logo */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-text {
+    /* Alineación izquierda por defecto */
+    position: relative;
+    z-index: 4; /* Asegurar que el texto esté por encima */
+  }
+
+  .hero-title {
+    font-family: 'Oswald', sans-serif;
+    color: #C6E1EA;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .hero-line-1 {
+    font-weight: 500;
+    font-size: 89.6px;
+    display: block;
+  }
+
+  .hero-line-2 {
+    font-weight: 500;
+    font-size: 92.7px;
+    display: block;
+  }
+
+  .hero-line-3 {
+    font-weight: 500;
+    font-size: 109px;
+    display: block;
+  }
+
+  /* Logo rotado derecha */
+  .hero-logo-container {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    /* translate(X, Y) rotate. X mueve hacia la derecha. Y centra. */
+    /* Para 105vh: si right es 0, el centro es 0. Necesitamos moverlo a la derecha para que solo se vea el borde superior (ahora izquierdo) */
+    transform: translate(30%, -50%) rotate(90deg); 
+    transform-origin: center center;
+    z-index: 1; /* Por debajo del título */
+  }
+
+  .logo-rotated-svg {
+    width: 105vh;
+    height: auto;
+    display: block;
+  }
+
+  .mobile-menu .header-logo img {
+    height: 40px; /* Reducir tamaño logo en menú móvil */
+    width: auto;
+  }
+
+  /* Media Queries */
+  @media (max-width: 1024px) {
+    .desktop-only {
+      display: none !important;
+    }
+
+    .mobile-only {
+      display: block !important;
+    }
+
+    .hamburger-btn {
+      display: block;
+    }
+
+    .hero-line-1 { font-size: 60px; }
+    .hero-line-2 { font-size: 62px; }
+    .hero-line-3 { font-size: 72px; }
+    
+    .hero-logo-container {
+      opacity: 0.2; /* Más sutil en tablets/mobile */
+      transform: translate(40%, -50%) rotate(90deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1.5rem;
+    }
+
+    /* Aumentar tamaño texto hero en móvil */
+    .hero-line-1 { font-size: 56px; }
+    .hero-line-2 { font-size: 58px; }
+    .hero-line-3 { font-size: 68px; }
+
+    .logo-rotated-svg {
+      width: 70vh; /* Ajuste para móvil */
+    }
+    
+    .hero-logo-container {
+      transform: translate(45%, -50%) rotate(90deg); /* Menos desplazado, más visible */
+      opacity: 0.6; /* Más visible */
+      right: 0;
+    }
+
+    /* Disciplines Section Mobile */
+    .disciplines-section {
+      padding: 2rem 0 0 0;
+    }
+
+    .disciplines-title {
+      font-size: 28px;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .disciplines-subtitle {
+      font-size: 20px;
+      line-height: 1.3;
+      max-width: 100%;
+      margin-bottom: 60px;
+    }
+
+    .disciplines-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      grid-template-columns: none !important;
+    }
+
+    .discipline-item {
+      width: 100%;
+    }
+
+    .discipline-image {
+      height: 350px;
+    }
+
+    .discipline-overlay-title {
+      font-size: 32px;
+      line-height: 36px;
+      margin-bottom: 0.75rem;
+    }
+
+    .discipline-overlay-tags {
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    /* En mobile, el overlay con texto es visible siempre y oscurece un poco la imagen */
+    .discipline-item .discipline-overlay {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.3); /* Oscurecer imagen */
+    }
+
+    /* El gradiente inferior también visible */
+    .discipline-gradient-overlay {
+      height: 50%;
+      padding: 1.5rem;
+      opacity: 1;
+    }
+
+    .discipline-item.active .discipline-overlay {
+      background-color: rgba(165, 55, 22, 0.7); /* Color rojizo al estar activo */
+    }
+  }
+
+  /* Disciplines Section */
+  .disciplines-section {
+    padding: 4rem 0 0 0; /* Sin padding inferior, pegado abajo */
+    background: #ffffff;
+    margin-bottom: 0;
+  }
+
+  .disciplines-container {
+    max-width: 1200px; /* Ancho completo para que quepan los textos */
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .disciplines-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 47px;
+    line-height: 85px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 1rem 0;
+  }
+
+  .disciplines-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 38px;
+    line-height: 50px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    text-align: center;
+    max-width: 937px;
+    margin: 0 auto 169px auto;
+  }
+
+  .disciplines-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .discipline-item {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .discipline-image {
+    width: 100%;
+    height: 485px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .discipline-image-right {
+    object-position: 25% center;
+  }
+
+  .discipline-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #A53716;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .discipline-item:hover .discipline-overlay,
+  .discipline-item.active .discipline-overlay {
+    opacity: 0.7;
+  }
+
+  .discipline-item:hover .discipline-image,
+  .discipline-item.active .discipline-image {
+    transform: scale(1.05);
+  }
+
+  /* Gradiente overlay con botón "ver más" - Oculto por defecto en desktop */
+  .discipline-gradient-overlay {
+    display: none;
+  }
+
+  .discipline-view-more-btn {
+    display: none;
+  }
+
+  /* Solo visible en mobile */
+  @media (max-width: 768px) {
+    .discipline-gradient-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(165, 55, 22, 0.95) 0%, rgba(165, 55, 22, 0.7) 50%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .discipline-view-more-btn {
+      display: flex;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 50px;
+      padding: 0.6rem 1.2rem;
+      color: #ffffff;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      pointer-events: all;
+      backdrop-filter: blur(4px);
+    }
+
+    .discipline-view-more-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    /* Asegurar layout columna en mobile */
+    .discipline-programs,
+    .discipline-programs-5 .program-row {
+      flex-direction: column !important;
+      display: flex !important;
+      gap: 20px !important;
+    }
+
+    .program-box,
+    .discipline-programs-5 .program-row-top .program-box,
+    .discipline-programs-5 .program-row-bottom .program-box {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      flex: none !important;
+    }
+  }
+
+  .discipline-overlay-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 45px;
+    line-height: 50px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0 0 1rem 0;
+  }
+
+  .discipline-overlay-tags {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  /* Discipline Detail Section */
+  .discipline-detail {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    padding: 0;
+  }
+
+  .discipline-detail.active {
+    max-height: 2000px;
+    opacity: 1;
+    padding: 6rem 0 4rem 0; /* Más espacio arriba */
+  }
+
+  .discipline-detail-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+  }
+
+  .discipline-detail-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 60px;
+    line-height: 50px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    margin: 0 auto 54px auto; /* Margen exacto de 54px */
+    text-decoration: underline;
+    text-decoration-color: #ED6D64;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.5rem;
+    display: inline-block;
+    letter-spacing: 0.05em; /* 5% */
+  }
+
+  .discipline-detail-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 50px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    margin: 0 auto 0 auto; /* Sin margen inferior, el siguiente elemento controla el espacio */
+    text-align: center;
+    letter-spacing: 0.07em; /* 7% */
+  }
+
+  .discipline-detail-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 50px;
+    color: #2c2c2c;
+    margin: 0 auto 81px auto; /* Margen exacto de 81px hacia los contenedores */
+    text-align: center;
+    width: 100%;
+    max-width: 1200px; /* Ancho máximo de 1200px */
+    letter-spacing: 0.05em; /* 5% */
+    box-sizing: border-box;
+  }
+
+  .discipline-programs {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .program-box {
+    flex: 1;
+    padding: 32px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 200px;
+    box-sizing: border-box;
+  }
+
+  .program-box-1 {
+    background-color: #A53716;
+  }
+
+  .program-box-2 {
+    background-color: #DB5639;
+  }
+
+  .program-box-3 {
+    background-color: #ED6D64;
+  }
+
+  .program-box-4 {
+    background-color: #ED6D64;
+  }
+
+  .program-box-5 {
+    background-color: #ED6D64;
+  }
+
+  /* Layout especial para 5 contenedores (3 arriba, 2 abajo) */
+  .discipline-programs-5 {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .discipline-programs-5 .program-row {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .discipline-programs-5 .program-row-top .program-box {
+    flex: 0 0 calc((100% - 80px) / 3);
+    width: calc((100% - 80px) / 3);
+    max-width: 360px;
+    min-width: 280px;
+  }
+
+  .discipline-programs-5 .program-row-bottom .program-box {
+    flex: 0 0 calc((100% - 40px) / 2);
+    width: calc((100% - 40px) / 2);
+    max-width: 360px; /* Mismo ancho máximo que los de arriba */
+    min-width: 280px;
+  }
+
+  /* Layout para 2 contenedores (Yoga) */
+  .discipline-programs-2 {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .discipline-programs-2 .program-box {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 360px;
+    min-width: 280px;
+  }
+
+  .program-box-yoga-1 {
+    background-color: #BE5032;
+  }
+
+  .program-box-yoga-2 {
+    background-color: #ED6D64;
+  }
+
+  .program-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 38px;
+    line-height: 42px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.1em; /* 10% */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .program-line {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 30px;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.1em; /* 10% */
+  }
+
+  .program-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 30px;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.1em; /* 10% */
+  }
+
+  /* Responsive Disciplines */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .disciplines-section {
+      padding: 3rem 0 0 0;
+    }
+
+    .disciplines-container {
+      max-width: 100%;
+      padding: 0 2rem;
+    }
+
+    .disciplines-title {
+      font-size: 38px;
+      line-height: 60px;
+      margin-bottom: 1rem;
+    }
+
+    .disciplines-subtitle {
+      font-size: 30px;
+      line-height: 42px;
+      margin-bottom: 100px;
+      max-width: 100%;
+    }
+
+    .disciplines-grid {
+      grid-template-columns: repeat(2, 1fr);
+      display: grid;
+    }
+
+    .discipline-image {
+      height: 400px;
+    }
+
+    .discipline-overlay-title {
+      font-size: 38px;
+      line-height: 42px;
+    }
+
+    .discipline-overlay-tags {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    /* Secciones expandidas en mobile */
+    .discipline-detail-text {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      font-size: 22px;
+      line-height: 36px;
+      padding: 0 1.5rem;
+      box-sizing: border-box;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .discipline-detail-content {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 1rem;
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+
+    .discipline-detail-title,
+    .discipline-detail-subtitle {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 1rem;
+      box-sizing: border-box;
+    }
+
+    .discipline-programs {
+      flex-direction: column !important;
+      gap: 20px;
+    }
+
+    .discipline-programs-5 .program-row {
+      flex-direction: column !important;
+      gap: 20px;
+    }
+
+    .discipline-programs-2 .program-box,
+    .discipline-programs-5 .program-row-top .program-box,
+    .discipline-programs-5 .program-row-bottom .program-box {
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+    }
+
+    .discipline-programs-5 .program-row {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .program-title {
+      font-size: 32px;
+      line-height: 36px;
+    }
+
+    .program-text,
+    .program-line {
+      font-size: 20px;
+      line-height: 26px;
+    }
+    /* Orden en mobile para intercalar */
+    .discipline-item[data-discipline="barre"] { order: 1; }
+    #barre-detail { order: 2; }
+    .discipline-item[data-discipline="pilates"] { order: 3; }
+    #pilates-detail { order: 4; }
+    .discipline-item[data-discipline="funcional"] { order: 5; }
+    #funcional-detail { order: 6; }
+    .discipline-item[data-discipline="yoga"] { order: 7; }
+    #yoga-detail { order: 8; }
+  }
+</style>

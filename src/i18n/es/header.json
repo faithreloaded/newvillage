@@ -5,10 +5,14 @@
     "prices": "Precios",
     "schedule": "Horarios",
     "contact": "Contacto",
-    "buttons": "Botones"
+    "buttons": "Botones",
+    "movement": "MOVIMIENTO",
+    "plans": "PLANES",
+    "myAccount": "MI CUENTA"
   },
   "actions": {
-    "bookNow": "Reservar ahora"
+    "bookNow": "Reservar ahora",
+    "reserve": "RESERVA"
   },
   "lang": {
     "es": "ES",
