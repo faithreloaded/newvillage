@@ -91,7 +91,11 @@
     "yogaProgram1Text": "Força, energia i equilibri en moviment",
     "yogaProgram2Title": "FLOW",
     "yogaProgram2Text": "Flueix amb la teva respiració i connecta amb el teu cos",
-    "viewSchedule": "Veure horaris"
+    "viewSchedule": "Veure horaris",
+    "ctaSection": {
+      "text": "MOURE'T MILLOR COMENÇA PER TRIAR ON",
+      "button": "RESERVA LA TEVA CLASSE"
+    }
   },
   "contact": {
     "title": "Contacta amb nosaltres",

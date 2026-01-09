@@ -91,7 +91,11 @@
     "yogaProgram1Text": "Fuerza, energía y equilibrio en movimiento",
     "yogaProgram2Title": "FLOW",
     "yogaProgram2Text": "Fluye con tu respiración y conecta con tu cuerpo",
-    "viewSchedule": "Ver horarios"
+    "viewSchedule": "Ver horarios",
+    "ctaSection": {
+      "text": "MOVERTE MEJOR EMPIEZA POR ELEGIR DÓNDE",
+      "button": "RESERVA TU CLASE"
+    }
   },
   "contact": {
     "title": "Contacta con nosotros",

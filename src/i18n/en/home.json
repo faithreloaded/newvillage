@@ -91,7 +91,11 @@
     "yogaProgram1Text": "Strength, energy and balance in movement",
     "yogaProgram2Title": "FLOW",
     "yogaProgram2Text": "Flow with your breath and connect with your body",
-    "viewSchedule": "View schedule"
+    "viewSchedule": "View schedule",
+    "ctaSection": {
+      "text": "MOVING BETTER STARTS BY CHOOSING WHERE",
+      "button": "BOOK YOUR CLASS"
+    }
   },
   "contact": {
     "title": "Contact us",
