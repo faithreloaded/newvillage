@@ -856,11 +856,52 @@ const langLabels: Record<Locale, string> = {
     width: auto;
   }
 
-  /* Media Queries */
+  /* Responsive Disciplines & Footer Tablet */
   @media (max-width: 1024px) {
     .desktop-only {
       display: none !important;
     }
+    /* ... (resto del css existente si coincide) ... */
+
+    /* Footer Tablet */
+    .footer-link {
+        font-size: 24px;
+        line-height: 34px;
+        letter-spacing: 1px;
+    }
+    
+    .footer-separator {
+        font-size: 24px;
+        margin: 0 5px;
+    }
+    
+    .footer-text-main, 
+    .footer-text-sub {
+        font-size: 26px;
+        line-height: 34px;
+        letter-spacing: 2px;
+    }
+
+    .footer-text-absolute {
+       flex-direction: column; /* En tablet ya pasamos a columna para evitar desbordamiento */
+       gap: 5px;
+    }
+
+    .footer-logo-img {
+        width: 180px;
+    }
+
+    .footer-top {
+        margin-bottom: 80px;
+        flex-direction: column; /* Stackear en tablet también si no cabe */
+        align-items: center;
+        gap: 40px;
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+  }
 
     .mobile-only {
       display: block !important;
@@ -902,7 +943,7 @@ const langLabels: Record<Locale, string> = {
 
     /* Disciplines Section Mobile */
     .disciplines-section {
-      padding: 2rem 0 0 0;
+      padding: 2rem 0 4rem 0; /* Añadido padding bottom */
     }
 
     .disciplines-title {
