@@ -1,0 +1,168 @@
+---
+import { LOCALES, type Locale, loadT } from '../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home', 'header']);
+
+// Función para obtener la URL con el idioma cambiado
+function getLangUrl(newLang: Locale): string {
+  const currentPath = Astro.url.pathname;
+  const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
+  return `/${newLang}${pathWithoutLang || '/booking'}`;
+}
+
+const langLabels: Record<Locale, string> = {
+  es: 'ESP',
+  en: 'ENG',
+  ca: 'CAT'
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+    </style>
+    <title>NewVillage - Reserva</title>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- Header -->
+      <header class="custom-header">
+        <div class="container">
+          <div class="header-content">
+            <div class="header-logo">
+              <a href={`/${lang}/home-new`}>
+                <img src="/images/logo.svg" alt="NewVillage" class="logo-icon" />
+              </a>
+            </div>
+            
+            <div class="header-right desktop-only">
+              <nav class="header-nav">
+                <a href={`/${lang}/home-new`} class="nav-link">HOME</a>
+                <a href="#" class="nav-link">{t('nav.movement')}</a>
+                <a href="#" class="nav-link">{t('nav.plans')}</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="booking-content">
+        <div class="container">
+          <h1 class="booking-title">{t('actions.reserve')}</h1>
+          <div class="booking-widget-container">
+            <!-- VirtuaGym Integration Placeholder -->
+            <div class="virtuagym-placeholder">
+              <p>Cargando horario...</p>
+              <iframe 
+                src="https://innerflow.virtuagym.com/classes/week" 
+                width="100%" 
+                height="800" 
+                frameborder="0"
+                allow="camera; microphone; autoplay; encrypted-media;"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="custom-footer">
+        <div class="container">
+            <p style="text-align: center;">NEW VILLAGE STUDIO</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Oswald', sans-serif;
+    background-color: #ffffff;
+    color: #2c2c2c;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .custom-header {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-icon {
+    height: 50px;
+    width: auto;
+  }
+
+  .header-right {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    color: #2c2c2c;
+    text-decoration: none;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
+  .booking-content {
+    padding: 4rem 0;
+    min-height: 80vh;
+  }
+
+  .booking-title {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .booking-widget-container {
+    background: #f9f9f9;
+    min-height: 600px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .virtuagym-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-footer {
+    padding: 2rem 0;
+    border-top: 1px solid #eee;
+    margin-top: auto;
+  }
+</style>

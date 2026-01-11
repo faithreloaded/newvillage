@@ -50,11 +50,11 @@ const langLabels: Record<Locale, string> = {
               <nav class="header-nav">
                 <a href="#" class="nav-link">{t('nav.movement')}</a>
                 <a href="#" class="nav-link">{t('nav.plans')}</a>
-                <a href="#" class="nav-link">{t('nav.myAccount')}</a>
+                <a href="#" class="nav-link my-account-trigger">{t('nav.myAccount')}</a>
               </nav>
               
               <!-- Botón Reserva -->
-              <a href="#" class="btn-reserva">{t('actions.reserve')}</a>
+              <a href={`/${lang}/booking`} class="btn-reserva">{t('actions.reserve')}</a>
               
               <!-- Selector de idioma -->
               <div class="lang-selector">
@@ -107,10 +107,10 @@ const langLabels: Record<Locale, string> = {
           <nav class="mobile-nav">
             <a href="#" class="mobile-nav-link">{t('nav.movement')}</a>
             <a href="#" class="mobile-nav-link">{t('nav.plans')}</a>
-            <a href="#" class="mobile-nav-link">{t('nav.myAccount')}</a>
+            <a href="#" class="mobile-nav-link my-account-trigger">{t('nav.myAccount')}</a>
           </nav>
           
-          <a href="#" class="btn-reserva mobile-btn-reserva">{t('actions.reserve')}</a>
+          <a href={`/${lang}/booking`} class="btn-reserva mobile-btn-reserva">{t('actions.reserve')}</a>
           
           <div class="mobile-lang-selector">
             {(LOCALES as readonly Locale[]).map((locale) => (
@@ -121,6 +121,24 @@ const langLabels: Record<Locale, string> = {
                 {langLabels[locale]}
               </a>
             ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- My Account Modal -->
+      <div class="modal-overlay" id="account-modal">
+        <div class="modal-content">
+          <button class="modal-close" id="close-account-modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <h2 class="modal-title">{t('nav.myAccount')}</h2>
+          <div class="modal-body">
+            <p class="modal-text">Acceso a clientes próximamente.</p>
+            <!-- Aquí se integrará VirtuaGym más adelante -->
+            <a href="https://innerflow.virtuagym.com/" target="_blank" class="modal-btn">IR A VIRTUAGYM</a>
           </div>
         </div>
       </div>
@@ -359,6 +377,74 @@ const langLabels: Record<Locale, string> = {
         <img src="/images/local.jpg" alt="NewVillage Local" class="local-image" />
       </section>
 
+      <!-- FAQs Section -->
+      <section class="faqs-section">
+        <div class="container">
+          <h2 class="faqs-title">PREGUNTAS FRECUENTES</h2>
+          <div class="faqs-accordion">
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿QUÉ NECESITO LLEVAR A MI PRIMERA CLASE?</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>Te recomendamos traer ropa cómoda deportiva, una botella de agua y una toalla pequeña. Nosotros proporcionamos todo el material necesario para las clases, incluyendo esterillas.</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿ES NECESARIO TENER EXPERIENCIA PREVIA?</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>¡Para nada! Nuestras clases están diseñadas para adaptarse a todos los niveles. Nuestros instructores te guiarán y ofrecerán modificaciones según tus necesidades.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿PUEDO CANCELAR O CAMBIAR MI RESERVA?</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>Sí, puedes cancelar o reprogramar tu clase hasta 12 horas antes del inicio de la sesión a través de tu cuenta o la app.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿OFRECÉIS CLASES PRIVADAS?</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>Sí, ofrecemos sesiones privadas individuales y para grupos pequeños. Ponte en contacto con nosotros para más información sobre tarifas y disponibilidad.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿TENÉIS VESTUARIOS Y DUCHAS?</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>Sí, disponemos de vestuarios completos con duchas y taquillas para que puedas cambiarte cómodamente antes y después de tu práctica.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Footer -->
       <footer class="custom-footer">
         <div class="container" style="display: block;">
@@ -517,6 +603,51 @@ const langLabels: Record<Locale, string> = {
       window.addEventListener('resize', handleMobileLayout);
       // Ejecutar al cargar
       handleMobileLayout();
+
+      // Account Modal Logic
+      const accountModal = document.getElementById('account-modal');
+      const closeAccountBtn = document.getElementById('close-account-modal');
+      const accountTriggers = document.querySelectorAll('.my-account-trigger');
+
+      function openAccountModal(e) {
+        e.preventDefault();
+        accountModal?.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeAccountModal() {
+        accountModal?.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      accountTriggers.forEach(trigger => trigger.addEventListener('click', openAccountModal));
+      closeAccountBtn?.addEventListener('click', closeAccountModal);
+      accountModal?.addEventListener('click', (e) => {
+        if (e.target === accountModal) closeAccountModal();
+      });
+
+      // FAQs Logic
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const isActive = item.classList.contains('active');
+          
+          // Cerrar todos
+          document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('active');
+            const icon = i.querySelector('.faq-icon');
+            if(icon) icon.style.transform = 'rotate(0deg)';
+          });
+
+          if (!isActive) {
+            item.classList.add('active');
+            const icon = item.querySelector('.faq-icon');
+            if(icon) icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
     </script>
   </body>
 </html>
@@ -544,6 +675,119 @@ const langLabels: Record<Locale, string> = {
     align-items: center;
   }
 
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 3rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      text-align: center;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .modal-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 32px;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .modal-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      margin-bottom: 2rem;
+      color: #666;
+    }
+
+    .modal-btn {
+      display: inline-block;
+      background-color: #ED6D64;
+      color: white;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .modal-btn:hover {
+      background-color: #DB5639;
+    }
+
+  /* Animations */
+  @keyframes fadeDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   /* Header */
   .custom-header {
     position: absolute;
@@ -552,6 +796,7 @@ const langLabels: Record<Locale, string> = {
     right: 0;
     z-index: 100;
     padding: 1.5rem 0;
+    animation: fadeDown 0.8s ease-out;
   }
 
   .header-content {
@@ -820,18 +1065,24 @@ const langLabels: Record<Locale, string> = {
     font-weight: 500;
     font-size: 89.6px;
     display: block;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.3s forwards;
   }
 
   .hero-line-2 {
     font-weight: 500;
     font-size: 92.7px;
     display: block;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.5s forwards;
   }
 
   .hero-line-3 {
     font-weight: 500;
     font-size: 109px;
     display: block;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.7s forwards;
   }
 
   /* Logo rotado derecha */
@@ -844,6 +1095,8 @@ const langLabels: Record<Locale, string> = {
     transform: translate(30%, -50%) rotate(90deg); 
     transform-origin: center center;
     z-index: 1; /* Por debajo del título */
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.9s forwards;
   }
 
   .logo-rotated-svg {
@@ -932,12 +1185,16 @@ const langLabels: Record<Locale, string> = {
     .hero-line-3 { font-size: 68px; }
 
     .logo-rotated-svg {
-      width: 70vh; /* Ajuste para móvil */
+      width: 85vh; /* Un poco más grande en móvil */
+    }
+    
+    .logo-rotated-svg path {
+      fill-opacity: 0.5 !important; /* Más visible en móvil */
     }
     
     .hero-logo-container {
       transform: translate(45%, -50%) rotate(90deg); /* Menos desplazado, más visible */
-      opacity: 0.6; /* Más visible */
+      opacity: 0.75; /* Más visible, menos opaco */
       right: 0;
     }
 
@@ -1082,12 +1339,114 @@ const langLabels: Record<Locale, string> = {
     padding: 0;
   }
 
-  .local-image {
+    .local-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
+  }
+
+  /* FAQs Section */
+  .faqs-section {
+    padding: 6rem 0;
+    background-color: #ffffff;
+  }
+
+  .faqs-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 60px; /* Más grande */
+    line-height: 1.2;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .faqs-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.3s ease;
+  }
+
+  .faq-question span {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .faq-question:hover span {
+    color: #ED6D64;
+  }
+
+  .faq-icon {
+    transition: transform 0.3s ease;
+    color: #ED6D64;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 200px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer p {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+  }
+
+  /* Responsive FAQs */
+  @media (max-width: 768px) {
+    .faqs-section {
+      padding: 4rem 0;
+    }
+    
+    .faqs-title {
+      font-size: 32px;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+
+    .faq-question span {
+      font-size: 20px;
+    }
+
+    .faq-answer p {
+      font-size: 16px;
+    }
   }
 
   /* Footer */
@@ -1430,6 +1789,8 @@ const langLabels: Record<Locale, string> = {
       min-height: 200px; /* Altura mínima reducida en mobile */
       margin-top: 20px;
     }
+
+    .footer-text-absolute {
       flex-direction: column;
       gap: 0;
     }
