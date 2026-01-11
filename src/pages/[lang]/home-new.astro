@@ -943,7 +943,8 @@ const langLabels: Record<Locale, string> = {
 
     /* Disciplines Section Mobile */
     .disciplines-section {
-      padding: 2rem 0 4rem 0; /* Añadido padding bottom */
+      padding: 2rem 0 8rem 0 !important; /* Espacio inferior generoso forzado */
+      margin-bottom: 4rem !important; /* Margen adicional forzado */
     }
 
     .disciplines-title {
@@ -963,6 +964,11 @@ const langLabels: Record<Locale, string> = {
       display: flex !important;
       flex-direction: column !important;
       grid-template-columns: none !important;
+      margin-bottom: 4rem; /* Separación adicional del último elemento */
+    }
+
+    .disciplines-container {
+      margin-bottom: 2rem; /* Margen adicional del contenedor */
     }
 
     .discipline-item {
@@ -999,6 +1005,11 @@ const langLabels: Record<Locale, string> = {
 
     .discipline-item.active .discipline-overlay {
       background-color: rgba(165, 55, 22, 0.7); /* Color rojizo al estar activo */
+    }
+
+    /* Añadir margen inferior al último elemento de disciplinas en móvil */
+    .disciplines-grid {
+      margin-bottom: 5rem !important;
     }
   }
 
