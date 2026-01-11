@@ -1,5 +1,6 @@
 ---
 import { LOCALES, type Locale, loadT } from '../../i18n';
+import NewHeader from '../../components/NewHeader.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
@@ -36,25 +37,7 @@ const langLabels: Record<Locale, string> = {
   <body>
     <div class="page-wrapper">
       <!-- Header -->
-      <header class="custom-header">
-        <div class="container">
-          <div class="header-content">
-            <div class="header-logo">
-              <a href={`/${lang}/home-new`}>
-                <img src="/images/logo.svg" alt="NewVillage" class="logo-icon" />
-              </a>
-            </div>
-            
-            <div class="header-right desktop-only">
-              <nav class="header-nav">
-                <a href={`/${lang}/home-new`} class="nav-link">HOME</a>
-                <a href="#" class="nav-link">{t('nav.movement')}</a>
-                <a href="#" class="nav-link">{t('nav.plans')}</a>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </header>
+      <NewHeader lang={lang} overlay={false} />
 
       <main class="legal-content">
         <div class="container">
@@ -129,36 +112,6 @@ const langLabels: Record<Locale, string> = {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-  }
-
-  .custom-header {
-    padding: 1.5rem 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo-icon {
-    height: 50px;
-    width: auto;
-  }
-
-  .header-right {
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  .nav-link {
-    color: #2c2c2c;
-    text-decoration: none;
-    font-size: 20px;
-    text-transform: uppercase;
-    margin-left: 2rem;
   }
 
   .legal-content {
@@ -362,10 +315,6 @@ const langLabels: Record<Locale, string> = {
       line-height: 32px;
       letter-spacing: 2px;
       white-space: normal;
-    }
-    
-    .header-right.desktop-only {
-        display: none;
     }
   }
 </style>
