@@ -1,0 +1,72 @@
+{
+  "plansPage": {
+    "title": "MOVE YOUR WAY. WE ADAPT",
+    "line1": "TRAIN WITH FREEDOM.",
+    "line2": "NO COMMITMENT, NO OBLIGATIONS, NO RUSH",
+    "line3": "CHOOSE THE OPTION THAT BEST FITS YOUR RHYTHM.",
+    "btnMembership": "MEMBERSHIP",
+    "btnBonds": "PACKS",
+    "membership": {
+      "title": "MEMBERSHIP",
+      "description": "MONTHLY ACCESS TO ALL DISCIPLINES, WITH THE FREEDOM TO TRAIN AT YOUR OWN PACE AND ADAPT YOUR PRACTICE TO EVERY MOMENT",
+      "footer": "Your practice. Your rhythm.",
+      "includesTitle": "INCLUDES",
+      "items": [
+        "NewVillage Tote bag",
+        "2 free events per year",
+        "Bring your friend"
+      ],
+      "fee": "Registration fee: 60€*",
+      "feeNote": "*One-time payment upon registration.",
+      "price": "122€/month",
+      "button": "BECOME A MEMBER"
+    },
+    "packs": {
+      "title": "OUR PACKS",
+      "description": "PACKS ARE IDEAL FOR TRYING OUT, COMBINING DISCIPLINES OR COMING AT YOUR OWN PACE. FLEXIBLE, CLEAR AND NO COMMITMENT.",
+      "btnReserve": "BOOK",
+      "footer": "No commitment. No rush. No compromises.",
+      "badgeText": "RECOMMENDED TO START",
+      "items": [
+        {
+          "title": "SINGLE CLASS",
+          "subtitle": "",
+          "price": "21€",
+          "validity": "1 month validity."
+        },
+        {
+          "title": "PACK SAY HI",
+          "subtitle": "3 CLASSES",
+          "price": "48€",
+          "validity": "1 month validity.",
+          "note": "Available only once per user",
+          "recommended": true
+        },
+        {
+          "title": "PACK S",
+          "subtitle": "5 CLASSES",
+          "price": "90€",
+          "validity": "2 months validity."
+        },
+        {
+          "title": "PACK M",
+          "subtitle": "10 CLASSES",
+          "price": "150€",
+          "validity": "3 months validity."
+        },
+        {
+          "title": "PACK L",
+          "subtitle": "15 CLASSES",
+          "price": "218€",
+          "validity": "6 months validity."
+        },
+        {
+          "title": "PACK XL",
+          "subtitle": "20 CLASSES",
+          "price": "280€",
+          "validity": "6 months validity."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,980 @@
+---
+import { LOCALES, type Locale, loadT } from '../../i18n';
+import NewHeader from '../../components/NewHeader.astro';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home', 'header', 'plans']);
+
+// Función para obtener la URL con el idioma cambiado
+function getLangUrl(newLang: Locale): string {
+  const currentPath = Astro.url.pathname;
+  const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
+  return `/${newLang}${pathWithoutLang || '/plans'}`;
+}
+
+const langLabels: Record<Locale, string> = {
+  es: 'ESP',
+  en: 'ENG',
+  ca: 'CAT'
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta name="description" content="Planes y precios en New Village Studio. Membresías, bonos y clases sueltas. Entrena a tu ritmo." />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+    </style>
+    <title>NewVillage | Planes</title>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- Header -->
+      <NewHeader lang={lang} overlay={true} />
+
+      <!-- Hero Section -->
+      <section class="plans-hero-section">
+        <div class="hero-background">
+          <img src="/images/planeshero.jpg" alt="Plans Background" class="hero-bg-image" />
+        </div>
+        
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text-container">
+              <h1 class="hero-title">{t('plansPage.title')}</h1>
+              <div class="hero-description">
+                <p>{t('plansPage.line1')}</p>
+                <p>{t('plansPage.line2')}</p>
+                <p>{t('plansPage.line3')}</p>
+              </div>
+              <div class="hero-buttons">
+                <a href="#memberships" class="plan-btn">{t('plansPage.btnMembership')}</a>
+                <a href="#bonds" class="plan-btn">{t('plansPage.btnBonds')}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Placeholder content for scrolling -->
+      <!-- <div style="height: 100px;"></div> Eliminado placeholder innecesario -->
+
+      <!-- Membership Section -->
+      <section class="membership-section" id="memberships">
+        <div class="container membership-container">
+          <div class="membership-left">
+            <h2 class="membership-title">{t('plansPage.membership.title')}</h2>
+            <p class="membership-description">
+              {t('plansPage.membership.description')}
+            </p>
+            <div class="membership-footer-text">{t('plansPage.membership.footer')}</div>
+          </div>
+          <div class="membership-right">
+            <div class="includes-box">
+              <h3 class="includes-title">{t('plansPage.membership.includesTitle')}</h3>
+              <ul class="includes-list">
+                {(t('plansPage.membership.items') as unknown as string[]).map((item) => (
+                  <li>• {item}</li>
+                ))}
+              </ul>
+              <div class="membership-fee-container">
+                <p class="membership-fee">{t('plansPage.membership.fee')}</p>
+                <p class="membership-fee-note">{t('plansPage.membership.feeNote')}</p>
+              </div>
+              <p class="membership-price">{t('plansPage.membership.price')}</p>
+              <a href="#" class="plan-btn membership-btn">{t('plansPage.membership.button')}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Packs Section -->
+      <section class="packs-section" id="bonds">
+        <div class="container packs-header-container">
+          <h2 class="packs-title">{t('plansPage.packs.title')}</h2>
+          <p class="packs-description">{t('plansPage.packs.description')}</p>
+        </div>
+
+        <div class="packs-grid">
+          {(t('plansPage.packs.items') as unknown as any[]).map((item, index) => (
+            <div class={`pack-item pack-item-${index + 1}`}>
+              {item.recommended && (
+                <div class="pack-badge">
+                  <img src="/images/recomendedcircle.png" alt={t('plansPage.packs.badgeText')} class="badge-img" />
+                </div>
+              )}
+              <h3 class="pack-title">
+                <span class="pack-title-main">{item.title}</span>
+                {item.subtitle && <span class="pack-subtitle">{item.subtitle}</span>}
+              </h3>
+              <div class="pack-price-container">
+                <p class="pack-price">{item.price}</p>
+                <p class="pack-validity">{item.validity}</p>
+                {item.note && <p class="pack-note">{item.note}</p>}
+              </div>
+              <a href="#" class="pack-btn">{t('plansPage.packs.btnReserve')}</a>
+            </div>
+          ))}
+        </div>
+
+        <div class="container packs-footer-container">
+          <p class="packs-footer-text">{t('plansPage.packs.footer')}</p>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="custom-footer">
+        <div class="container" style="display: block;">
+          <div class="footer-top">
+            <div class="footer-left">
+              <img src="/images/logofooter.svg" alt="NewVillage Logo" class="footer-logo-img" />
+            </div>
+            <div class="footer-right">
+              <nav class="footer-links">
+                <a href={`/${lang}/home-new#faqs`} class="footer-link">{t('footerLinks.faqs')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/contact`} class="footer-link">{t('footerLinks.contact')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/privacy`} class="footer-link">{t('footerLinks.privacy')}</a>
+                <a href="#" class="footer-social-link">
+                  <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                </a>
+              </nav>
+            </div>
+          </div>
+          
+          <div class="footer-bottom">
+            <div class="footer-text-absolute">
+              <span class="footer-text-main">NEW VILLAGE STUDIO.</span>
+              <span class="footer-text-sub">MOVE, MEET & CONNECT</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Oswald', sans-serif;
+    background-color: #ffffff;
+    color: #2c2c2c;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1240px; /* Actualizado a 1240px */
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box; /* Asegurar modelo de caja */
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hero Section */
+  .plans-hero-section {
+    position: relative;
+    width: 100%;
+    height: 800px; /* Altura fija */
+    min-height: 800px;
+    overflow: hidden;
+    /* display: flex; Eliminado para evitar conflictos con el container */
+    /* align-items: center; */
+    padding-top: 100px; /* Espacio extra para separar del header */
+  }
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center; /* Adjust if needed */
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado verticalmente */
+    align-items: flex-start; /* Alineado a la izquierda */
+    width: 100%; /* Asegurar ancho completo */
+    padding: 0; /* Asegurar sin padding extra */
+    margin: 0; /* Asegurar sin margen extra */
+  }
+
+  .hero-text-container {
+    width: 100%; /* Ocupar todo el ancho disponible */
+    max-width: 100%; /* Eliminar restricción de ancho */
+    text-align: left;
+    padding: 0; /* Asegurar sin padding extra */
+  }
+
+  .hero-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 54px;
+    line-height: 65px;
+    letter-spacing: 0.04em; /* 4% */
+    color: #2c2c2c; /* Assuming dark text like in the image */
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.3s forwards;
+  }
+
+  .hero-description {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 37px;
+    line-height: 50px;
+    letter-spacing: 0.04em; /* 4% */
+    color: #2c2c2c;
+    margin: 0 0 49px 0;
+    text-transform: uppercase;
+  }
+
+  .hero-description p {
+    margin: 0;
+    opacity: 0;
+  }
+
+  .hero-description p:nth-child(1) {
+    animation: fadeUp 0.8s ease-out 0.5s forwards;
+  }
+
+  .hero-description p:nth-child(2) {
+    animation: fadeUp 0.8s ease-out 0.7s forwards;
+  }
+
+  .hero-description p:nth-child(3) {
+    animation: fadeUp 0.8s ease-out 0.9s forwards;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 20px; /* Gap between buttons */
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1.1s forwards;
+  }
+
+  .plan-btn {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 50px;
+    letter-spacing: 0.05em; /* 5% */
+    color: #ED6D64;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 3px solid #ED6D64;
+    padding: 0 2rem; /* Horizontal padding */
+    height: 80px; /* Altura fija de 80px */
+    display: inline-flex; /* Usar flex para centrar verticalmente */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px; /* Rounded pill shape like image */
+    transition: all 0.3s ease;
+    background: transparent;
+    box-sizing: border-box;
+  }
+
+  .plan-btn:hover {
+    background-color: #ED6D64;
+    color: #ffffff;
+  }
+
+  /* Membership Section */
+  .membership-section {
+    background-color: #EEF5F8;
+    padding: 100px 0;
+    width: 100%;
+  }
+
+  .membership-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 4rem;
+  }
+
+  .membership-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .membership-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 80px;
+    line-height: 104px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    margin: 0 0 2rem 0;
+    text-transform: uppercase;
+  }
+
+  .membership-description {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 46px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    text-transform: uppercase;
+    max-width: 90%;
+    margin-bottom: 4rem;
+  }
+
+  .membership-footer-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 50px;
+    letter-spacing: 0.05em;
+    color: #000000;
+    margin-top: auto;
+  }
+
+  .membership-right {
+    flex: 0 0 500px; /* Ancho fijo o flexible según diseño */
+    max-width: 100%;
+  }
+
+  .includes-box {
+    background-color: #90BBC9;
+    padding: 3rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+  }
+
+  .includes-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 43px;
+    line-height: 104px; /* Según specs */
+    letter-spacing: 0.05em; /* Asumido estándar */
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    border-bottom: 2px solid #FCF5F5;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .includes-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 2rem 0;
+  }
+
+  .includes-list li {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 50px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .membership-fee-container {
+    margin-bottom: 1rem;
+  }
+
+  .membership-fee {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300; /* Asumido similar a bullets */
+    font-size: 26px;
+    line-height: 36px;
+    letter-spacing: 0.05em;
+  }
+
+  .membership-fee-note {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+  }
+
+  .membership-price {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 55px;
+    line-height: 104px;
+    letter-spacing: 0.07em;
+    margin: 1rem 0 2rem 0;
+  }
+
+  .membership-btn {
+    align-self: flex-start;
+    border-color: #ED6D64;
+    color: #ED6D64;
+  }
+
+  .membership-btn:hover {
+    background-color: #ED6D64;
+    color: #ffffff;
+    border-color: #ED6D64;
+  }
+
+  .membership-btn:hover {
+    background-color: #ED6D64;
+    color: #ffffff;
+    border-color: #ED6D64;
+  }
+
+  /* Packs Section */
+  .packs-section {
+    background-color: #ffffff;
+    padding: 100px 0;
+    width: 100%;
+  }
+
+  .packs-header-container {
+    text-align: left;
+    margin-bottom: 143px; /* Espaciado exacto */
+  }
+
+  .packs-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 80px;
+    line-height: 104px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    margin: 0 0 24px 0; /* Espaciado exacto */
+    text-transform: uppercase;
+  }
+
+  .packs-description {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 46px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    max-width: 800px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .packs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pack-item {
+    position: relative;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; /* Centrado horizontal del contenido */
+    text-align: center;
+    min-height: 500px;
+    color: #ffffff;
+  }
+
+  /* Colores intercalados */
+  .pack-item:nth-child(odd) {
+    background-color: #A53716; /* Rojo */
+  }
+
+  .pack-item:nth-child(even) {
+    background-color: #90BBC9; /* Azul */
+  }
+
+  /* Badge */
+  .pack-badge {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 40px;
+    width: 120px;
+    height: 120px;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .badge-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: rotateBadge 20s linear infinite;
+  }
+
+  @keyframes rotateBadge {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .pack-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 1.2; /* Ajustado para mejor legibilidad */
+    letter-spacing: 0.07em;
+    margin: 0 0 2rem 0;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pack-title-main {
+    display: block;
+  }
+
+  .pack-subtitle {
+    display: block;
+  }
+
+  .pack-price-container {
+    margin-bottom: 2rem;
+  }
+
+  .pack-price {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 50px;
+    line-height: 104px;
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+
+  .pack-validity {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 27px;
+    line-height: 1.2; /* Ajustado */
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+
+  .pack-note {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+  }
+
+  .pack-btn {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 50px;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 3px solid #ffffff;
+    padding: 0 2rem;
+    height: 80px; /* Altura fija de 80px */
+    display: inline-flex; /* Usar flex para centrar verticalmente */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    background: transparent;
+    margin-top: auto;
+    box-sizing: border-box;
+  }
+
+  .pack-btn:hover {
+    background-color: #ffffff;
+    color: inherit; /* Hereda el color del fondo (rojo o azul) */
+  }
+  
+  .pack-item:nth-child(odd) .pack-btn:hover {
+    color: #A53716;
+  }
+
+  .pack-item:nth-child(even) .pack-btn:hover {
+    color: #90BBC9;
+  }
+
+  .packs-footer-container {
+    margin-top: 75px; /* Espaciado exacto desde la grid */
+    text-align: center;
+  }
+
+  .packs-footer-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 50px;
+    letter-spacing: 0.05em;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* Footer */
+  .custom-footer {
+    background-color: #ffffff;
+    padding: 100px 0 100px 0;
+    margin-top: 0;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Alineado abajo */
+    margin-bottom: 150px;
+  }
+
+  .footer-logo-img {
+    height: auto;
+    width: 250px;
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .footer-link {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 50px;
+    letter-spacing: 3px;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #ED6D64;
+  }
+
+  .footer-separator {
+    color: #ED6D64;
+    font-size: 40px;
+    font-weight: 500;
+    margin: 0 5px;
+  }
+
+  .footer-social-icon {
+    width: 50px;
+    height: 50px;
+    color: #000000;
+    margin-left: 30px;
+    transition: color 0.3s ease;
+  }
+
+  .footer-social-icon:hover {
+    color: #ED6D64;
+  }
+
+  .footer-bottom {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 600px;
+    width: 100%;
+    margin-top: 50px;
+    overflow: visible;
+  }
+
+  .footer-bottom::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    max-width: 1000px;
+    background-color: #ED6D64;
+    -webkit-mask-image: url('/images/logoicon.svg');
+    mask-image: url('/images/logoicon.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0.4;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .footer-text-absolute {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; /* Todo en una línea */
+    gap: 15px;
+  }
+
+  .footer-text-main {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 50px;
+    letter-spacing: 4px;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .footer-text-sub {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 42px;
+    line-height: 50px;
+    letter-spacing: 4px;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-title { font-size: 44px; line-height: 1.2; }
+    .hero-description { font-size: 28px; line-height: 1.3; }
+    
+    .footer-top {
+      margin-bottom: 80px;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+    
+    .footer-links {
+      justify-content: center;
+    }
+    
+    .footer-link, .footer-separator { font-size: 24px; line-height: 34px; }
+    .footer-text-main, .footer-text-sub { font-size: 26px; line-height: 34px; }
+    .footer-text-absolute { flex-direction: column; gap: 5px; }
+    .footer-logo-img { width: 180px; }
+
+    /* Membership Tablet */
+    .membership-title { font-size: 60px; line-height: 80px; }
+    .membership-description { font-size: 24px; line-height: 36px; }
+    .membership-right { flex: 0 0 400px; }
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 1.5rem; }
+    
+    .plans-hero-section { min-height: 600px; }
+    
+    .hero-title {
+      font-size: 36px;
+      line-height: 42px;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-description {
+      font-size: 22px;
+      line-height: 30px;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    
+    .plan-btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Membership Mobile */
+    .membership-container {
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .membership-right {
+      flex: none;
+      width: 100%;
+    }
+
+    .membership-title {
+      font-size: 48px;
+      line-height: 60px;
+    }
+
+    .membership-description {
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 2rem;
+    }
+
+    .membership-footer-text {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    .includes-title {
+      font-size: 32px;
+      line-height: 50px;
+    }
+
+    .includes-list li {
+      font-size: 20px;
+      line-height: 30px;
+    }
+
+    .membership-price {
+      font-size: 40px;
+      line-height: 60px;
+    }
+
+    /* Packs Mobile */
+    .packs-section {
+      padding: 60px 0;
+    }
+
+    .packs-header-container {
+      margin-bottom: 60px;
+    }
+
+    .packs-title {
+      font-size: 48px;
+      line-height: 60px;
+    }
+
+    .packs-description {
+      font-size: 20px;
+      line-height: 30px;
+    }
+
+    .packs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pack-item {
+      padding: 40px 20px;
+      min-height: auto;
+    }
+
+    .packs-footer-container {
+      margin-top: 40px;
+    }
+
+    .packs-footer-text {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    /* Footer Mobile */
+    .custom-footer {
+      padding: 30px 0;
+      margin-top: 0;
+    }
+
+    .footer-top {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .footer-links {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-link {
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    .footer-separator {
+      display: none;
+    }
+
+    .footer-social-icon {
+      margin-left: 0;
+      margin-top: 20px;
+    }
+
+    .footer-bottom {
+      min-height: 200px;
+      margin-top: 20px;
+    }
+
+    .footer-text-absolute {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .footer-text-main,
+    .footer-text-sub {
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 2px;
+      white-space: normal;
+    }
+  }
+</style>

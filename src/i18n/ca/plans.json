@@ -1,0 +1,72 @@
+{
+  "plansPage": {
+    "title": "MOU-TE A LA TEVA MANERA. NOSALTRES ENS ADAPTEM",
+    "line1": "ENTRENA AMB LLIBERTAT.",
+    "line2": "SENSE PERMANÈNCIES, SENSE OBLIGACIONS, SENSE PRESSES",
+    "line3": "TRIA L'OPCIÓ QUE MILLOR ENCAIXI AMB EL TEU RITME.",
+    "btnMembership": "MEMBRESIA",
+    "btnBonds": "ABONAMENTS",
+    "membership": {
+      "title": "MEMBRESIA",
+      "description": "ACCÉS MENSUAL A TOTES LES DISCIPLINES, AMB LA LLIBERTAT D'ENTRENAR AL TEU RITME I ADAPTAR LA TEVA PRÀCTICA A CADA MOMENT",
+      "footer": "La teva pràctica. El teu ritme.",
+      "includesTitle": "INCLOU",
+      "items": [
+        "Tote bag NewVillage",
+        "2 esdeveniments gratuïts a l'any",
+        "Bring your friend"
+      ],
+      "fee": "Matrícula d'alta: 60€*",
+      "feeNote": "*Pagament únic en inscriure't.",
+      "price": "122€/mes",
+      "button": "FES-TE MEMBER"
+    },
+    "packs": {
+      "title": "ELS NOSTRES PACKS",
+      "description": "ELS PACKS SÓN IDEALS PER PROVAR, COMBINAR DISCIPLINES O VENIR AL TEU RITME. FLEXIBLES, CLARS I SENSE PERMANÈNCIES.",
+      "btnReserve": "RESERVA",
+      "footer": "Sense permanències. Sense presses. Sense compromisos.",
+      "badgeText": "RECOMANAT PER COMENÇAR",
+      "items": [
+        {
+          "title": "CLASSE SOLTA",
+          "subtitle": "",
+          "price": "21€",
+          "validity": "1 mes de validesa."
+        },
+        {
+          "title": "PACK SAY HI",
+          "subtitle": "3 CLASSES",
+          "price": "48€",
+          "validity": "1 mes de validesa.",
+          "note": "Disponible només un cop per usuari",
+          "recommended": true
+        },
+        {
+          "title": "PACK S",
+          "subtitle": "5 CLASSES",
+          "price": "90€",
+          "validity": "2 mesos de validesa."
+        },
+        {
+          "title": "PACK M",
+          "subtitle": "10 CLASSES",
+          "price": "150€",
+          "validity": "3 mesos de validesa."
+        },
+        {
+          "title": "PACK L",
+          "subtitle": "15 CLASSES",
+          "price": "218€",
+          "validity": "6 mesos de validesa."
+        },
+        {
+          "title": "PACK XL",
+          "subtitle": "20 CLASSES",
+          "price": "280€",
+          "validity": "6 mesos de validesa."
+        }
+      ]
+    }
+  }
+}

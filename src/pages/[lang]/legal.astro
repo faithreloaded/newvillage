@@ -29,10 +29,11 @@ const langLabels: Record<Locale, string> = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta name="description" content="Aviso Legal y Condiciones de Uso de New Village Studio." />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
     </style>
-    <title>NewVillage - Legal</title>
+    <title>NewVillage | Legal</title>
   </head>
   <body>
     <div class="page-wrapper">
@@ -69,9 +70,11 @@ const langLabels: Record<Locale, string> = {
               <nav class="footer-links">
                 <a href={`/${lang}/home-new#faqs`} class="footer-link">{t('footerLinks.faqs')}</a>
                 <span class="footer-separator">|</span>
-                <a href="#" class="footer-link">{t('footerLinks.contact')}</a>
+                <a href={`/${lang}/contact`} class="footer-link">{t('footerLinks.contact')}</a>
                 <span class="footer-separator">|</span>
                 <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/privacy`} class="footer-link">{t('footerLinks.privacy')}</a>
                 <a href="#" class="footer-social-link">
                   <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -109,7 +112,7 @@ const langLabels: Record<Locale, string> = {
   }
 
   .container {
-    max-width: 1200px;
+    max-width: 1240px; /* Actualizado a 1240px */
     margin: 0 auto;
     padding: 0 2rem;
   }

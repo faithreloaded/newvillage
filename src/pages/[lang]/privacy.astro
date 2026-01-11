@@ -1,131 +1,326 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
 import { LOCALES, type Locale, loadT } from '../../i18n';
+import NewHeader from '../../components/NewHeader.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
 }
 
 const { lang } = Astro.params as { lang: Locale };
-const t = await loadT(lang, ['home']);
+const t = await loadT(lang, ['home', 'header']);
+
+// Función para obtener la URL con el idioma cambiado
+function getLangUrl(newLang: Locale): string {
+  const currentPath = Astro.url.pathname;
+  const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
+  return `/${newLang}${pathWithoutLang || '/privacy'}`;
+}
+
+const langLabels: Record<Locale, string> = {
+  es: 'ESP',
+  en: 'ENG',
+  ca: 'CAT'
+};
 ---
 
-<BaseLayout 
-  title={`${lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'} | New Village`} 
-  description="Privacy policy and data protection information."
-  lang={lang}
->
-  
-  <main class="main">
-    <div class="container">
-      <div class="legal-page">
-        <h1>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</h1>
-        
-        <div class="legal-content">
-          <h2>{lang === 'es' ? 'Información General' : 'General Information'}</h2>
-          <p>
-            <strong>{lang === 'es' ? 'Responsable del tratamiento:' : 'Data Controller:'}</strong><br />
-            NEW VILLAGE JMC SL<br />
-            <strong>{lang === 'es' ? 'CIF:' : 'Tax ID:'}</strong> B22782759
-          </p>
-          <p>
-            {lang === 'es' 
-              ? 'Esta política de privacidad describe cómo recopilamos, usamos y protegemos su información personal cuando utiliza nuestro sitio web.'
-              : 'This privacy policy describes how we collect, use, and protect your personal information when you use our website.'
-            }
-          </p>
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta name="description" content="Política de Privacidad de NewVillage Studio. Conoce cómo protegemos tus datos." />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+    </style>
+    <title>NewVillage | Política de Privacidad</title>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- Header -->
+      <NewHeader lang={lang} overlay={false} />
 
-          <h2>{lang === 'es' ? 'Información que Recopilamos' : 'Information We Collect'}</h2>
-          <p>
-            {lang === 'es' 
-              ? 'Recopilamos información que nos proporciona directamente, como cuando se registra en nuestro sitio, se suscribe a nuestro boletín o se pone en contacto con nosotros.'
-              : 'We collect information you provide directly to us, such as when you register on our site, subscribe to our newsletter, or contact us.'
-            }
-          </p>
-
-          <h2>{lang === 'es' ? 'Uso de la Información' : 'Use of Information'}</h2>
-          <p>
-            {lang === 'es' 
-              ? 'Utilizamos la información recopilada para proporcionar, mantener y mejorar nuestros servicios, comunicarnos con usted y personalizar su experiencia.'
-              : 'We use the collected information to provide, maintain, and improve our services, communicate with you, and personalize your experience.'
-            }
-          </p>
-
-          <h2>{lang === 'es' ? 'Protección de Datos' : 'Data Protection'}</h2>
-          <p>
-            {lang === 'es' 
-              ? 'Implementamos medidas de seguridad apropiadas para proteger su información personal contra acceso no autorizado, alteración, divulgación o destrucción.'
-              : 'We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.'
-            }
-          </p>
-
-          <h2>{lang === 'es' ? 'Cookies' : 'Cookies'}</h2>
-          <p>
-            {lang === 'es' 
-              ? 'Nuestro sitio web utiliza cookies para mejorar su experiencia de navegación. Puede configurar su navegador para rechazar cookies si lo prefiere.'
-              : 'Our website uses cookies to enhance your browsing experience. You can configure your browser to reject cookies if you prefer.'
-            }
-          </p>
-
-          <h2>{lang === 'es' ? 'Contacto' : 'Contact'}</h2>
-          <p>
-            {lang === 'es' 
-              ? 'Si tiene preguntas sobre esta política de privacidad, puede contactarnos en info@newvillage.com.'
-              : 'If you have questions about this privacy policy, you can contact us at info@newvillage.com.'
-            }
-          </p>
-
-          <p class="legal-updated">
-            {lang === 'es' 
-              ? 'Última actualización: Diciembre 2024'
-              : 'Last updated: December 2024'
-            }
-          </p>
+      <main class="legal-content">
+        <div class="container">
+          <h1 class="legal-title">POLÍTICA DE PRIVACIDAD</h1>
+          <div class="legal-text">
+            <p><strong>1. RESPONSABLE DEL TRATAMIENTO</strong></p>
+            <p>El responsable del tratamiento de sus datos personales es New Village Studio.</p>
+            
+            <p><strong>2. FINALIDAD DEL TRATAMIENTO</strong></p>
+            <p>Tratamos la información que nos facilitan las personas interesadas con el fin de gestionar el envío de la información que nos soliciten, así como facilitar a los interesados ofertas de productos y servicios de su interés.</p>
+            
+            <p><strong>3. LEGITIMACIÓN</strong></p>
+            <p>La base legal para el tratamiento de sus datos es el consentimiento del interesado.</p>
+            
+            <p><strong>4. DESTINATARIOS</strong></p>
+            <p>Los datos no se cederán a terceros salvo obligación legal.</p>
+            
+            <p><strong>5. DERECHOS</strong></p>
+            <p>Cualquier persona tiene derecho a obtener confirmación sobre si en New Village Studio estamos tratando datos personales que les conciernan, o no.</p>
+          </div>
         </div>
-      </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="custom-footer">
+        <div class="container" style="display: block;">
+          <div class="footer-top">
+            <div class="footer-left">
+              <img src="/images/logofooter.svg" alt="NewVillage Logo" class="footer-logo-img" />
+            </div>
+            <div class="footer-right">
+              <nav class="footer-links">
+                <a href={`/${lang}/home-new#faqs`} class="footer-link">{t('footerLinks.faqs')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/contact`} class="footer-link">{t('footerLinks.contact')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/privacy`} class="footer-link">{t('footerLinks.privacy')}</a>
+                <a href="#" class="footer-social-link">
+                  <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                </a>
+              </nav>
+            </div>
+          </div>
+          
+          <div class="footer-bottom">
+            <div class="footer-text-absolute">
+              <span class="footer-text-main">NEW VILLAGE STUDIO.</span>
+              <span class="footer-text-sub">MOVE, MEET & CONNECT</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  </main>
-</BaseLayout>
+  </body>
+</html>
 
 <style>
-  .legal-page {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: var(--space-8) 0 var(--space-6);
-    padding-top: 8rem;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-  .legal-page h1 {
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--color-text);
-    margin-bottom: var(--space-4);
-    text-align: left;
+  body {
+    font-family: 'Oswald', sans-serif;
+    background-color: #ffffff;
+    color: #2c2c2c;
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 2rem;
   }
 
   .legal-content {
-    text-align: left;
+    padding: 6rem 0;
+    min-height: 60vh;
   }
 
-  .legal-content h2 {
-    font-size: 18px;
+  .legal-title {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
     font-weight: 500;
-    color: var(--color-text);
-    margin-top: var(--space-3);
-    margin-bottom: var(--space-2);
   }
 
-  .legal-content p {
-    font-size: 14px;
+  .legal-text {
+    max-width: 800px;
+    margin: 0 auto;
+    font-weight: 300;
+    font-size: 18px;
     line-height: 1.6;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-2);
   }
 
-  .legal-updated {
-    font-size: 12px;
-    color: var(--color-text-muted);
-    margin-top: var(--space-6);
-    font-style: italic;
+  .legal-text p {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Footer */
+  .custom-footer {
+    background-color: #ffffff;
+    padding: 100px 0 100px 0;
+    margin-top: 0;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Alineado abajo */
+    margin-bottom: 150px;
+  }
+
+  .footer-logo-img {
+    height: auto;
+    width: 250px;
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .footer-link {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 50px;
+    letter-spacing: 3px;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #ED6D64;
+  }
+
+  .footer-separator {
+    color: #ED6D64;
+    font-size: 40px;
+    font-weight: 500;
+    margin: 0 5px;
+  }
+
+  .footer-social-icon {
+    width: 50px;
+    height: 50px;
+    color: #000000;
+    margin-left: 30px;
+    transition: color 0.3s ease;
+  }
+
+  .footer-social-icon:hover {
+    color: #ED6D64;
+  }
+
+  .footer-bottom {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 600px;
+    width: 100%;
+    margin-top: 50px;
+    overflow: visible;
+  }
+
+  .footer-bottom::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    max-width: 1000px;
+    background-color: #ED6D64;
+    -webkit-mask-image: url('/images/logoicon.svg');
+    mask-image: url('/images/logoicon.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0.4;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .footer-text-absolute {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; /* Todo en una línea */
+    gap: 15px;
+  }
+
+  .footer-text-main {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 50px;
+    letter-spacing: 4px;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .footer-text-sub {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 42px;
+    line-height: 50px;
+    letter-spacing: 4px;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+    /* Footer Mobile */
+    @media (max-width: 768px) {
+    .custom-footer {
+      padding: 30px 0;
+      margin-top: 0;
+    }
+
+    .footer-top {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .footer-links {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-link {
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    .footer-separator {
+      display: none;
+    }
+
+    .footer-social-icon {
+      margin-left: 0;
+      margin-top: 20px;
+    }
+
+    .footer-bottom {
+      min-height: 200px;
+      margin-top: 20px;
+    }
+
+    .footer-text-absolute {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .footer-text-main,
+    .footer-text-sub {
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 2px;
+      white-space: normal;
+    }
   }
 </style>
