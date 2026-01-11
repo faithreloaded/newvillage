@@ -133,5 +133,30 @@
   "meta": {
     "title": "NewVillage Poblenou | Pilates, Barre, Yoga & Functional Training 22@",
     "description": "Estudio de pilates, barre, yoga y entrenamiento funcional en Poblenou – 22@ Barcelona. Clases bilingües, sin permanencias. Reserva tu clase."
+  },
+  "faqs": {
+    "title": "PREGUNTAS FRECUENTES",
+    "q1": "¿QUÉ NECESITO LLEVAR A MI PRIMERA CLASE?",
+    "a1": "Te recomendamos traer ropa cómoda deportiva, una botella de agua y una toalla pequeña. Nosotros proporcionamos todo el material necesario para las clases, incluyendo esterillas.",
+    "q2": "¿ES NECESARIO TENER EXPERIENCIA PREVIA?",
+    "a2": "¡Para nada! Nuestras clases están diseñadas para adaptarse a todos los niveles. Nuestros instructores te guiarán y ofrecerán modificaciones según tus necesidades.",
+    "q3": "¿PUEDO CANCELAR O CAMBIAR MI RESERVA?",
+    "a3": "Sí, puedes cancelar o reprogramar tu clase hasta 12 horas antes del inicio de la sesión a través de tu cuenta o la app.",
+    "q4": "¿OFRECÉIS CLASES PRIVADAS?",
+    "a4": "Sí, ofrecemos sesiones privadas individuales y para grupos pequeños. Ponte en contacto con nosotros para más información sobre tarifas y disponibilidad.",
+    "q5": "¿TENÉIS VESTUARIOS Y DUCHAS?",
+    "a5": "Sí, disponemos de vestuarios completos con duchas y taquillas para que puedas cambiarte cómodamente antes y después de tu práctica."
+  },
+  "account": {
+    "accessText": "Acceso a clientes próximamente.",
+    "button": "IR A VIRTUAGYM"
+  },
+  "footerLinks": {
+    "faqs": "FAQS",
+    "contact": "CONTACTO",
+    "legal": "LEGAL"
+  },
+  "booking": {
+    "loading": "Cargando horario..."
   }
 }

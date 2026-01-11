@@ -62,7 +62,7 @@ const langLabels: Record<Locale, string> = {
           <div class="booking-widget-container">
             <!-- VirtuaGym Integration Placeholder -->
             <div class="virtuagym-placeholder">
-              <p>Cargando horario...</p>
+              <p>{t('booking.loading')}</p>
               <iframe 
                 src="https://innerflow.virtuagym.com/classes/week" 
                 width="100%" 
@@ -121,7 +121,8 @@ const langLabels: Record<Locale, string> = {
 
   .header-right {
     display: flex;
-    gap: 2rem;
+    gap: 3rem; /* Aumentado gap de 2rem a 3rem */
+    align-items: center;
   }
 
   .nav-link {
@@ -129,6 +130,7 @@ const langLabels: Record<Locale, string> = {
     text-decoration: none;
     font-size: 20px;
     text-transform: uppercase;
+    margin-left: 2rem; /* Añadido margen izquierdo para separar enlaces */
   }
 
   .booking-content {
