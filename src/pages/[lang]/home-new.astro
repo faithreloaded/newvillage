@@ -378,7 +378,7 @@ const langLabels: Record<Locale, string> = {
       </section>
 
       <!-- FAQs Section -->
-      <section class="faqs-section">
+      <section class="faqs-section" id="faqs">
         <div class="container faqs-container-flex">
           <h2 class="faqs-title">{t('faqs.title')}</h2>
           <div class="faqs-accordion">
@@ -454,11 +454,11 @@ const langLabels: Record<Locale, string> = {
             </div>
             <div class="footer-right">
               <nav class="footer-links">
-                <a href="#" class="footer-link">{t('footerLinks.faqs')}</a>
+                <a href="#faqs" class="footer-link faq-scroll-trigger">{t('footerLinks.faqs')}</a>
                 <span class="footer-separator">|</span>
                 <a href="#" class="footer-link">{t('footerLinks.contact')}</a>
                 <span class="footer-separator">|</span>
-                <a href="#" class="footer-link">{t('footerLinks.legal')}</a>
+                <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
                 <a href="#" class="footer-social-link">
                   <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
