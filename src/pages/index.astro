@@ -2,11 +2,27 @@
 export const prerender = true;
 ---
 
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Starter UI</title>
+    <title>NewVillage | Movement Studio</title>
+    <meta name="description" content="New Village Studio. Barre, Pilates, Functional & Yoga in Barcelona. Join the movement." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.newvillagestudio.com/" />
+    <meta property="og:title" content="NewVillage | Movement Studio" />
+    <meta property="og:description" content="New Village Studio. Barre, Pilates, Functional & Yoga in Barcelona. Join the movement." />
+    <meta property="og:image" content="/images/herobg.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.newvillagestudio.com/" />
+    <meta property="twitter:title" content="NewVillage | Movement Studio" />
+    <meta property="twitter:description" content="New Village Studio. Barre, Pilates, Functional & Yoga in Barcelona. Join the movement." />
+    <meta property="twitter:image" content="/images/herobg.jpg" />
+
     <script>
       (function() {
         try {
@@ -19,12 +35,12 @@ export const prerender = true;
             location.replace('/' + lang + '/');
           }
         } catch (e) {
-          location.replace('/en/');
+          location.replace('/es/');
         }
       })();
     </script>
     <noscript>
-      <meta http-equiv="refresh" content="0;url=/en/" />
+      <meta http-equiv="refresh" content="0;url=/es/" />
     </noscript>
   </head>
   <body></body>

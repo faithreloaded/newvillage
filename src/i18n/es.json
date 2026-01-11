@@ -16,7 +16,7 @@
     "sidebarTitle": "Contenidos"
   },
   "globalStyles": {
-    "headTitle": "Estilos Globales | Starter UI",
+    "headTitle": "Estilos Globales | NewVillage",
     "headDescription": "Estilos globales, design tokens y variables CSS para un diseño consistente en toda la plantilla",
     "pageTitle": "Estilos globales",
     "pageDescription": "Design system, variables CSS y estilos globales que garantizan consistencia en todos los componentes",
@@ -137,7 +137,7 @@
     "privacy": "Política de privacidad",
     "legal": "Aviso legal",
     "contactTitle": "Contacto",
-    "credit1": "© {year} Starter UI. Todos los derechos reservados.",
+    "credit1": "© {year} NewVillage Studio. Todos los derechos reservados.",
     "credit2": "Diseño web por "
   },
   "componentsDashboard": {
