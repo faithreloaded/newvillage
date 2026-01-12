@@ -198,19 +198,15 @@ const langLabels: Record<Locale, string> = {
               <div class="discipline-programs">
                 <div class="program-box program-box-1">
                   <h4 class="program-title">{t('disciplines.pilatesProgram1Title')}</h4>
-                  <p class="program-line">{t('disciplines.pilatesProgram1Line1')}</p>
-                  <p class="program-line">{t('disciplines.pilatesProgram1Line2')}</p>
-                  <p class="program-line">{t('disciplines.pilatesProgram1Line3')}</p>
+                  <p class="program-text">{t('disciplines.pilatesProgram1Text')}</p>
                 </div>
                 <div class="program-box program-box-2">
                   <h4 class="program-title">{t('disciplines.pilatesProgram2Title')}</h4>
-                  <p class="program-line">{t('disciplines.pilatesProgram2Line1')}</p>
-                  <p class="program-line">{t('disciplines.pilatesProgram2Line2')}</p>
+                  <p class="program-text">{t('disciplines.pilatesProgram2Text')}</p>
                 </div>
                 <div class="program-box program-box-3">
                   <h4 class="program-title">{t('disciplines.pilatesProgram3Title')}</h4>
-                  <p class="program-line">{t('disciplines.pilatesProgram3Line1')}</p>
-                  <p class="program-line">{t('disciplines.pilatesProgram3Line2')}</p>
+                  <p class="program-text">{t('disciplines.pilatesProgram3Text')}</p>
                 </div>
               </div>
             </div>
@@ -1491,15 +1487,15 @@ const langLabels: Record<Locale, string> = {
   }
 
   .program-box-1 {
-    background-color: #A53716;
+    background-color: #ED6D64; /* Naranja vibrante para IRON MAT */
   }
 
   .program-box-2 {
-    background-color: #DB5639;
+    background-color: #DB5639; /* Naranja peach para TONE UP MAT */
   }
 
   .program-box-3 {
-    background-color: #ED6D64;
+    background-color: #F5C6C6; /* Rosa claro para GOLD MAT */
   }
 
   .program-box-4 {
@@ -1595,6 +1591,7 @@ const langLabels: Record<Locale, string> = {
     color: #ffffff;
     margin: 0;
     letter-spacing: 0.1em; /* 10% */
+    white-space: pre-line;
   }
 
   /* Responsive Disciplines */
