@@ -8,7 +8,7 @@
     "btnBonds": "BONOS",
     "membership": {
       "title": "MEMBRESÍA",
-      "description": "ACCESO MENSUAL A TODAS LAS DISCIPLINAS, CON LA LIBERTAD DE ENTRENAR A TU RITMO Y ADAPTAR TU PRÁCTICA A CADA MOMENTO",
+      "description": "ACCESO MENSUAL A TODAS LAS DISCIPLINAS, \nCON LA LIBERTAD DE ENTRENAR A TU RITMO Y \nADAPTAR TU PRÁCTICA A CADA MOMENTO",
       "footer": "Tu práctica. Tú ritmo.",
       "includesTitle": "INCLUYE",
       "items": [
@@ -23,7 +23,7 @@
     },
     "packs": {
       "title": "NUESTROS PACKS",
-      "description": "LOS PACKS SON IDEALES PARA PROBAR, COMBINAR DISCIPLINAS O VENIR A TU RITMO. FLEXIBLES, CLAROS Y SIN PERMANENCIAS.",
+      "description": "LOS PACKS SON IDEALES PARA PROBAR, \nCOMBINAR DISCIPLINAS O VENIR A TU RITMO. \nFLEXIBLES, CLAROS Y SIN PERMANENCIAS.",
       "btnReserve": "RESERVA",
       "footer": "Sin permanencias. Sin prisas. Sin compromisos.",
       "badgeText": "RECOMENDADO PARA EMPEZAR",
