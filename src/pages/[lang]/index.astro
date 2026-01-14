@@ -1,6 +1,6 @@
 ---
 import { LOCALES, type Locale, getLangFromUrl, loadT } from '../../i18n';
-import NewHeader from '../../components/NewHeader.astro';
+import HeaderHome from '../../components/HeaderHome.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
@@ -53,7 +53,7 @@ const langLabels: Record<Locale, string> = {
   <body>
     <div class="page-wrapper">
       <!-- Header -->
-      <NewHeader lang={lang} overlay={true} />
+      <HeaderHome lang={lang} />
 
       <!-- Hero Section -->
       <section class="hero-section">
@@ -171,18 +171,15 @@ const langLabels: Record<Locale, string> = {
               <div class="discipline-programs">
                 <div class="program-box program-box-1">
                   <h4 class="program-title">{t('disciplines.barreProgram1Title')}</h4>
-                  <p class="program-line">{t('disciplines.barreProgram1Line1')}</p>
-                  <p class="program-line">{t('disciplines.barreProgram1Line2')}</p>
+                  <p class="program-text">{t('disciplines.barreProgram1Text')}</p>
                 </div>
                 <div class="program-box program-box-2">
                   <h4 class="program-title">{t('disciplines.barreProgram2Title')}</h4>
-                  <p class="program-line">{t('disciplines.barreProgram2Line1')}</p>
-                  <p class="program-line">{t('disciplines.barreProgram2Line2')}</p>
+                  <p class="program-text">{t('disciplines.barreProgram2Text')}</p>
                 </div>
                 <div class="program-box program-box-3">
                   <h4 class="program-title">{t('disciplines.barreProgram3Title')}</h4>
-                  <p class="program-line">{t('disciplines.barreProgram3Line1')}</p>
-                  <p class="program-line">{t('disciplines.barreProgram3Line2')}</p>
+                  <p class="program-text">{t('disciplines.barreProgram3Text')}</p>
                 </div>
               </div>
             </div>
@@ -515,6 +512,7 @@ const langLabels: Record<Locale, string> = {
         });
       });
     </script>
+
   </body>
 </html>
 
@@ -1527,17 +1525,30 @@ const langLabels: Record<Locale, string> = {
     background-color: #ED6D64; /* Naranja para CIRCUIT */
   }
 
+  /* Colores específicos para Barre */
+  #barre-detail .discipline-programs .program-box-1 {
+    background-color: #A53716; /* Rojo oscuro para HIIT */
+  }
+
+  #barre-detail .discipline-programs .program-box-2 {
+    background-color: #DB5639; /* Naranja para BURN */
+  }
+
+  #barre-detail .discipline-programs .program-box-3 {
+    background-color: #ED6D64; /* Naranja claro para ISO */
+  }
+
   /* Colores específicos para Pilates */
-  .discipline-programs:not(.discipline-programs-5):not(.discipline-programs-2) .program-box-1 {
-    background-color: #ED6D64; /* Naranja vibrante para IRON MAT */
+  #pilates-detail .discipline-programs .program-box-1 {
+    background-color: #A53716; /* Rojo oscuro para IRON MAT */
   }
 
-  .discipline-programs:not(.discipline-programs-5):not(.discipline-programs-2) .program-box-2 {
-    background-color: #DB5639; /* Naranja peach para TONE UP MAT */
+  #pilates-detail .discipline-programs .program-box-2 {
+    background-color: #DB5639; /* Naranja para TONE UP MAT */
   }
 
-  .discipline-programs:not(.discipline-programs-5):not(.discipline-programs-2) .program-box-3 {
-    background-color: #F5C6C6; /* Rosa claro para GOLD MAT */
+  #pilates-detail .discipline-programs .program-box-3 {
+    background-color: #ED6D64; /* Naranja claro para GOLD MAT */
   }
 
   /* Layout especial para 5 contenedores (3 arriba, 2 abajo) */

@@ -1,6 +1,6 @@
 ---
 import { LOCALES, type Locale, loadT } from '../../i18n';
-import NewHeader from '../../components/NewHeader.astro';
+import HeaderPlans from '../../components/HeaderPlans.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
@@ -38,7 +38,7 @@ const langLabels: Record<Locale, string> = {
   <body>
     <div class="page-wrapper">
       <!-- Header -->
-      <NewHeader lang={lang} overlay={true} />
+      <HeaderPlans lang={lang} />
 
       <!-- Hero Section -->
       <section class="plans-hero-section">
@@ -111,16 +111,33 @@ const langLabels: Record<Locale, string> = {
                   <img src="/images/recomendedcircle.png" alt={t('plansPage.packs.badgeText')} class="badge-img" />
                 </div>
               )}
-              <h3 class="pack-title">
-                <span class="pack-title-main">{item.title}</span>
-                {item.subtitle && <span class="pack-subtitle">{item.subtitle}</span>}
-              </h3>
-              <div class="pack-price-container">
-                <p class="pack-price">{item.price}</p>
-                <p class="pack-validity">{item.validity}</p>
-                {item.note && <p class="pack-note">{item.note}</p>}
+              <div class="pack-hover-overlay"></div>
+              <div class="pack-hover-content">
+                {index === 0 ? (
+                  <>
+                    <p class="pack-hover-line1">UNA CLASE.</p>
+                    <p class="pack-hover-line2">CERO EXCUSAS.</p>
+                  </>
+                ) : index === 1 ? (
+                  <>
+                    <p class="pack-hover-line1">DI HOLA.</p>
+                    <p class="pack-hover-line2">MUÉVETE.</p>
+                    <p class="pack-hover-line3">REPITE.</p>
+                  </>
+                ) : null}
               </div>
-              <a href="#" class="pack-btn">{t('plansPage.packs.btnReserve')}</a>
+              <div class="pack-content-wrapper">
+                <h3 class="pack-title">
+                  <span class="pack-title-main">{item.title}</span>
+                  {item.subtitle && <span class="pack-subtitle">{item.subtitle}</span>}
+                </h3>
+                <div class="pack-price-container">
+                  <p class="pack-price">{item.price}</p>
+                  <p class="pack-validity">{item.validity}</p>
+                  {item.note && <p class="pack-note">{item.note}</p>}
+                </div>
+                <a href="#" class="pack-btn">{t('plansPage.packs.btnReserve')}</a>
+              </div>
             </div>
           ))}
         </div>
@@ -166,6 +183,36 @@ const langLabels: Record<Locale, string> = {
         </div>
       </footer>
     </div>
+  <script>
+    // Activar hover en móvil con touch
+    const packItem1 = document.querySelector('.pack-item-1');
+    const packItem2 = document.querySelector('.pack-item-2');
+    
+    function setupTouchHover(element: HTMLElement) {
+      let touchTimeout: ReturnType<typeof setTimeout> | undefined;
+      
+      element.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        element.classList.add('touch-active');
+        if (touchTimeout) clearTimeout(touchTimeout);
+      }, { passive: false });
+      
+      element.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        touchTimeout = setTimeout(() => {
+          element.classList.remove('touch-active');
+        }, 300);
+      }, { passive: false });
+      
+      element.addEventListener('touchcancel', () => {
+        if (touchTimeout) clearTimeout(touchTimeout);
+        element.classList.remove('touch-active');
+      });
+    }
+    
+    if (packItem1) setupTouchHover(packItem1 as HTMLElement);
+    if (packItem2) setupTouchHover(packItem2 as HTMLElement);
+  </script>
   </body>
 </html>
 
@@ -260,6 +307,7 @@ const langLabels: Record<Locale, string> = {
   .hero-title {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
+    white-space: pre-line;
     font-size: 54px;
     line-height: 65px;
     letter-spacing: 0.04em; /* 4% */
@@ -393,11 +441,13 @@ const langLabels: Record<Locale, string> = {
 
   .includes-box {
     background-color: #90BBC9;
-    padding: 3rem;
+    padding: 4rem;
     height: 100%;
     display: flex;
     flex-direction: column;
     color: #000000;
+    text-align: left;
+    align-items: flex-start;
   }
 
   .includes-title {
@@ -521,14 +571,25 @@ const langLabels: Record<Locale, string> = {
 
   .pack-item {
     position: relative;
-    padding: 60px 40px;
+    padding: 80px 60px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center; /* Centrado horizontal del contenido */
-    text-align: center;
+    align-items: center; /* Centrado verticalmente */
     min-height: 500px;
     color: #ffffff;
+  }
+
+  .pack-content-wrapper {
+    max-width: 220px; /* Ancho real del contenido */
+    width: 100%;
+    margin: 0 auto; /* Lo centra horizontalmente */
+    text-align: left; /* Texto alineado a la izquierda */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    z-index: 4;
+    transition: opacity 0.3s ease;
   }
 
   /* Colores intercalados */
@@ -540,14 +601,138 @@ const langLabels: Record<Locale, string> = {
     background-color: #90BBC9; /* Azul */
   }
 
+  /* Hover overlay y contenido */
+  .pack-hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/images/hoverclasesuelta.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .pack-hover-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #A53716;
+    opacity: 0.5;
+    z-index: 2;
+  }
+
+  .pack-hover-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+  }
+
+  .pack-hover-line1,
+  .pack-hover-line2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .pack-hover-line1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .pack-hover-line3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  /* Hover effect solo para el primer pack (CLASE SUELTA) */
+  .pack-item-1:hover .pack-hover-overlay,
+  .pack-item-1:hover .pack-hover-content,
+  .pack-item-1.touch-active .pack-hover-overlay,
+  .pack-item-1.touch-active .pack-hover-content {
+    opacity: 1;
+  }
+
+  .pack-item-1:hover .pack-content-wrapper,
+  .pack-item-1.touch-active .pack-content-wrapper {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Hover effect para el segundo pack (PACK SAY HI) */
+  .pack-item-2 .pack-hover-overlay {
+    background-image: url('/images/hoverpacksihi.webp');
+  }
+
+  .pack-item-2:hover .pack-hover-overlay,
+  .pack-item-2:hover .pack-hover-content,
+  .pack-item-2.touch-active .pack-hover-overlay,
+  .pack-item-2.touch-active .pack-hover-content {
+    opacity: 1;
+  }
+
+  .pack-item-2:hover .pack-content-wrapper,
+  .pack-item-2.touch-active .pack-content-wrapper {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pack-item-2:hover .pack-badge,
+  .pack-item-2.touch-active .pack-badge {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* En móvil, mostrar el hover al tocar */
+  @media (max-width: 1024px) {
+    .pack-item-1:active .pack-hover-overlay,
+    .pack-item-1:active .pack-hover-content {
+      opacity: 1;
+    }
+
+    .pack-item-1:active .pack-content-wrapper {
+      opacity: 0;
+    }
+
+    .pack-item-2:active .pack-hover-overlay,
+    .pack-item-2:active .pack-hover-content {
+      opacity: 1;
+    }
+
+    .pack-item-2:active .pack-content-wrapper {
+      opacity: 0;
+    }
+  }
+
   /* Badge */
   .pack-badge {
     position: absolute;
-    top: 50%;
+    top: 38%;
     transform: translateY(-50%);
-    right: 40px;
-    width: 120px;
-    height: 120px;
+    right: 80px;
+    width: 150px;
+    height: 150px;
     z-index: 10;
     pointer-events: none;
   }
@@ -556,6 +741,8 @@ const langLabels: Record<Locale, string> = {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    image-rendering: auto;
+    -webkit-font-smoothing: antialiased;
     animation: rotateBadge 20s linear infinite;
   }
 
@@ -583,6 +770,7 @@ const langLabels: Record<Locale, string> = {
 
   .pack-subtitle {
     display: block;
+    font-weight: 400;
   }
 
   .pack-price-container {
@@ -831,6 +1019,7 @@ const langLabels: Record<Locale, string> = {
       font-size: 36px;
       line-height: 42px;
       margin-bottom: 1rem;
+      white-space: pre-line;
     }
     
     .hero-description {
@@ -979,4 +1168,5 @@ const langLabels: Record<Locale, string> = {
       white-space: normal;
     }
   }
+
 </style>

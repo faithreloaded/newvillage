@@ -3,18 +3,14 @@ import { LOCALES, type Locale, loadT } from '../i18n';
 
 interface Props {
   lang: Locale;
-  overlay?: boolean;
-  silent?: boolean;
 }
 
-const { lang, overlay = false, silent = false } = Astro.props;
+const { lang } = Astro.props;
 const t = await loadT(lang, ['home', 'header']);
 
-// Función para obtener la URL con el idioma cambiado
 function getLangUrl(newLang: Locale): string {
   const currentPath = Astro.url.pathname;
   const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
-  // Si estamos en la raíz o algo vacío, redirigir a raíz del idioma
   return `/${newLang}${pathWithoutLang || '/'}`;
 }
 
@@ -24,25 +20,19 @@ const langLabels: Record<Locale, string> = {
   ca: 'CAT'
 };
 
-const currentPath = Astro.url.pathname;
-// isHome es verdadero si estamos en /lang/ o /lang
-const isHome = currentPath === `/${lang}/` || currentPath === `/${lang}`;
-const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
+const movementLink = `/${lang}/#disciplines`;
 ---
 
-<header class={`custom-header ${overlay ? 'header-overlay' : 'header-static'} ${silent ? 'header-silent' : ''}`} id="main-header">
+<header class="header-home" id="header-home">
   <div class="container">
     <div class="header-content">
-      <!-- Logo izquierda -->
       <div class="header-logo">
         <a href={`/${lang}/`}>
           <img src="/images/logo.svg" alt="NewVillage" class="logo-icon" />
         </a>
       </div>
       
-      <!-- Grupo derecha (Desktop) -->
       <div class="header-right desktop-only">
-        <!-- Navegación -->
         <nav class="header-nav">
           <a href={`/${lang}/`} class="nav-link">HOME</a>
           <a href={movementLink} class="nav-link">{t('nav.movement')}</a>
@@ -50,10 +40,8 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
           <a href="#" class="nav-link my-account-trigger">{t('nav.myAccount')}</a>
         </nav>
         
-        <!-- Botón Reserva -->
         <a href={`/${lang}/booking`} class="btn-reserva">{t('actions.reserve')}</a>
         
-        <!-- Selector de idioma -->
         <div class="lang-selector">
           {(() => {
             const allLocales = ['ca', 'es', 'en'] as Locale[];
@@ -71,7 +59,6 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
         </div>
       </div>
 
-      <!-- Botón Hamburguesa (Mobile) -->
       <button class="hamburger-btn mobile-only" id="hamburger-btn" aria-label="Menu">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2c2c2c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -83,10 +70,8 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
   </div>
 </header>
 
-<!-- Mobile Menu Overlay -->
 <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
 
-<!-- Mobile Menu Drawer -->
 <div class="mobile-menu" id="mobile-menu">
   <div class="mobile-menu-header">
     <div class="header-logo">
@@ -123,7 +108,6 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
   </div>
 </div>
 
-<!-- My Account Modal -->
 <div class="modal-overlay" id="account-modal">
   <div class="modal-content">
     <button class="modal-close" id="close-account-modal">
@@ -135,14 +119,12 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
     <h2 class="modal-title">{t('nav.myAccount')}</h2>
     <div class="modal-body">
       <p class="modal-text">{t('account.accessText')}</p>
-      <!-- Aquí se integrará VirtuaGym más adelante -->
       <a href="https://innerflow.virtuagym.com/" target="_blank" class="modal-btn">{t('account.button')}</a>
     </div>
   </div>
 </div>
 
 <script>
-  // Mobile Menu Logic
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const closeMenuBtn = document.getElementById('close-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -151,20 +133,19 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
   function openMenu() {
     mobileMenu?.classList.add('active');
     overlay?.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    document.body.style.overflow = 'hidden';
   }
 
   function closeMenu() {
     mobileMenu?.classList.remove('active');
     overlay?.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
+    document.body.style.overflow = '';
   }
 
   hamburgerBtn?.addEventListener('click', openMenu);
   closeMenuBtn?.addEventListener('click', closeMenu);
   overlay?.addEventListener('click', closeMenu);
 
-  // Account Modal Logic
   const accountModal = document.getElementById('account-modal');
   const closeAccountBtn = document.getElementById('close-account-modal');
   const accountTriggers = document.querySelectorAll('.my-account-trigger');
@@ -185,46 +166,63 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
   accountModal?.addEventListener('click', (e) => {
     if (e.target === accountModal) closeAccountModal();
   });
+
+  // Home: header desaparece al hacer scroll DOWN
+  const header = document.getElementById('header-home');
+  let lastScrollTop = 0;
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollingDown = scrollTop > lastScrollTop;
+
+    if (scrollingDown && scrollTop > 80) {
+      header?.classList.add('header-hidden');
+    } else if (scrollTop <= 50) {
+      header?.classList.remove('header-hidden');
+    }
+
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  }, { passive: true });
 </script>
 
 <style>
-  /* Header Styles */
-  .custom-header {
+  .header-home {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     z-index: 100;
     padding: 1.5rem 0;
+    animation: fadeDown 0.8s ease-out;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .header-home.header-hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  @keyframes fadeDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .container {
-    box-sizing: border-box; /* Asegurar modelo de caja consistente */
-    max-width: 1240px; /* Actualizado a 1240px */
+    box-sizing: border-box;
+    max-width: 1240px;
     margin: 0 auto;
     padding: 0 2rem;
     height: 100%;
     display: flex;
     align-items: center;
-  }
-
-  .header-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    /* animation: fadeDown 0.8s ease-out;  ← ELIMINADO - cada página decide su animación */
-  }
-
-  /* Solo oculta si silent - sin sticky aquí */
-  .header-silent {
-    opacity: 0;
-    transform: translateY(-100%);
-    visibility: hidden;
-    pointer-events: none;
-    animation: none;
-  }
-
-  .header-static {
-    position: relative;
-    border-bottom: 1px solid #eee;
   }
 
   .header-content {
@@ -241,20 +239,20 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
   }
 
   .logo-icon {
-    height: 58px; /* Altura según Figma */
+    height: 58px;
     width: auto;
-    max-width: 335px; /* Ancho máximo permitido */
+    max-width: 335px;
   }
 
   .header-right {
     display: flex;
     align-items: center;
-    gap: 3rem; /* Separación entre grupos (Nav, Botón, Idioma) */
+    gap: 3rem;
   }
 
   .header-nav {
     display: flex;
-    gap: 2rem; /* Separación entre links */
+    gap: 2rem;
     align-items: center;
   }
 
@@ -264,15 +262,10 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
     font-size: 22px;
-    line-height: 50px; /* Altura de línea según Figma */
+    line-height: 50px;
     text-transform: uppercase;
-    letter-spacing: 0.04em; /* 4% según Figma */
+    letter-spacing: 0.04em;
     transition: opacity 0.2s ease;
-    /* margin-left eliminado para usar gap del flex container */
-  }
-
-  .nav-link:first-child {
-    margin-left: 0;
   }
 
   .nav-link:hover {
@@ -300,7 +293,6 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
     background-color: rgba(237, 109, 100, 1);
   }
 
-  /* Selector de idioma */
   .lang-selector {
     display: flex;
     flex-direction: column;
@@ -323,21 +315,11 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
     text-align: center;
   }
 
-  /* Adjust language color for static header */
-  .header-static .lang-item {
-    color: #2c2c2c;
-  }
-  
-  .header-static .lang-item.active {
-    color: #ED6D64;
-  }
-
   .lang-item.active {
     font-weight: 600;
     font-size: 24px;
   }
 
-  /* Mobile Menu Styles */
   .mobile-only {
     display: none;
   }
@@ -457,7 +439,6 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
     color: #ED6D64;
   }
 
-  /* Modal Styles */
   .modal-overlay {
     position: fixed;
     top: 0;
@@ -538,41 +519,15 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
     background-color: #DB5639;
   }
 
-  /* Animations */
-  @keyframes fadeDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   @media (max-width: 1024px) {
     .desktop-only {
-      display: none !important;
+      display: none;
     }
     .mobile-only {
-      display: block !important;
+      display: block;
     }
     .hamburger-btn {
       display: block;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .header-content {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-    
-    /* Ensure header content is aligned correctly in mobile */
-    .header-content {
-        justify-content: space-between;
-        flex-wrap: nowrap;
     }
   }
 </style>
