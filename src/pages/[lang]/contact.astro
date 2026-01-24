@@ -51,15 +51,12 @@ const langLabels: Record<Locale, string> = {
           <div class="contact-grid">
             <!-- Contact Form -->
             <div class="contact-form-container">
-              <form class="contact-form">
+              <form class="contact-form" action="https://formspree.io/f/mlgjlkpy" method="POST">
                 <div class="form-group">
                   <input type="text" id="name" name="name" placeholder={t('contactPage.form.name')} required />
                 </div>
                 <div class="form-group">
                   <input type="email" id="email" name="email" placeholder={t('contactPage.form.email')} required />
-                </div>
-                <div class="form-group">
-                  <input type="text" id="subject" name="subject" placeholder={t('contactPage.form.subject')} required />
                 </div>
                 <div class="form-group">
                   <textarea id="message" name="message" rows="5" placeholder={t('contactPage.form.message')} required></textarea>
@@ -70,6 +67,15 @@ const langLabels: Record<Locale, string> = {
                 </div>
                 <button type="submit" class="submit-btn">{t('contactPage.form.send')}</button>
               </form>
+
+              <!-- Success Message -->
+              <div id="success-message" class="success-message">
+                <div class="success-content">
+                  <h3 class="success-title">¡GRACIAS POR TU MENSAJE!</h3>
+                  <p class="success-text">Te contactaremos pronto.</p>
+                  <button class="success-close-btn">CERRAR</button>
+                </div>
+              </div>
             </div>
 
             <!-- Contact Info -->
@@ -88,10 +94,10 @@ const langLabels: Record<Locale, string> = {
               <div class="info-item">
                 <div class="info-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
                   </svg>
                 </div>
-                <a href="https://wa.me/34600000000" target="_blank" class="info-text">{t('contactPage.info.phone')}</a>
+                <a href="https://wa.me/34623054832" target="_blank" class="info-text">{t('contactPage.info.phone')}</a>
               </div>
               
               <div class="info-item">
@@ -106,13 +112,13 @@ const langLabels: Record<Locale, string> = {
 
               <!-- Map Placeholder (Optional) -->
               <div class="map-placeholder">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.686290873686!2d2.196433276656704!3d41.39712397131176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a317e040679b%3A0x67674757c4333678!2sPoblenou%2C%20Barcelona!5e0!3m2!1sen!2ses!4v1709740000000!5m2!1sen!2ses" 
-                  width="100%" 
-                  height="300" 
-                  style="border:0;" 
-                  allowfullscreen="" 
-                  loading="lazy" 
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23904.488509640316!2d2.177432215625!3d41.409542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a2b7c0b9b9b9%3A0x4c7b6b8b8b8b8b8b8b8b!2sc%2F%20Pamplona%2073%2C%20Barcelona!5e0!3m2!1ses!2ses!4v1709740000000!5m2!1ses!2ses"
+                  width="100%"
+                  height="300"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
               </div>
@@ -137,7 +143,8 @@ const langLabels: Record<Locale, string> = {
                 <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
                 <span class="footer-separator">|</span>
                 <a href={`/${lang}/privacy`} class="footer-link">{t('footerLinks.privacy')}</a>
-                <a href="#" class="footer-social-link">
+                <span class="footer-separator">|</span>
+                <a href="https://www.instagram.com/newvillagestudio" target="_blank" rel="noopener noreferrer" class="footer-social-link">
                   <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -159,6 +166,96 @@ const langLabels: Record<Locale, string> = {
     </div>
   </body>
 </html>
+
+<script>
+  // Form submission handler
+  const contactForm = document.querySelector('.contact-form');
+  const successMessage = document.getElementById('success-message');
+  const successCloseBtn = document.querySelector('.success-close-btn');
+  const submitBtn = document.querySelector('.submit-btn');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      // Prevent default form submission to show loading state
+      e.preventDefault();
+
+      // Show loading state
+      if (submitBtn) {
+        submitBtn.textContent = 'ENVIANDO...';
+        submitBtn.disabled = true;
+      }
+
+      // Create FormData from the form
+      const formData = new FormData(contactForm);
+
+      // Submit to Formspree
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Success - show message
+          showSuccessMessage();
+          contactForm.reset(); // Clear form
+        } else {
+          // Error - you could show an error message here
+          console.error('Error submitting form');
+          alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+      })
+      .finally(() => {
+        // Reset button state
+        if (submitBtn) {
+          submitBtn.textContent = 'ENVIAR';
+          submitBtn.disabled = false;
+        }
+      });
+    });
+  }
+
+  function showSuccessMessage() {
+    if (successMessage) {
+      successMessage.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+  }
+
+  function hideSuccessMessage() {
+    if (successMessage) {
+      successMessage.style.display = 'none';
+      document.body.style.overflow = ''; // Restore scrolling
+    }
+  }
+
+  // Close success message
+  if (successCloseBtn) {
+    successCloseBtn.addEventListener('click', hideSuccessMessage);
+  }
+
+  // Close on click outside
+  if (successMessage) {
+    successMessage.addEventListener('click', (e) => {
+      if (e.target === successMessage) {
+        hideSuccessMessage();
+      }
+    });
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && successMessage && successMessage.style.display === 'flex') {
+      hideSuccessMessage();
+    }
+  });
+</script>
 
 <style>
   * {
@@ -281,11 +378,11 @@ const langLabels: Record<Locale, string> = {
   .submit-btn {
     background-color: #ED6D64;
     color: white;
-    padding: 1rem 3rem;
+    padding: 0.8rem 2.5rem;
     border: none;
     border-radius: 50px;
     font-family: 'Oswald', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     text-transform: uppercase;
     cursor: pointer;
@@ -353,7 +450,7 @@ const langLabels: Record<Locale, string> = {
   /* Footer (Copied styles) */
   .custom-footer {
     background-color: #ffffff;
-    padding: 100px 0 100px 0;
+    padding: 50px 0 40px 0;
     margin-top: 0;
   }
 
@@ -361,26 +458,26 @@ const langLabels: Record<Locale, string> = {
     display: flex;
     justify-content: space-between;
     align-items: flex-end; /* Alineado abajo */
-    margin-bottom: 150px;
+    margin-bottom: 100px;
   }
 
   .footer-logo-img {
     height: auto;
-    width: 250px;
+    width: 180px;
   }
 
   .footer-links {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
   }
 
   .footer-link {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 40px;
-    line-height: 50px;
-    letter-spacing: 3px;
+    font-size: 28px;
+    line-height: 35px;
+    letter-spacing: 2px;
     color: #000000;
     text-decoration: none;
     text-transform: uppercase;
@@ -393,16 +490,16 @@ const langLabels: Record<Locale, string> = {
 
   .footer-separator {
     color: #ED6D64;
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 500;
-    margin: 0 5px;
+    margin: 0 4px;
   }
 
   .footer-social-icon {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     color: #000000;
-    margin-left: 30px;
+    margin-left: 8px;
     transition: color 0.3s ease;
   }
 
@@ -415,9 +512,9 @@ const langLabels: Record<Locale, string> = {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 600px;
+    min-height: 280px;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 60px;
     overflow: visible;
   }
 
@@ -452,15 +549,15 @@ const langLabels: Record<Locale, string> = {
     justify-content: center;
     align-items: center;
     flex-direction: row; /* Todo en una línea */
-    gap: 15px;
+    gap: 10px;
   }
 
   .footer-text-main {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 42px;
-    line-height: 50px;
-    letter-spacing: 4px;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
     color: #000000;
     text-transform: uppercase;
     white-space: nowrap;
@@ -469,9 +566,9 @@ const langLabels: Record<Locale, string> = {
   .footer-text-sub {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    font-size: 42px;
-    line-height: 50px;
-    letter-spacing: 4px;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
     color: #000000;
     text-transform: uppercase;
     white-space: nowrap;
@@ -562,6 +659,111 @@ const langLabels: Record<Locale, string> = {
       line-height: 32px;
       letter-spacing: 2px;
       white-space: normal;
+    }
+  }
+
+  /* Success Message */
+  .success-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .success-content {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease;
+  }
+
+  .success-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    color: #2c2c2c;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .success-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .success-close-btn {
+    background: #ED6D64;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.8rem;
+    border-radius: 50px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .success-close-btn:hover {
+    background: #d15b52;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Success Message Mobile */
+  @media (max-width: 768px) {
+    .success-content {
+      padding: 2rem 1.5rem;
+    }
+
+    .success-title {
+      font-size: 24px;
+    }
+
+    .success-text {
+      font-size: 18px;
+    }
+
+    .success-close-btn {
+      padding: 0.6rem 1.5rem;
+      font-size: 14px;
     }
   }
 </style>

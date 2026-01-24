@@ -4,27 +4,27 @@
     "line1": "ENTRENA CON LIBERTAD.",
     "line2": "SIN PERMANENCIAS, SIN OBLIGACIONES, SIN PRISAS",
     "line3": "ELIGE LA OPCIÓN QUE MEJOR ENCAJE CON TU RITMO.",
-    "btnMembership": "MEMBRESÍA",
-    "btnBonds": "BONOS",
+    "btnMembership": "COMPRAR",
+    "btnBonds": "COMPRAR",
     "membership": {
       "title": "MEMBRESÍA",
       "description": "ACCESO MENSUAL A TODAS LAS DISCIPLINAS, CON LA LIBERTAD DE ENTRENAR A TU RITMO Y ADAPTAR TU PRÁCTICA A CADA MOMENTO",
       "footer": "Tu práctica. Tú ritmo.",
       "includesTitle": "INCLUYE",
       "items": [
-        "Tote bag NewVillage",
+        "tote bag newvillage",
         "2 eventos gratuitos al año",
-        "Bring your friend"
+        "bring your friend"
       ],
       "fee": "Matrícula de alta: 60€*",
       "feeNote": "*Pago único al inscribirte.",
-      "price": "122€/mes",
-      "button": "HAZTE MEMBER"
+      "price": "132€/mes",
+      "button": "COMPRAR"
     },
     "packs": {
       "title": "NUESTROS PACKS",
       "description": "LOS PACKS SON IDEALES PARA PROBAR, \nCOMBINAR DISCIPLINAS O VENIR A TU RITMO. \nFLEXIBLES, CLAROS Y SIN PERMANENCIAS.",
-      "btnReserve": "RESERVA",
+      "btnReserve": "COMPRAR",
       "footer": "Sin permanencias. Sin prisas. Sin compromisos.",
       "badgeText": "RECOMENDADO PARA EMPEZAR",
       "items": [

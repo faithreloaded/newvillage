@@ -8,11 +8,11 @@
     "buttons": "Botons",
     "movement": "MOVIMENT",
     "plans": "PLANS",
-    "myAccount": "EL MEU COMPTE"
+    "myAccount": "HORARIS"
   },
   "actions": {
     "bookNow": "Reserva ara",
-    "reserve": "RESERVA"
+    "reserve": "LOGIN"
   },
   "lang": {
     "es": "ES",

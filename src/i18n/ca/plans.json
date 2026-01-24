@@ -4,27 +4,27 @@
     "line1": "ENTRENA AMB LLIBERTAT.",
     "line2": "SENSE PERMANÈNCIES, SENSE OBLIGACIONS, SENSE PRESSES",
     "line3": "TRIA L'OPCIÓ QUE MILLOR ENCAIXI AMB EL TEU RITME.",
-    "btnMembership": "MEMBRESIA",
-    "btnBonds": "ABONAMENTS",
+    "btnMembership": "COMPRAR",
+    "btnBonds": "COMPRAR",
     "membership": {
       "title": "MEMBRESIA",
       "description": "ACCÉS MENSUAL A TOTES LES DISCIPLINES, AMB LA LLIBERTAT D'ENTRENAR AL TEU RITME I ADAPTAR LA TEVA PRÀCTICA A CADA MOMENT",
       "footer": "La teva pràctica. El teu ritme.",
       "includesTitle": "INCLOU",
       "items": [
-        "Tote bag NewVillage",
+        "tote bag newvillage",
         "2 esdeveniments gratuïts a l'any",
-        "Bring your friend"
+        "bring your friend"
       ],
       "fee": "Matrícula d'alta: 60€*",
       "feeNote": "*Pagament únic en inscriure't.",
-      "price": "122€/mes",
-      "button": "FES-TE MEMBER"
+      "price": "132€/mes",
+      "button": "COMPRAR"
     },
     "packs": {
       "title": "ELS NOSTRES PACKS",
       "description": "ELS PACKS SÓN IDEALS PER PROVAR, COMBINAR DISCIPLINES O VENIR AL TEU RITME. FLEXIBLES, CLARS I SENSE PERMANÈNCIES.",
-      "btnReserve": "RESERVA",
+      "btnReserve": "COMPRAR",
       "footer": "Sense permanències. Sense presses. Sense compromisos.",
       "badgeText": "RECOMANAT PER COMENÇAR",
       "items": [

@@ -13,7 +13,7 @@
     "reserve": "BOOK NOW"
   },
   "disciplines": {
-    "sectionTitle": "MOVE BETTER. START BY CHOOSING WHERE",
+    "sectionTitle": "Move in different ways. Feel the difference.",
     "sectionSubtitle": "FOUR DISCIPLINES THAT COMPLEMENT EACH OTHER TO CREATE A COMPLETE, CONSCIOUS AND CURRENT TRAINING.",
     "barreTitle": "BARRE",
     "barreTags": "PRECISION · TONE · PULSE",
@@ -23,7 +23,7 @@
     "functionalTags": "ENERGY · POWER · ENDURANCE",
     "yogaTitle": "YOGA",
     "yogaTags": "FLOW · PRESENCE · BALANCE",
-    "viewMore": "VIEW MORE",
+    "viewMore": "DISCOVER",
     "barreDetailTitle": "BARRE",
     "barreDetailSubtitle": "SMALL MOVEMENTS THAT CHANGE EVERYTHING",
     "barreDetailText": "Strength, control and endurance found in an intense, precise and addictive practice",
@@ -68,7 +68,7 @@
     "yogaProgram2Text": "Flow with your breath and connect with your body",
     "ctaSection": {
       "text": "MOVE BETTER STARTS BY CHOOSING WHERE",
-      "button": "BOOK YOUR CLASS"
+      "button": "VIEW SCHEDULE"
     }
   },
   "faqs": {

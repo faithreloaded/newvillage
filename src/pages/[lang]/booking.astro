@@ -59,6 +59,81 @@ const langLabels: Record<Locale, string> = {
         </div>
       </main>
 
+      <!-- FAQs Modal -->
+      <div id="faqs-modal" class="faqs-modal">
+        <div class="faqs-modal-content">
+          <button class="faqs-modal-close" aria-label="Close modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <h2 class="faqs-title">{t('faqs.title')}</h2>
+          <div class="faqs-accordion">
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q1')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a1')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q2')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a2')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q3')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a3')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q4')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a4')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q5')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a5')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Footer -->
       <footer class="custom-footer">
         <div class="container" style="display: block;">
@@ -68,7 +143,7 @@ const langLabels: Record<Locale, string> = {
             </div>
             <div class="footer-right">
               <nav class="footer-links">
-                <a href={`/${lang}/#faqs`} class="footer-link">{t('footerLinks.faqs')}</a>
+                <button id="faqs-trigger" class="footer-link faq-scroll-trigger" style="background:none; border:none; padding:0; cursor:pointer;">{t('footerLinks.faqs')}</button>
                 <span class="footer-separator">|</span>
                 <a href={`/${lang}/contact`} class="footer-link">{t('footerLinks.contact')}</a>
                 <span class="footer-separator">|</span>
@@ -149,7 +224,7 @@ const langLabels: Record<Locale, string> = {
   /* Footer */
   .custom-footer {
     background-color: #ffffff;
-    padding: 100px 0 100px 0;
+    padding: 40px 0 40px 0;
     margin-top: 0;
   }
 
@@ -157,26 +232,26 @@ const langLabels: Record<Locale, string> = {
     display: flex;
     justify-content: space-between;
     align-items: flex-end; /* Alineado abajo */
-    margin-bottom: 150px;
+    margin-bottom: 100px;
   }
 
   .footer-logo-img {
     height: auto;
-    width: 250px;
+    width: 180px;
   }
 
   .footer-links {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
   }
 
   .footer-link {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 40px;
-    line-height: 50px;
-    letter-spacing: 3px;
+    font-size: 28px;
+    line-height: 35px;
+    letter-spacing: 2px;
     color: #000000;
     text-decoration: none;
     text-transform: uppercase;
@@ -189,16 +264,16 @@ const langLabels: Record<Locale, string> = {
 
   .footer-separator {
     color: #ED6D64;
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 500;
-    margin: 0 5px;
+    margin: 0 4px;
   }
 
   .footer-social-icon {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     color: #000000;
-    margin-left: 30px;
+    margin-left: 8px;
     transition: color 0.3s ease;
   }
 
@@ -211,9 +286,9 @@ const langLabels: Record<Locale, string> = {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 600px;
+    min-height: 280px;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 60px;
     overflow: visible;
   }
 
@@ -248,15 +323,15 @@ const langLabels: Record<Locale, string> = {
     justify-content: center;
     align-items: center;
     flex-direction: row; /* Todo en una línea */
-    gap: 15px;
+    gap: 10px;
   }
 
   .footer-text-main {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 42px;
-    line-height: 50px;
-    letter-spacing: 4px;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
     color: #000000;
     text-transform: uppercase;
     white-space: nowrap;
@@ -265,9 +340,9 @@ const langLabels: Record<Locale, string> = {
   .footer-text-sub {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    font-size: 42px;
-    line-height: 50px;
-    letter-spacing: 4px;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
     color: #000000;
     text-transform: uppercase;
     white-space: nowrap;
@@ -324,4 +399,225 @@ const langLabels: Record<Locale, string> = {
       white-space: normal;
     }
   }
+
+  /* FAQs Modal */
+  .faqs-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+
+  .faqs-modal.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .faqs-modal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .faqs-modal.open .faqs-modal-content {
+    transform: translateY(0);
+  }
+
+  .faqs-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #2c2c2c;
+    transition: color 0.3s ease;
+    padding: 0.5rem;
+    z-index: 10;
+  }
+
+  .faqs-modal-close:hover {
+    color: #ED6D64;
+  }
+
+  /* FAQs Styles inside Modal */
+  .faqs-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    width: 100%;
+  }
+
+  .faqs-accordion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.3s ease;
+  }
+
+  .faq-question span {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-right: 1rem;
+  }
+
+  .faq-question:hover span {
+    color: #ED6D64;
+  }
+
+  .faq-icon {
+    transition: transform 0.3s ease;
+    color: #ED6D64;
+    flex-shrink: 0;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer p {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+  }
+
+  /* Responsive Modal */
+  @media (max-width: 768px) {
+    .faqs-modal-content {
+      width: 95%;
+      padding: 2rem 1.5rem;
+      max-height: 85vh;
+    }
+
+    .faqs-title {
+      font-size: 32px;
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-question span {
+      font-size: 18px;
+    }
+
+    .faq-answer p {
+      font-size: 16px;
+    }
+
+    .faqs-modal-close {
+      top: 1rem;
+      right: 1rem;
+    }
+  }
 </style>
+
+<script>
+  // FAQs Logic
+  const faqTrigger = document.getElementById('faqs-trigger');
+  const faqModal = document.getElementById('faqs-modal');
+  const faqClose = document.querySelector('.faqs-modal-close');
+  const faqModalContent = document.querySelector('.faqs-modal-content');
+
+  function openFaqModal(e) {
+    e.preventDefault();
+    faqModal?.classList.add('open');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+  }
+
+  function closeFaqModal() {
+    faqModal?.classList.remove('open');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+
+  faqTrigger?.addEventListener('click', openFaqModal);
+  faqClose?.addEventListener('click', closeFaqModal);
+
+  // Close when clicking outside
+  faqModal?.addEventListener('click', (e) => {
+    if (e.target === faqModal) {
+      closeFaqModal();
+    }
+  });
+
+  // Close with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && faqModal?.classList.contains('open')) {
+      closeFaqModal();
+    }
+  });
+
+  const faqQuestions = document.querySelectorAll('.faq-question');
+
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const item = question.parentElement;
+      const isActive = item.classList.contains('active');
+
+      // Cerrar todos
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('active');
+        const icon = i.querySelector('.faq-icon');
+        if(icon) icon.style.transform = 'rotate(0deg)';
+      });
+
+      if (!isActive) {
+        item.classList.add('active');
+        const icon = item.querySelector('.faq-icon');
+        if(icon) icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>

@@ -4,27 +4,27 @@
     "line1": "TRAIN WITH FREEDOM.",
     "line2": "NO COMMITMENT, NO OBLIGATIONS, NO RUSH",
     "line3": "CHOOSE THE OPTION THAT BEST FITS YOUR RHYTHM.",
-    "btnMembership": "MEMBERSHIP",
-    "btnBonds": "PACKS",
+    "btnMembership": "BUY",
+    "btnBonds": "BUY",
     "membership": {
       "title": "MEMBERSHIP",
       "description": "MONTHLY ACCESS TO ALL DISCIPLINES, WITH THE FREEDOM TO TRAIN AT YOUR OWN PACE AND ADAPT YOUR PRACTICE TO EVERY MOMENT",
       "footer": "Your practice. Your rhythm.",
       "includesTitle": "INCLUDES",
       "items": [
-        "NewVillage Tote bag",
+        "newvillage tote bag",
         "2 free events per year",
-        "Bring your friend"
+        "bring your friend"
       ],
       "fee": "Registration fee: 60€*",
       "feeNote": "*One-time payment upon registration.",
-      "price": "122€/month",
-      "button": "BECOME A MEMBER"
+      "price": "132€/month",
+      "button": "BUY"
     },
     "packs": {
       "title": "OUR PACKS",
       "description": "PACKS ARE IDEAL FOR TRYING OUT, COMBINING DISCIPLINES OR COMING AT YOUR OWN PACE. FLEXIBLE, CLEAR AND NO COMMITMENT.",
-      "btnReserve": "BOOK",
+      "btnReserve": "BUY",
       "footer": "No commitment. No rush. No compromises.",
       "badgeText": "RECOMMENDED TO START",
       "items": [

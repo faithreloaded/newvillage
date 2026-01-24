@@ -1,20 +1,19 @@
 {
   "contactPage": {
     "title": "CONTACTO",
-    "subtitle": "ESTAMOS AQUÍ PARA AYUDARTE",
+    "subtitle": "CUÉNTANOS QUÉ NECESITAS",
     "form": {
       "name": "NOMBRE",
       "email": "EMAIL",
-      "subject": "ASUNTO",
-      "message": "MENSAJE",
+      "message": "CUÉNTANOS EN QUÉ PODEMOS AYUDARTE",
       "send": "ENVIAR",
       "privacy": "Acepto la política de privacidad y el aviso legal"
     },
     "info": {
       "title": "INFORMACIÓN DE CONTACTO",
       "email": "info@newvillage.com",
-      "phone": "+34 600 000 000",
-      "address": "Carrer de Pujades, 123, 08005 Barcelona"
+      "phone": "623 05 48 32",
+      "address": "c/ Pamplona 73. Barcelona"
     }
   }
 }

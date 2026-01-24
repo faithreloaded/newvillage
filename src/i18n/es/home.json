@@ -13,7 +13,7 @@
     "reserve": "RESERVA"
   },
   "disciplines": {
-    "sectionTitle": "MUÉVETE MEJOR. EMPIEZA POR ELEGIR DÓNDE",
+    "sectionTitle": "Muévete de distintas maneras. Siente la diferencia.",
     "sectionSubtitle": "CUATRO DISCIPLINAS QUE SE COMPLEMENTAN PARA CREAR UN ENTRENAMIENTO COMPLETO, CONSCIENTE Y ACTUAL.",
     "barreTitle": "BARRE",
     "barreTags": "PRECISIÓN · TONO · PULSO",
@@ -23,7 +23,7 @@
     "functionalTags": "ENERGÍA · POTENCIA · RESISTENCIA",
     "yogaTitle": "YOGA",
     "yogaTags": "FLUIDEZ · PRESENCIA · EQUILIBRIO",
-    "viewMore": "VER MÁS",
+    "viewMore": "DESCUBRIR",
     "barreDetailTitle": "BARRE",
     "barreDetailSubtitle": "PEQUEÑOS MOVIMIENTOS QUE LO CAMBIAN TODO",
     "barreDetailText": "Fuerza, control y resistencia que se encuentran en una práctica intensa, precisa y adictiva",
@@ -64,7 +64,7 @@
     "yogaProgram2Text": "Fluye con tu respiración y conecta con tu cuerpo",
     "ctaSection": {
       "text": "MOVERTE MEJOR EMPIEZA POR ELEGIR DÓNDE",
-      "button": "RESERVA TU CLASE"
+      "button": "VER HORARIOS"
     }
   },
   "faqs": {

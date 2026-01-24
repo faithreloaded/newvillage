@@ -59,9 +59,9 @@ const langLabels: Record<Locale, string> = {
       <section class="hero-section">
         <div class="hero-background">
           <img src="/images/herobg.jpg" alt="Background" class="hero-bg-image" />
-        </div>
-        
-        <div class="container">
+    </div>
+    
+      <div class="container">
           <div class="hero-content">
             <!-- Texto izquierda -->
             <div class="hero-text">
@@ -70,10 +70,10 @@ const langLabels: Record<Locale, string> = {
                 <span class="hero-line-2">{t('hero.title_line2')}</span>
                 <span class="hero-line-3">{t('hero.title_line3')}</span>
               </h1>
-            </div>
-          </div>
         </div>
-        
+      </div>
+    </div>
+    
         <!-- Logo rotado derecha - INCORPORADO SVG INLINE -->
         <div class="hero-logo-container">
           <svg 
@@ -88,9 +88,9 @@ const langLabels: Record<Locale, string> = {
               fill="#A53716" 
               fill-opacity="0.3"
             />
-          </svg>
-        </div>
-      </section>
+      </svg>
+    </div>
+  </section>
 
       <!-- Disciplines Section -->
       <section class="disciplines-section" id="disciplines">
@@ -98,71 +98,95 @@ const langLabels: Record<Locale, string> = {
           <h2 class="disciplines-title">{t('disciplines.sectionTitle')}</h2>
           <p class="disciplines-subtitle">{t('disciplines.sectionSubtitle')}</p>
           
-          <div class="disciplines-grid">
+          <div class="disciplines-carousel-wrapper">
+            <button class="carousel-nav-btn carousel-prev mobile-only" aria-label="Previous discipline">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="disciplines-grid">
             <div class="discipline-item" data-discipline="barre">
               <img src="/images/barre.jpg" alt="Barre" class="discipline-image" />
               <div class="discipline-overlay">
                 <h3 class="discipline-overlay-title">{t('disciplines.barreTitle')}</h3>
                 <p class="discipline-overlay-tags">{t('disciplines.barreTags')}</p>
-              </div>
+                <button class="discipline-view-more-btn mobile-only">
+                  <span>{t('disciplines.viewMore')}</span>
+                </button>
+            </div>
               <div class="discipline-gradient-overlay">
-                <button class="discipline-view-more-btn">
+                <button class="discipline-view-more-btn desktop-only">
                   <span>{t('disciplines.viewMore')}</span>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+              </svg>
                 </button>
-              </div>
             </div>
+          </div>
             <div class="discipline-item" data-discipline="pilates">
               <img src="/images/pilates.jpg" alt="Pilates" class="discipline-image discipline-image-right" />
               <div class="discipline-overlay">
                 <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
                 <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
+                <button class="discipline-view-more-btn mobile-only">
+                  <span>{t('disciplines.viewMore')}</span>
+                </button>
               </div>
               <div class="discipline-gradient-overlay">
-                <button class="discipline-view-more-btn">
+                <button class="discipline-view-more-btn desktop-only">
                   <span>{t('disciplines.viewMore')}</span>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+              </svg>
                 </button>
-              </div>
             </div>
+          </div>
             <div class="discipline-item" data-discipline="funcional">
               <img src="/images/funcional.jpg" alt="Funcional" class="discipline-image discipline-image-right" />
               <div class="discipline-overlay">
                 <h3 class="discipline-overlay-title">{t('disciplines.functionalTitle')}</h3>
                 <p class="discipline-overlay-tags">{t('disciplines.functionalTags')}</p>
-              </div>
+                <button class="discipline-view-more-btn mobile-only">
+                  <span>{t('disciplines.viewMore')}</span>
+                </button>
+        </div>
               <div class="discipline-gradient-overlay">
-                <button class="discipline-view-more-btn">
+                <button class="discipline-view-more-btn desktop-only">
                   <span>{t('disciplines.viewMore')}</span>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
-              </div>
-            </div>
+        </div>
+      </div>
             <div class="discipline-item" data-discipline="yoga">
               <img src="/images/yoga.jpg" alt="Yoga" class="discipline-image discipline-image-right" />
               <div class="discipline-overlay">
                 <h3 class="discipline-overlay-title">{t('disciplines.yogaTitle')}</h3>
                 <p class="discipline-overlay-tags">{t('disciplines.yogaTags')}</p>
-              </div>
+                <button class="discipline-view-more-btn mobile-only">
+                  <span>{t('disciplines.viewMore')}</span>
+                </button>
+    </div>
               <div class="discipline-gradient-overlay">
-                <button class="discipline-view-more-btn">
+                <button class="discipline-view-more-btn desktop-only">
                   <span>{t('disciplines.viewMore')}</span>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
-              </div>
+        </div>
             </div>
           </div> <!-- End disciplines-grid -->
 
           <!-- Barre Detail Section (Expandible) -->
           <div class="discipline-detail" id="barre-detail">
+            <button class="mobile-close-detail mobile-only" aria-label="Cerrar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
             <div class="discipline-detail-content">
               <h2 class="discipline-detail-title">{t('disciplines.barreDetailTitle')}</h2>
               <h3 class="discipline-detail-subtitle">{t('disciplines.barreDetailSubtitle')}</h3>
@@ -172,21 +196,27 @@ const langLabels: Record<Locale, string> = {
                 <div class="program-box program-box-1">
                   <h4 class="program-title">{t('disciplines.barreProgram1Title')}</h4>
                   <p class="program-text">{t('disciplines.barreProgram1Text')}</p>
-                </div>
+            </div>
                 <div class="program-box program-box-2">
                   <h4 class="program-title">{t('disciplines.barreProgram2Title')}</h4>
                   <p class="program-text">{t('disciplines.barreProgram2Text')}</p>
-                </div>
+          </div>
                 <div class="program-box program-box-3">
                   <h4 class="program-title">{t('disciplines.barreProgram3Title')}</h4>
                   <p class="program-text">{t('disciplines.barreProgram3Text')}</p>
-                </div>
-              </div>
             </div>
           </div>
+        </div>
+        </div>
 
           <!-- Pilates Detail Section (Expandible) -->
           <div class="discipline-detail" id="pilates-detail">
+            <button class="mobile-close-detail mobile-only" aria-label="Cerrar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
             <div class="discipline-detail-content">
               <h2 class="discipline-detail-title">{t('disciplines.pilatesDetailTitle')}</h2>
               <h3 class="discipline-detail-subtitle">{t('disciplines.pilatesDetailSubtitle')}</h3>
@@ -196,57 +226,69 @@ const langLabels: Record<Locale, string> = {
                 <div class="program-box program-box-1">
                   <h4 class="program-title">{t('disciplines.pilatesProgram1Title')}</h4>
                   <p class="program-text">{t('disciplines.pilatesProgram1Text')}</p>
-                </div>
+              </div>
                 <div class="program-box program-box-2">
                   <h4 class="program-title">{t('disciplines.pilatesProgram2Title')}</h4>
                   <p class="program-text">{t('disciplines.pilatesProgram2Text')}</p>
-                </div>
+              </div>
                 <div class="program-box program-box-3">
                   <h4 class="program-title">{t('disciplines.pilatesProgram3Title')}</h4>
                   <p class="program-text">{t('disciplines.pilatesProgram3Text')}</p>
-                </div>
+            </div>
+              </div>
               </div>
             </div>
-          </div>
 
           <!-- Funcional Detail Section (Expandible) -->
           <div class="discipline-detail" id="funcional-detail">
+            <button class="mobile-close-detail mobile-only" aria-label="Cerrar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
             <div class="discipline-detail-content">
               <h2 class="discipline-detail-title">{t('disciplines.functionalDetailTitle')}</h2>
               <h3 class="discipline-detail-subtitle">{t('disciplines.functionalDetailSubtitle')}</h3>
               <p class="discipline-detail-text">{t('disciplines.functionalDetailText')}</p>
-              
+          
               <div class="discipline-programs discipline-programs-5">
                 <div class="program-row program-row-top">
                   <div class="program-box program-box-1">
                     <h4 class="program-title">{t('disciplines.functionalProgram1Title')}</h4>
                     <p class="program-text">{t('disciplines.functionalProgram1Text')}</p>
-                  </div>
+              </div>
                   <div class="program-box program-box-2">
                     <h4 class="program-title">{t('disciplines.functionalProgram2Title')}</h4>
                     <p class="program-text">{t('disciplines.functionalProgram2Text')}</p>
-                  </div>
+              </div>
                   <div class="program-box program-box-3">
                     <h4 class="program-title">{t('disciplines.functionalProgram3Title')}</h4>
                     <p class="program-text">{t('disciplines.functionalProgram3Text')}</p>
-                  </div>
-                </div>
+            </div>
+          </div>
                 <div class="program-row program-row-bottom">
                   <div class="program-box program-box-4">
                     <h4 class="program-title">{t('disciplines.functionalProgram4Title')}</h4>
                     <p class="program-text">{t('disciplines.functionalProgram4Text')}</p>
-                  </div>
+          </div>
                   <div class="program-box program-box-5">
                     <h4 class="program-title">{t('disciplines.functionalProgram5Title')}</h4>
                     <p class="program-text">{t('disciplines.functionalProgram5Text')}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      </div>
 
           <!-- Yoga Detail Section (Expandible) -->
           <div class="discipline-detail" id="yoga-detail">
+            <button class="mobile-close-detail mobile-only" aria-label="Cerrar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+            </button>
             <div class="discipline-detail-content">
               <h2 class="discipline-detail-title">{t('disciplines.yogaDetailTitle')}</h2>
               <h3 class="discipline-detail-subtitle">{t('disciplines.yogaDetailSubtitle')}</h3>
@@ -256,13 +298,19 @@ const langLabels: Record<Locale, string> = {
                 <div class="program-box program-box-yoga-1">
                   <h4 class="program-title">{t('disciplines.yogaProgram1Title')}</h4>
                   <p class="program-text">{t('disciplines.yogaProgram1Text')}</p>
-                </div>
+        </div>
                 <div class="program-box program-box-yoga-2">
                   <h4 class="program-title">{t('disciplines.yogaProgram2Title')}</h4>
                   <p class="program-text">{t('disciplines.yogaProgram2Text')}</p>
-                </div>
               </div>
             </div>
+          </div>
+              </div>
+            <button class="carousel-nav-btn carousel-next mobile-only" aria-label="Next discipline">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+            </button>
           </div>
         </div>
       </section>
@@ -273,18 +321,25 @@ const langLabels: Record<Locale, string> = {
           <div class="cta-content">
             <h2 class="cta-text">{t('disciplines.ctaSection.text')}</h2>
             <a href="#" class="cta-button">{t('disciplines.ctaSection.button')}</a>
-          </div>
-        </div>
-      </section>
+            </div>
+    </div>
+  </section>
 
       <!-- Local Image Section -->
       <section class="local-image-section">
         <img src="/images/local.jpg" alt="NewVillage Local" class="local-image" />
       </section>
 
-      <!-- FAQs Section -->
-      <section class="faqs-section" id="faqs">
-        <div class="container faqs-container-flex">
+      <!-- FAQs Modal -->
+      <div id="faqs-modal" class="faqs-modal">
+        <div class="faqs-modal-content">
+          <button class="faqs-modal-close" aria-label="Close modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+              </button>
+          
           <h2 class="faqs-title">{t('faqs.title')}</h2>
           <div class="faqs-accordion">
             <div class="faq-item">
@@ -298,18 +353,18 @@ const langLabels: Record<Locale, string> = {
                 <p>{t('faqs.a1')}</p>
               </div>
             </div>
-            
+
             <div class="faq-item">
               <button class="faq-question">
                 <span>{t('faqs.q2')}</span>
                 <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M6 9l6 6 6-6"/>
-                </svg>
+                  </svg>
               </button>
               <div class="faq-answer">
                 <p>{t('faqs.a2')}</p>
-              </div>
-            </div>
+          </div>
+        </div>
 
             <div class="faq-item">
               <button class="faq-question">
@@ -320,20 +375,20 @@ const langLabels: Record<Locale, string> = {
               </button>
               <div class="faq-answer">
                 <p>{t('faqs.a3')}</p>
-              </div>
-            </div>
+      </div>
+    </div>
 
             <div class="faq-item">
               <button class="faq-question">
                 <span>{t('faqs.q4')}</span>
                 <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M6 9l6 6 6-6"/>
-                </svg>
+            </svg>
               </button>
               <div class="faq-answer">
                 <p>{t('faqs.a4')}</p>
-              </div>
-            </div>
+      </div>
+    </div>
 
             <div class="faq-item">
               <button class="faq-question">
@@ -344,11 +399,11 @@ const langLabels: Record<Locale, string> = {
               </button>
               <div class="faq-answer">
                 <p>{t('faqs.a5')}</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
+        </div>
+        </div>
+        </div>
+        </div>
 
       <!-- Footer -->
       <footer class="custom-footer">
@@ -356,48 +411,53 @@ const langLabels: Record<Locale, string> = {
           <div class="footer-top">
             <div class="footer-left">
               <img src="/images/logofooter.svg" alt="NewVillage Logo" class="footer-logo-img" />
-            </div>
+        </div>
             <div class="footer-right">
               <nav class="footer-links">
-                <a href="#faqs" class="footer-link faq-scroll-trigger">{t('footerLinks.faqs')}</a>
+                <button id="faqs-trigger" class="footer-link faq-scroll-trigger" style="background:none; border:none; padding:0; cursor:pointer;">{t('footerLinks.faqs')}</button>
                 <span class="footer-separator">|</span>
                 <a href={`/${lang}/contact`} class="footer-link">{t('footerLinks.contact')}</a>
                 <span class="footer-separator">|</span>
                 <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
                 <span class="footer-separator">|</span>
                 <a href={`/${lang}/privacy`} class="footer-link">{t('footerLinks.privacy')}</a>
-                <a href="#" class="footer-social-link">
+                <a href="https://www.instagram.com/newvillagestudio" target="_blank" rel="noopener noreferrer" class="footer-social-link">
                   <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                  </svg>
-                </a>
+            </svg>
+          </a>
               </nav>
-            </div>
-          </div>
-          
+        </div>
+        </div>
+
           <div class="footer-bottom">
             <div class="footer-text-absolute">
               <span class="footer-text-main">NEW VILLAGE STUDIO.</span>
               <span class="footer-text-sub">MOVE, MEET & CONNECT</span>
-            </div>
-          </div>
+        </div>
+        </div>
         </div>
       </footer>
-    </div>
+      </div>
 
     <script>
       // Discipline Detail Toggle
       function toggleDiscipline(disciplineName) {
         const item = document.querySelector(`[data-discipline="${disciplineName}"]`);
         const detail = document.getElementById(`${disciplineName}-detail`);
+        
+        // Comportamiento simplificado en Mobile: Mostrar debajo (scroll down)
+        // Ya no usamos flip card ni ocultamos el carrusel
+        
         const isOpen = detail?.classList.contains('active');
 
         // Cerrar todas las demás secciones
         document.querySelectorAll('.discipline-detail').forEach(d => {
           if (d.id !== `${disciplineName}-detail`) {
             d.classList.remove('active');
+            d.style.display = 'none'; // Asegurar que se ocultan en mobile
           }
         });
         document.querySelectorAll('.discipline-item').forEach(i => {
@@ -408,26 +468,51 @@ const langLabels: Record<Locale, string> = {
 
         if (isOpen) {
           detail?.classList.remove('active');
+          if (window.innerWidth <= 768) detail.style.display = 'none';
           item?.classList.remove('active');
         } else {
           detail?.classList.add('active');
+          if (window.innerWidth <= 768) detail.style.display = 'block';
           item?.classList.add('active');
           
-          // Scroll suave: Alinear la imagen cerca de la parte superior para ver el contenido debajo
+          // Scroll suave: Centrar el contenido detallado que se acaba de abrir
           setTimeout(() => {
-            if (item) {
-              const itemRect = item.getBoundingClientRect();
-              const absoluteTop = window.pageYOffset + itemRect.top;
-              const headerOffset = 100; // Espacio para el header
-              
+            if (detail) {
+              const detailRect = detail.getBoundingClientRect();
+              const absoluteTop = window.pageYOffset + detailRect.top;
+              const headerOffset = 120; // Espacio para el header + margen
+              const windowHeight = window.innerHeight;
+              const detailHeight = detailRect.height;
+
+              // Centrar el contenido en la ventana
+              const centerOffset = (windowHeight - detailHeight) / 2;
+              const scrollTop = absoluteTop - headerOffset - Math.max(centerOffset, 50);
+
               window.scrollTo({
-                top: absoluteTop - headerOffset,
+                top: Math.max(scrollTop, 0), // No permitir scroll negativo
                 behavior: 'smooth'
               });
             }
-          }, 150);
+          }, 300); // Aumentar el timeout para que el contenido esté completamente expandido
         }
       }
+
+      // Función para cerrar el detalle en mobile (volver a la imagen)
+      /* function closeMobileDetail(disciplineName) { ... } */
+
+      // Setup para botones de cerrar en mobile
+      document.querySelectorAll('.mobile-close-detail').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const detail = btn.closest('.discipline-detail');
+            if (detail) {
+                // Simplemente cerrar el detalle (toggle)
+                const id = detail.id.replace('-detail', '');
+                toggleDiscipline(id);
+            }
+        });
+      });
 
       // Función para manejar clicks en discipline items
       function setupDisciplineClick(disciplineName) {
@@ -470,7 +555,7 @@ const langLabels: Record<Locale, string> = {
             const item = document.querySelector(`.discipline-item[data-discipline="${id}"]`);
             if (item && item.nextElementSibling !== detail) {
                item.after(detail);
-            }
+    }
           });
         } else {
           // En desktop, movemos los details de vuelta al final del contenedor
@@ -480,7 +565,7 @@ const langLabels: Record<Locale, string> = {
             const detail = document.getElementById(id);
             if (detail && detail.parentNode !== container) {
               container.appendChild(detail);
-            }
+    }
           });
         }
       }
@@ -490,6 +575,39 @@ const langLabels: Record<Locale, string> = {
       handleMobileLayout();
 
       // FAQs Logic
+      const faqTrigger = document.getElementById('faqs-trigger');
+      const faqModal = document.getElementById('faqs-modal');
+      const faqClose = document.querySelector('.faqs-modal-close');
+      const faqModalContent = document.querySelector('.faqs-modal-content');
+
+      function openFaqModal(e) {
+        e.preventDefault();
+        faqModal?.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      }
+
+      function closeFaqModal() {
+        faqModal?.classList.remove('open');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+
+      faqTrigger?.addEventListener('click', openFaqModal);
+      faqClose?.addEventListener('click', closeFaqModal);
+
+      // Close when clicking outside
+      faqModal?.addEventListener('click', (e) => {
+        if (e.target === faqModal) {
+          closeFaqModal();
+        }
+      });
+
+      // Close with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && faqModal?.classList.contains('open')) {
+          closeFaqModal();
+        }
+      });
+
       const faqQuestions = document.querySelectorAll('.faq-question');
       
       faqQuestions.forEach(question => {
@@ -511,6 +629,116 @@ const langLabels: Record<Locale, string> = {
           }
         });
       });
+      // Carousel Logic for Mobile
+      const carouselItems = document.querySelectorAll('.discipline-item');
+      const prevBtn = document.querySelector('.carousel-prev');
+      const nextBtn = document.querySelector('.carousel-next');
+      let currentCarouselIndex = 0;
+
+      function updateCarousel() {
+        const isMobile = window.innerWidth <= 768;
+        
+        if (!isMobile) {
+          carouselItems.forEach(item => {
+            item.style.display = '';
+            item.classList.remove('active-slide');
+          });
+          document.querySelectorAll('.discipline-detail').forEach(detail => {
+            detail.style.display = '';
+          });
+          return;
+        }
+
+        // Hide all items
+        carouselItems.forEach((item, index) => {
+          if (index === currentCarouselIndex) {
+            item.style.display = 'block';
+            item.classList.add('active-slide');
+          } else {
+            item.style.display = 'none';
+            item.classList.remove('active-slide');
+          }
+        });
+        
+        // Handle details visibility
+        document.querySelectorAll('.discipline-detail').forEach(detail => {
+           const id = detail.id.replace('-detail', '');
+           const currentDiscipline = carouselItems[currentCarouselIndex]?.dataset.discipline;
+           const isActive = detail.classList.contains('active');
+           
+           if (id !== currentDiscipline) {
+              detail.style.display = 'none';
+           } else {
+              // Si es la disciplina actual, mostrar SOLO si está activa (usuario hizo click en ver más)
+              if (isActive) {
+                  detail.style.display = 'block';
+              } else {
+                  detail.style.display = 'none';
+              }
+           }
+        });
+      }
+
+      function nextSlide() {
+        currentCarouselIndex = (currentCarouselIndex + 1) % carouselItems.length;
+        updateCarousel();
+      }
+
+      function prevSlide() {
+        currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
+        updateCarousel();
+      }
+
+      if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          prevSlide();
+        });
+        nextBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          nextSlide();
+        });
+      }
+
+      // Hook into resize
+      window.addEventListener('resize', updateCarousel);
+      // Run initially
+      // Give a small delay to ensure DOM is ready and handleMobileLayout ran
+      setTimeout(updateCarousel, 100);
+
+      // Touch / Swipe Logic
+      let touchStartX = 0;
+      let touchEndX = 0;
+      const carouselContainer = document.querySelector('.disciplines-carousel-wrapper');
+
+      if (carouselContainer) {
+        carouselContainer.addEventListener('touchstart', e => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        carouselContainer.addEventListener('touchend', e => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }, { passive: true });
+      }
+
+      function handleSwipe() {
+        const threshold = 50; // Minimum distance for swipe
+        const isMobile = window.innerWidth <= 768;
+        
+        if (!isMobile) return;
+
+        if (touchEndX < touchStartX - threshold) {
+          // Swipe Left -> Next Slide
+          nextSlide();
+        }
+        
+        if (touchEndX > touchStartX + threshold) {
+          // Swipe Right -> Prev Slide
+          prevSlide();
+        }
+      }
+
     </script>
 
   </body>
@@ -521,7 +749,7 @@ const langLabels: Record<Locale, string> = {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+    }
 
   html {
     scroll-behavior: smooth;
@@ -539,8 +767,8 @@ const langLabels: Record<Locale, string> = {
     padding: 0 2rem;
     position: relative;
     height: 100%;
-    display: flex;
-    align-items: center;
+      display: flex;
+      align-items: center;
   }
 
 
@@ -554,34 +782,34 @@ const langLabels: Record<Locale, string> = {
       opacity: 1;
       transform: translateY(0);
     }
-  }
+    }
 
   @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
       opacity: 1;
+      }
     }
-  }
 
 
   /* Hero Section */
   .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh;
+        height: 100vh;
     min-height: 600px;
     overflow: hidden;
   }
@@ -626,15 +854,15 @@ const langLabels: Record<Locale, string> = {
   }
 
   .hero-line-1 {
-    font-weight: 500;
+        font-weight: 500;
     font-size: 89.6px;
     display: block;
     opacity: 0;
     animation: fadeUp 0.8s ease-out 0.3s forwards;
-  }
+      }
 
   .hero-line-2 {
-    font-weight: 500;
+        font-weight: 500;
     font-size: 92.7px;
     display: block;
     opacity: 0;
@@ -678,7 +906,7 @@ const langLabels: Record<Locale, string> = {
   @media (max-width: 1024px) {
     .desktop-only {
       display: none !important;
-    }
+  }
     /* ... (resto del css existente si coincide) ... */
 
     /* Footer Tablet */
@@ -686,13 +914,13 @@ const langLabels: Record<Locale, string> = {
         font-size: 24px;
         line-height: 34px;
         letter-spacing: 1px;
-    }
-    
+  }
+
     .footer-separator {
         font-size: 24px;
         margin: 0 5px;
     }
-    
+
     .footer-text-main, 
     .footer-text-sub {
         font-size: 26px;
@@ -715,9 +943,9 @@ const langLabels: Record<Locale, string> = {
         align-items: center;
         gap: 40px;
     }
-    
+
     .footer-links {
-        justify-content: center;
+    justify-content: center;
     }
 
     .mobile-only {
@@ -731,7 +959,7 @@ const langLabels: Record<Locale, string> = {
     .hero-line-1 { font-size: 60px; }
     .hero-line-2 { font-size: 62px; }
     .hero-line-3 { font-size: 72px; }
-    
+
     .hero-logo-container {
       opacity: 0.2; /* Más sutil en tablets/mobile */
       transform: translate(40%, -50%) rotate(90deg);
@@ -750,12 +978,12 @@ const langLabels: Record<Locale, string> = {
 
     .logo-rotated-svg {
       width: 85vh; /* Un poco más grande en móvil */
-    }
-    
+  }
+
     .logo-rotated-svg path {
       fill-opacity: 0.5 !important; /* Más visible en móvil */
-    }
-    
+  }
+
     .hero-logo-container {
       transform: translate(45%, -50%) rotate(90deg); /* Menos desplazado, más visible */
       opacity: 0.75; /* Más visible, menos opaco */
@@ -766,11 +994,11 @@ const langLabels: Record<Locale, string> = {
     .disciplines-section {
       padding: 2rem 0 4rem 0 !important; /* Espacio ajustado */
       margin-bottom: 2rem !important; /* Margen ajustado */
-    }
+  }
 
     .disciplines-title {
       font-size: 28px;
-      line-height: 1.2;
+      line-height: 1.0;
       margin-bottom: 0.75rem;
     }
 
@@ -786,11 +1014,11 @@ const langLabels: Record<Locale, string> = {
       flex-direction: column !important;
       grid-template-columns: none !important;
       margin-bottom: 4rem; /* Separación adicional del último elemento */
-    }
+  }
 
     .disciplines-container {
       margin-bottom: 2rem; /* Margen adicional del contenedor */
-    }
+  }
 
     .discipline-item {
       width: 100%;
@@ -798,13 +1026,13 @@ const langLabels: Record<Locale, string> = {
 
     .discipline-image {
       height: 350px;
-    }
+  }
 
     .discipline-overlay-title {
       font-size: 32px;
       line-height: 36px;
       margin-bottom: 0.75rem;
-    }
+  }
 
     .discipline-overlay-tags {
       font-size: 13px;
@@ -857,15 +1085,15 @@ const langLabels: Record<Locale, string> = {
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 2rem;
+    gap: 3rem;
     width: 100%;
   }
 
   .cta-text {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
-    font-size: 50px;
-    line-height: 50px;
+    font-size: 48px;
+    line-height: 48px;
     color: #ffffff;
     text-transform: uppercase;
     max-width: 1000px;
@@ -875,12 +1103,12 @@ const langLabels: Record<Locale, string> = {
   .cta-button {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 24px;
-    line-height: 50px;
+    font-size: 20px;
+    line-height: 40px;
     color: #ffffff;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 0.75rem 2.5rem;
+    padding: 0.6rem 2rem;
     border: 2px solid #ffffff;
     border-radius: 50px;
     background: transparent;
@@ -911,36 +1139,80 @@ const langLabels: Record<Locale, string> = {
     display: block;
   }
 
-  /* FAQs Section */
-  .faqs-section {
-    padding: 6rem 0;
-    background-color: #ffffff;
-  }
 
-  .faqs-container-flex {
-    max-width: 1200px;
-    margin: 0 auto;
+  /* FAQs Modal */
+  .faqs-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
     display: flex;
-    flex-direction: column; /* Cambiado a columna para asegurar que el título esté arriba */
-    align-items: center; /* Centrado */
-    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
   }
 
+  .faqs-modal.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .faqs-modal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .faqs-modal.open .faqs-modal-content {
+    transform: translateY(0);
+  }
+
+  .faqs-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #2c2c2c;
+    transition: color 0.3s ease;
+    padding: 0.5rem;
+    z-index: 10;
+  }
+
+  .faqs-modal-close:hover {
+    color: #ED6D64;
+  }
+
+  /* FAQs Styles inside Modal */
   .faqs-title {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 60px;
+    font-size: 48px;
     line-height: 1.2;
     color: #2c2c2c;
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 0; /* El gap del contenedor manejará el espacio */
+    margin-bottom: 2.5rem;
     width: 100%;
   }
 
   .faqs-accordion {
     width: 100%;
-    max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -970,6 +1242,7 @@ const langLabels: Record<Locale, string> = {
     color: #2c2c2c;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    padding-right: 1rem;
   }
 
   .faq-question:hover span {
@@ -979,6 +1252,7 @@ const langLabels: Record<Locale, string> = {
   .faq-icon {
     transition: transform 0.3s ease;
     color: #ED6D64;
+    flex-shrink: 0;
   }
 
   .faq-answer {
@@ -989,7 +1263,7 @@ const langLabels: Record<Locale, string> = {
   }
 
   .faq-item.active .faq-answer {
-    max-height: 200px;
+    max-height: 300px;
     padding-bottom: 1.5rem;
   }
 
@@ -1002,31 +1276,37 @@ const langLabels: Record<Locale, string> = {
     margin: 0;
   }
 
-  /* Responsive FAQs */
+  /* Responsive Modal */
   @media (max-width: 768px) {
-    .faqs-section {
-      padding: 4rem 0;
+    .faqs-modal-content {
+      width: 95%;
+      padding: 2rem 1.5rem;
+      max-height: 85vh;
     }
-    
+
     .faqs-title {
       font-size: 32px;
-      line-height: 1.2;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .faq-question span {
-      font-size: 20px;
+      font-size: 18px;
     }
 
     .faq-answer p {
       font-size: 16px;
+    }
+
+    .faqs-modal-close {
+      top: 1rem;
+      right: 1rem;
     }
   }
 
   /* Footer */
   .custom-footer {
     background-color: #ffffff;
-    padding: 100px 0 100px 0;
+    padding: 50px 0 40px 0;
     margin-top: 0;
   }
 
@@ -1034,26 +1314,26 @@ const langLabels: Record<Locale, string> = {
     display: flex;
     justify-content: space-between;
     align-items: flex-end; /* Alineado abajo */
-    margin-bottom: 150px;
+    margin-bottom: 100px;
   }
 
   .footer-logo-img {
     height: auto;
-    width: 250px;
+    width: 180px;
   }
 
   .footer-links {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
   }
 
   .footer-link {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 40px;
-    line-height: 50px;
-    letter-spacing: 3px;
+    font-size: 28px;
+    line-height: 35px;
+    letter-spacing: 2px;
     color: #000000;
     text-decoration: none;
     text-transform: uppercase;
@@ -1066,16 +1346,16 @@ const langLabels: Record<Locale, string> = {
 
   .footer-separator {
     color: #ED6D64;
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 500;
-    margin: 0 5px;
+    margin: 0 4px;
   }
 
   .footer-social-icon {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     color: #000000;
-    margin-left: 30px;
+    margin-left: 8px;
     transition: color 0.3s ease;
   }
 
@@ -1088,9 +1368,9 @@ const langLabels: Record<Locale, string> = {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 600px;
+      min-height: 280px;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 60px;
     overflow: visible;
   }
 
@@ -1125,15 +1405,15 @@ const langLabels: Record<Locale, string> = {
     justify-content: center;
     align-items: center;
     flex-direction: row; /* Todo en una línea */
-    gap: 15px;
+    gap: 10px;
   }
 
   .footer-text-main {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 42px;
-    line-height: 50px;
-    letter-spacing: 4px;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
     color: #000000;
     text-transform: uppercase;
     white-space: nowrap;
@@ -1142,9 +1422,9 @@ const langLabels: Record<Locale, string> = {
   .footer-text-sub {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    font-size: 42px;
-    line-height: 50px;
-    letter-spacing: 4px;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
     color: #000000;
     text-transform: uppercase;
     white-space: nowrap;
@@ -1262,10 +1542,10 @@ const langLabels: Record<Locale, string> = {
       transition: opacity 0.3s ease;
       z-index: 2;
       pointer-events: none;
-    }
+  }
 
     .discipline-view-more-btn {
-      display: flex;
+    display: flex;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.8);
       border-radius: 50px;
@@ -1277,17 +1557,39 @@ const langLabels: Record<Locale, string> = {
       text-transform: uppercase;
       letter-spacing: 0.05em;
       cursor: pointer;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s ease;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
       pointer-events: all;
       backdrop-filter: blur(4px);
     }
 
     .discipline-view-more-btn svg {
-      width: 16px;
-      height: 16px;
+    width: 16px;
+    height: 16px;
       transition: transform 0.3s ease;
+    }
+
+    /* Disciplines section mobile */
+    .disciplines-section {
+      padding: 4rem 0 2rem 0;
+    }
+
+    .disciplines-title {
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 36px;
+      letter-spacing: 4%;
+      margin-bottom: 1.5rem;
+    }
+
+    .disciplines-subtitle {
+      font-weight: 300;
+      font-size: 26px;
+      line-height: 34px;
+      letter-spacing: 4%;
+      text-align: center;
+      margin-bottom: 60px;
     }
 
     /* Asegurar layout columna en mobile */
@@ -1296,7 +1598,7 @@ const langLabels: Record<Locale, string> = {
       flex-direction: column !important;
       display: flex !important;
       gap: 20px !important;
-    }
+  }
 
     .program-box,
     .discipline-programs-5 .program-row-top .program-box,
@@ -1315,8 +1617,8 @@ const langLabels: Record<Locale, string> = {
     }
 
     .cta-text {
-      font-size: 32px;
-      line-height: 38px;
+      font-size: 30px;
+      line-height: 36px;
       max-width: 100%;
       padding: 0 1rem;
     }
@@ -1334,20 +1636,20 @@ const langLabels: Record<Locale, string> = {
 
     /* Footer Mobile */
     .custom-footer {
-      padding: 30px 0; /* Reducido de 40px */
+      padding: 60px 0; /* Aumentado padding vertical */
       margin-top: 0;
     }
 
     .footer-top {
-      flex-direction: column;
+    flex-direction: column;
       align-items: center;
-      gap: 20px; /* Reducido de 30px */
-      margin-bottom: 30px; /* Reducido de 40px */
+      gap: 40px; /* Aumentado gap entre logo y links */
+      margin-bottom: 60px; /* Aumentado margen inferior */
     }
 
     .footer-links {
       flex-direction: column;
-      gap: 10px;
+      gap: 20px; /* Aumentado gap entre links */
     }
 
     .footer-link {
@@ -1362,12 +1664,12 @@ const langLabels: Record<Locale, string> = {
     .footer-bottom {
       min-height: 200px; /* Altura mínima reducida en mobile */
       margin-top: 20px;
-    }
+  }
 
     .footer-text-absolute {
-      flex-direction: column;
+    flex-direction: column;
       gap: 0;
-    }
+  }
 
     .footer-text-main,
     .footer-text-sub {
@@ -1603,7 +1905,7 @@ const langLabels: Record<Locale, string> = {
 
   .program-box-yoga-2 {
     background-color: #ED6D64; /* Naranja para FLOW */
-  }
+    }
 
   .program-title {
     font-family: 'Oswald', sans-serif;
@@ -1616,7 +1918,7 @@ const langLabels: Record<Locale, string> = {
     letter-spacing: 0.1em; /* 10% */
     word-wrap: break-word;
     overflow-wrap: break-word;
-  }
+    }
 
   .program-line {
     font-family: 'Oswald', sans-serif;
@@ -1626,7 +1928,7 @@ const langLabels: Record<Locale, string> = {
     color: #ffffff;
     margin: 0;
     letter-spacing: 0.1em; /* 10% */
-  }
+    }
 
   .program-text {
     font-family: 'Oswald', sans-serif;
@@ -1643,12 +1945,12 @@ const langLabels: Record<Locale, string> = {
   @media (max-width: 1024px) and (min-width: 769px) {
     .disciplines-section {
       padding: 3rem 0 0 0;
-    }
+  }
 
     .disciplines-container {
       max-width: 100%;
       padding: 0 2rem;
-    }
+  }
 
     .disciplines-title {
       font-size: 38px;
@@ -1661,7 +1963,12 @@ const langLabels: Record<Locale, string> = {
       line-height: 42px;
       margin-bottom: 100px;
       max-width: 100%;
+      text-align: center;
     }
+
+    .disciplines-subtitle {
+    text-align: center;
+  }
 
     .disciplines-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -1680,24 +1987,24 @@ const langLabels: Record<Locale, string> = {
     .discipline-overlay-tags {
       font-size: 14px;
       line-height: 20px;
-    }
+  }
 
     /* CTA Section Tablet */
     .cta-section {
       height: 500px;
       padding: 2rem;
-    }
+  }
 
     .cta-text {
-      font-size: 42px;
-      line-height: 48px;
+      font-size: 40px;
+      line-height: 46px;
       max-width: 900px;
     }
 
     .cta-button {
       font-size: 22px;
       line-height: 48px;
-    }
+  }
 
     /* Secciones expandidas en mobile */
     .discipline-detail-text {
@@ -1719,11 +2026,11 @@ const langLabels: Record<Locale, string> = {
       padding: 0 1rem;
       box-sizing: border-box;
       margin: 0 auto;
-    }
+  }
 
     .discipline-detail-title,
     .discipline-detail-subtitle {
-      width: 100%;
+    width: 100%;
       max-width: 100%;
       padding: 0 1rem;
       box-sizing: border-box;
@@ -1732,7 +2039,7 @@ const langLabels: Record<Locale, string> = {
     .discipline-programs {
       flex-direction: column !important;
       gap: 20px;
-    }
+  }
 
     .discipline-programs-5 .program-row {
       flex-direction: column !important;
@@ -1748,7 +2055,7 @@ const langLabels: Record<Locale, string> = {
     }
 
     .discipline-programs-5 .program-row {
-      flex-direction: column;
+    flex-direction: column;
       gap: 20px;
     }
 
@@ -1771,5 +2078,167 @@ const langLabels: Record<Locale, string> = {
     #funcional-detail { order: 6; }
     .discipline-item[data-discipline="yoga"] { order: 7; }
     #yoga-detail { order: 8; }
+  }
+
+  /* Carousel Styles Mobile */
+  .mobile-only {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    /* Estilos del carrusel mobile (Revertido flip card, simplificado) */
+    .mobile-only {
+    display: flex;
+    }
+
+    /* Quitar gradiente en mobile */
+    .discipline-gradient-overlay {
+      display: none;
+    }
+    
+    .disciplines-carousel-wrapper {
+    position: relative;
+      background-color: #DB5639;
+      padding: 60px 50px;
+      margin-left: -1.5rem;
+      width: calc(100% + 3rem);
+      box-sizing: border-box;
+      touch-action: pan-y pinch-zoom;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Botón visible solo en mobile dentro del overlay normal */
+    .discipline-overlay .discipline-view-more-btn {
+      display: none; /* Por defecto no se ve */
+    }
+
+    .mobile-only.discipline-view-more-btn {
+      display: flex !important;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid #ffffff;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-size: 16px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    /* Resetear estilos del botón original para no interferir */
+    .discipline-view-more-btn {
+      /* Estilos base si es necesario */
+    }
+
+    /* Estilos normales para el detalle en mobile (scroll down) */
+    .discipline-detail {
+        margin-top: 2rem;
+        background: white;
+        padding: 2rem 1.5rem;
+    width: 100%;
+        display: none; /* Oculto por defecto */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+        position: relative; /* Necesario para posicionar el botón de cierre */
+    }
+
+    .discipline-detail.active {
+      display: flex;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .discipline-detail-content {
+      padding: 0 1rem;
+    }
+
+    .mobile-close-detail {
+        display: none;
+    }
+
+    /* Mostrar botón cerrar en mobile cuando se abre el detalle */
+  @media (max-width: 768px) {
+        .discipline-detail.active .mobile-close-detail {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color 0.2s ease;
+        }
+
+        .discipline-detail.active .mobile-close-detail:active {
+            background: #e0e0e0;
+        }
+        
+        .mobile-close-detail svg {
+            width: 18px;
+            height: 18px;
+            color: #333;
+        }
+        
+        /* Ajustar padding del contenido para que no choque con el botón */
+        .discipline-detail-content {
+            padding-top: 20px;
+        }
+    }
+
+
+    .carousel-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .carousel-prev {
+      left: 5px;
+    }
+
+    .carousel-next {
+      right: 5px;
+    }
+
+    .discipline-item.active-slide {
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .disciplines-grid {
+      display: block;
+      width: 100%;
+    }
+    
+    .discipline-item {
+      width: 100%;
+      margin: 0 auto;
+    }
   }
 </style>

@@ -8,11 +8,11 @@
     "buttons": "Botones",
     "movement": "MOVIMIENTO",
     "plans": "PLANES",
-    "myAccount": "MI CUENTA"
+    "myAccount": "HORARIOS"
   },
   "actions": {
     "bookNow": "Reservar ahora",
-    "reserve": "RESERVA"
+    "reserve": "LOGIN"
   },
   "lang": {
     "es": "ES",

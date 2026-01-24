@@ -23,7 +23,7 @@ const langLabels: Record<Locale, string> = {
 const movementLink = `/${lang}/#disciplines`;
 ---
 
-<header class="header-plans header-hidden" id="header-plans">
+<header class="header-plans" id="header-plans">
   <div class="container">
     <div class="header-content">
       <div class="header-logo">
@@ -40,22 +40,20 @@ const movementLink = `/${lang}/#disciplines`;
           <a href="#" class="nav-link my-account-trigger">{t('nav.myAccount')}</a>
         </nav>
         
-        <a href={`/${lang}/booking`} class="btn-reserva">{t('actions.reserve')}</a>
+        <a href="https://newvillage.virtuagym.com/" target="_blank" rel="noopener noreferrer" class="btn-reserva">{t('actions.reserve')}</a>
         
-        <div class="lang-selector">
-          {(() => {
-            const allLocales = ['ca', 'es', 'en'] as Locale[];
-            const others = allLocales.filter(l => l !== lang);
-            const ordered = [others[0], lang, others[1]];
-            return ordered.map((locale) => (
-              <a 
-                href={getLangUrl(locale)} 
-                class={`lang-item ${locale === lang ? 'active' : ''}`}
+        <div class="lang-dropdown">
+          <button class="lang-toggle">{langLabels[lang]}</button>
+          <div class="lang-menu">
+            {(LOCALES as readonly Locale[]).filter(l => l !== lang).map((locale) => (
+              <a
+                href={getLangUrl(locale)}
+                class="lang-option"
               >
                 {langLabels[locale]}
               </a>
-            ));
-          })()}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -93,7 +91,7 @@ const movementLink = `/${lang}/#disciplines`;
       <a href="#" class="mobile-nav-link my-account-trigger">{t('nav.myAccount')}</a>
     </nav>
     
-    <a href={`/${lang}/booking`} class="btn-reserva mobile-btn-reserva">{t('actions.reserve')}</a>
+    <a href="https://newvillage.virtuagym.com/" target="_blank" rel="noopener noreferrer" class="btn-reserva mobile-btn-reserva">{t('actions.reserve')}</a>
     
     <div class="mobile-lang-selector">
       {(LOCALES as readonly Locale[]).map((locale) => (
@@ -167,34 +165,16 @@ const movementLink = `/${lang}/#disciplines`;
     if (e.target === accountModal) closeAccountModal();
   });
 
-  // Plans: header aparece al hacer scroll DOWN > 200px
-  let header = null;
-
-  function initHeader() {
-    header = document.getElementById('header-plans');
-    if (!header) return requestAnimationFrame(initHeader);
-
-    // Asegurar que empiece oculto siempre
-    header.classList.add('header-hidden');
-
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY || document.documentElement.scrollTop;
-
-      if (y > 200) {
-        header.classList.remove('header-hidden');
-      } else {
-        header.classList.add('header-hidden');
-      }
-    }, { passive: true });
-
-    // Verificar estado inicial
-    const initialY = window.scrollY || document.documentElement.scrollTop;
-    if (initialY <= 200) {
-      header.classList.add('header-hidden');
+  // Header background change on scroll
+  const header = document.getElementById('header-plans');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    if (scrollTop > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
     }
-  }
-
-  initHeader();
+  }, { passive: true });
 </script>
 
 <style>
@@ -205,28 +185,14 @@ const movementLink = `/${lang}/#disciplines`;
     right: 0;
     width: 100%;
     z-index: 1000;
-    padding: 1.5rem 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-100%);
-    pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    padding: 1.2rem 0;
+    background: transparent;
+    animation: fadeDown 0.8s ease-out;
+    transition: background-color 0.3s ease;
   }
 
-  .header-plans.header-hidden {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-100%);
-    pointer-events: none;
-  }
-
-  .header-plans:not(.header-hidden) {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
+  .header-plans.scrolled {
     background: #ffffff;
-    animation: fadeDown 0.4s ease-out;
   }
 
   @keyframes fadeDown {
@@ -264,20 +230,28 @@ const movementLink = `/${lang}/#disciplines`;
   }
 
   .logo-icon {
-    height: 58px;
+    height: 52px;
     width: auto;
-    max-width: 335px;
+    max-width: 300px;
+  }
+
+  /* Logo más pequeño en mobile */
+  @media (max-width: 768px) {
+    .logo-icon {
+      height: 36px;
+      max-width: 200px;
+    }
   }
 
   .header-right {
     display: flex;
     align-items: center;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .header-nav {
     display: flex;
-    gap: 2rem;
+    gap: 1.8rem;
     align-items: center;
   }
 
@@ -286,8 +260,8 @@ const movementLink = `/${lang}/#disciplines`;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
-    font-size: 22px;
-    line-height: 50px;
+    font-size: 20px;
+    line-height: 45px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     transition: opacity 0.2s ease;
@@ -300,12 +274,12 @@ const movementLink = `/${lang}/#disciplines`;
   .btn-reserva {
     background-color: rgba(237, 109, 100, 0.9);
     color: #ffffff;
-    padding: 0.75rem 2rem;
+    padding: 0.6rem 1.5rem;
     border-radius: 9999px;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 18px;
     line-height: normal;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -318,32 +292,81 @@ const movementLink = `/${lang}/#disciplines`;
     background-color: rgba(237, 109, 100, 1);
   }
 
-  .lang-selector {
+  .lang-dropdown {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
     align-items: center;
-    justify-content: center;
   }
 
-  .lang-item {
+  .lang-toggle {
+    background: none;
+    border: none;
+    color: #2c2c2c;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .lang-toggle::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #2c2c2c;
+    transition: transform 0.2s ease;
+  }
+
+  .lang-dropdown:hover .lang-toggle::after {
+    transform: rotate(180deg);
+  }
+
+  .lang-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 80px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1000;
+    padding: 0.5rem 0;
+  }
+
+  .lang-dropdown:hover .lang-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .lang-option {
+    display: block;
     color: #2c2c2c;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
-    font-size: 20px;
-    line-height: normal;
+    font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 0.25rem 0.5rem;
-    transition: all 0.2s ease;
+    padding: 0.4rem 0.8rem;
+    transition: background-color 0.2s ease;
     text-align: center;
   }
 
-  .lang-item.active {
-    font-weight: 600;
-    font-size: 24px;
-    color: #ED6D64;
+  .lang-option:hover {
+    background-color: #f5f5f5;
   }
 
   .mobile-only {
@@ -405,7 +428,7 @@ const movementLink = `/${lang}/#disciplines`;
   }
 
   .mobile-menu-header .logo-icon {
-    height: 35px;
+    height: 28px;
     width: auto;
   }
 
@@ -435,7 +458,7 @@ const movementLink = `/${lang}/#disciplines`;
     color: #2c2c2c;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 400;
     text-transform: uppercase;
   }
@@ -503,6 +526,15 @@ const movementLink = `/${lang}/#disciplines`;
     transform: translateY(0);
   }
 
+  /* Modal responsive */
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 95%;
+      padding: 2rem 1.5rem;
+      margin: 0 1rem;
+    }
+  }
+
   .modal-close {
     position: absolute;
     top: 1rem;
@@ -532,7 +564,7 @@ const movementLink = `/${lang}/#disciplines`;
     display: inline-block;
     background-color: #ED6D64;
     color: white;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.8rem;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
