@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { LOCALES, type Locale, loadT } from '../../../i18n';
+import { LOCALES, type Locale, loadT } from '../../../../i18n';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
