@@ -421,6 +421,7 @@ const langLabels: Record<Locale, string> = {
                 <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
                 <span class="footer-separator">|</span>
                 <a href={`/${lang}/privacy`} class="footer-link">{t('footerLinks.privacy')}</a>
+                <span class="footer-separator">|</span>
                 <a href="https://www.instagram.com/newvillagestudio" target="_blank" rel="noopener noreferrer" class="footer-social-link">
                   <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -448,16 +449,16 @@ const langLabels: Record<Locale, string> = {
         const item = document.querySelector(`[data-discipline="${disciplineName}"]`);
         const detail = document.getElementById(`${disciplineName}-detail`);
         
-        // Comportamiento simplificado en Mobile: Mostrar debajo (scroll down)
-        // Ya no usamos flip card ni ocultamos el carrusel
+        if (!item || !detail) return;
         
-        const isOpen = detail?.classList.contains('active');
+        const isOpen = detail.classList.contains('active');
+        const isMobile = window.innerWidth <= 768;
 
         // Cerrar todas las demás secciones
         document.querySelectorAll('.discipline-detail').forEach(d => {
           if (d.id !== `${disciplineName}-detail`) {
             d.classList.remove('active');
-            d.style.display = 'none'; // Asegurar que se ocultan en mobile
+            if (isMobile) d.style.display = 'none';
           }
         });
         document.querySelectorAll('.discipline-item').forEach(i => {
@@ -467,33 +468,43 @@ const langLabels: Record<Locale, string> = {
         });
 
         if (isOpen) {
-          detail?.classList.remove('active');
-          if (window.innerWidth <= 768) detail.style.display = 'none';
-          item?.classList.remove('active');
+          // Cerrar
+          detail.classList.remove('active');
+          if (isMobile) detail.style.display = 'none';
+          item.classList.remove('active');
         } else {
-          detail?.classList.add('active');
-          if (window.innerWidth <= 768) detail.style.display = 'block';
-          item?.classList.add('active');
+          // Abrir
+          detail.classList.add('active');
+          item.classList.add('active');
           
-          // Scroll suave: Centrar el contenido detallado que se acaba de abrir
-          setTimeout(() => {
-            if (detail) {
-              const detailRect = detail.getBoundingClientRect();
-              const absoluteTop = window.pageYOffset + detailRect.top;
-              const headerOffset = 120; // Espacio para el header + margen
-              const windowHeight = window.innerHeight;
-              const detailHeight = detailRect.height;
-
-              // Centrar el contenido en la ventana
-              const centerOffset = (windowHeight - detailHeight) / 2;
-              const scrollTop = absoluteTop - headerOffset - Math.max(centerOffset, 50);
-
-              window.scrollTo({
-                top: Math.max(scrollTop, 0), // No permitir scroll negativo
-                behavior: 'smooth'
-              });
+          if (isMobile) {
+            detail.style.display = 'flex';
+            
+            // Asegurar que el item correspondiente esté visible en el carrusel
+            const itemIndex = Array.from(carouselItems).indexOf(item);
+            if (itemIndex !== -1 && itemIndex !== currentCarouselIndex) {
+              currentCarouselIndex = itemIndex;
+              updateCarousel();
             }
-          }, 300); // Aumentar el timeout para que el contenido esté completamente expandido
+          }
+          
+          // Scroll suave: Centrar el contenido detallado que se acaba de abrir (desktop y mobile)
+          setTimeout(() => {
+            const detailRect = detail.getBoundingClientRect();
+            const absoluteTop = window.pageYOffset + detailRect.top;
+            const headerOffset = isMobile ? 120 : 80; // Espacio para el header + margen
+            const windowHeight = window.innerHeight;
+            const detailHeight = detailRect.height;
+
+            // Centrar el contenido en la ventana
+            const centerOffset = (windowHeight - detailHeight) / 2;
+            const scrollTop = absoluteTop - headerOffset - Math.max(centerOffset, 50);
+
+            window.scrollTo({
+              top: Math.max(scrollTop, 0), // No permitir scroll negativo
+              behavior: 'smooth'
+            });
+          }, 350); // Un poco más de delay para que la animación CSS termine
         }
       }
 
@@ -514,33 +525,29 @@ const langLabels: Record<Locale, string> = {
         });
       });
 
-      // Función para manejar clicks en discipline items
-      function setupDisciplineClick(disciplineName) {
-        const item = document.querySelector(`[data-discipline="${disciplineName}"]`);
-        const viewMoreBtn = item?.querySelector('.discipline-view-more-btn');
+      // Event delegation para manejar clicks en discipline items
+      // Esto funciona incluso si los elementos se mueven en el DOM
+      document.addEventListener('click', function(e) {
+        // Buscar el item de disciplina más cercano
+        const disciplineItem = e.target.closest('.discipline-item');
+        if (!disciplineItem) return;
         
-        // Click en el item completo
-        item?.addEventListener('click', function(e) {
-          // Solo activar si no se hizo click en el botón "ver más"
-          if (!e.target.closest('.discipline-view-more-btn')) {
-            e.preventDefault();
-            toggleDiscipline(disciplineName);
-          }
-        });
-
-        // Click en el botón "ver más"
-        viewMoreBtn?.addEventListener('click', function(e) {
+        const disciplineName = disciplineItem.dataset.discipline;
+        if (!disciplineName) return;
+        
+        // Si el click fue en el botón "ver más", manejarlo específicamente
+        if (e.target.closest('.discipline-view-more-btn')) {
           e.preventDefault();
           e.stopPropagation();
           toggleDiscipline(disciplineName);
-        });
-      }
-
-      // Setup para cada disciplina
-      setupDisciplineClick('barre');
-      setupDisciplineClick('pilates');
-      setupDisciplineClick('funcional');
-      setupDisciplineClick('yoga');
+          return;
+        }
+        
+        // Si el click fue en el item completo (no en el botón), también activar
+        // Esto funciona tanto en desktop como en mobile
+        e.preventDefault();
+        toggleDiscipline(disciplineName);
+      });
 
       // Mobile Layout Handler
       function handleMobileLayout() {
@@ -555,7 +562,7 @@ const langLabels: Record<Locale, string> = {
             const item = document.querySelector(`.discipline-item[data-discipline="${id}"]`);
             if (item && item.nextElementSibling !== detail) {
                item.after(detail);
-    }
+            }
           });
         } else {
           // En desktop, movemos los details de vuelta al final del contenedor
@@ -565,12 +572,19 @@ const langLabels: Record<Locale, string> = {
             const detail = document.getElementById(id);
             if (detail && detail.parentNode !== container) {
               container.appendChild(detail);
-    }
+            }
           });
+        }
+        
+        // Actualizar carrusel después de mover elementos
+        if (typeof updateCarousel === 'function') {
+          setTimeout(updateCarousel, 50);
         }
       }
 
-      window.addEventListener('resize', handleMobileLayout);
+      window.addEventListener('resize', () => {
+        handleMobileLayout();
+      });
       // Ejecutar al cargar
       handleMobileLayout();
 
@@ -644,12 +658,15 @@ const langLabels: Record<Locale, string> = {
             item.classList.remove('active-slide');
           });
           document.querySelectorAll('.discipline-detail').forEach(detail => {
-            detail.style.display = '';
+            // En desktop, no forzar display, dejar que CSS maneje la visibilidad
+            if (!detail.classList.contains('active')) {
+              detail.style.display = '';
+            }
           });
           return;
         }
 
-        // Hide all items
+        // Hide all items except current
         carouselItems.forEach((item, index) => {
           if (index === currentCarouselIndex) {
             item.style.display = 'block';
@@ -660,21 +677,21 @@ const langLabels: Record<Locale, string> = {
           }
         });
         
-        // Handle details visibility
+        // Handle details visibility - NO cerrar detalles activos al cambiar slide
         document.querySelectorAll('.discipline-detail').forEach(detail => {
            const id = detail.id.replace('-detail', '');
            const currentDiscipline = carouselItems[currentCarouselIndex]?.dataset.discipline;
            const isActive = detail.classList.contains('active');
            
-           if (id !== currentDiscipline) {
-              detail.style.display = 'none';
+           // Si el detalle está activo, mantenerlo visible independientemente del slide
+           if (isActive) {
+             detail.style.display = 'flex'; // Mantener visible si está activo
+           } else if (id !== currentDiscipline) {
+             // Solo ocultar si NO está activo y NO es el slide actual
+             detail.style.display = 'none';
            } else {
-              // Si es la disciplina actual, mostrar SOLO si está activa (usuario hizo click en ver más)
-              if (isActive) {
-                  detail.style.display = 'block';
-              } else {
-                  detail.style.display = 'none';
-              }
+             // Si es el slide actual pero no está activo, ocultar
+             detail.style.display = 'none';
            }
         });
       }
@@ -934,7 +951,7 @@ const langLabels: Record<Locale, string> = {
     }
 
     .footer-logo-img {
-        width: 180px;
+        width: 140px;
     }
 
     .footer-top {
@@ -992,8 +1009,8 @@ const langLabels: Record<Locale, string> = {
 
     /* Disciplines Section Mobile */
     .disciplines-section {
-      padding: 2rem 0 4rem 0 !important; /* Espacio ajustado */
-      margin-bottom: 2rem !important; /* Margen ajustado */
+      padding: 80px 0 80px 0 !important; /* Mismo espacio arriba y abajo */
+      margin-bottom: 0 !important;
   }
 
     .disciplines-title {
@@ -1064,7 +1081,7 @@ const langLabels: Record<Locale, string> = {
 
   /* Disciplines Section */
   .disciplines-section {
-    padding: 4rem 0 0 0; /* Sin padding inferior, pegado abajo */
+    padding: 169px 0 0 0; /* Mismo espacio arriba que abajo (169px = margin-bottom del subtitle) */
     background: #ffffff;
     margin-bottom: 0;
   }
@@ -1072,7 +1089,7 @@ const langLabels: Record<Locale, string> = {
   /* CTA Section */
   .cta-section {
     background-color: #90BBC9;
-    height: 600px;
+    height: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1085,7 +1102,7 @@ const langLabels: Record<Locale, string> = {
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 3rem;
+    gap: 4rem;
     width: 100%;
   }
 
@@ -1319,7 +1336,7 @@ const langLabels: Record<Locale, string> = {
 
   .footer-logo-img {
     height: auto;
-    width: 180px;
+    width: 140px;
   }
 
   .footer-links {
@@ -1572,7 +1589,12 @@ const langLabels: Record<Locale, string> = {
 
     /* Disciplines section mobile */
     .disciplines-section {
-      padding: 4rem 0 2rem 0;
+      padding: 80px 0 80px 0; /* Mismo espacio arriba y abajo */
+    }
+
+    .disciplines-container {
+      padding: 0 1.5rem;
+      text-align: center;
     }
 
     .disciplines-title {
@@ -1581,6 +1603,7 @@ const langLabels: Record<Locale, string> = {
       line-height: 36px;
       letter-spacing: 4%;
       margin-bottom: 1.5rem;
+      text-align: center;
     }
 
     .disciplines-subtitle {
@@ -1612,7 +1635,7 @@ const langLabels: Record<Locale, string> = {
     /* CTA Section Mobile */
     .cta-section {
       height: auto;
-      min-height: 400px;
+      min-height: 350px;
       padding: 3rem 1.5rem;
     }
 
@@ -1944,7 +1967,7 @@ const langLabels: Record<Locale, string> = {
   /* Responsive Disciplines */
   @media (max-width: 1024px) and (min-width: 769px) {
     .disciplines-section {
-      padding: 3rem 0 0 0;
+      padding: 100px 0 0 0; /* Mismo espacio arriba que abajo (100px = margin-bottom del subtitle) */
   }
 
     .disciplines-container {
@@ -1991,7 +2014,7 @@ const langLabels: Record<Locale, string> = {
 
     /* CTA Section Tablet */
     .cta-section {
-      height: 500px;
+      height: 400px;
       padding: 2rem;
   }
 

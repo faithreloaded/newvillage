@@ -407,6 +407,17 @@ const langLabels: Record<Locale, string> = {
     object-position: center; /* Adjust if needed */
   }
 
+  .hero-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1;
+  }
+
   .hero-content {
     position: relative;
     z-index: 2;
@@ -495,6 +506,7 @@ const langLabels: Record<Locale, string> = {
     transition: all 0.3s ease;
     background: transparent;
     box-sizing: border-box;
+    min-width: 180px; /* Ancho mínimo para que ambos botones tengan el mismo ancho */
   }
 
   .plan-btn:hover {
@@ -505,7 +517,7 @@ const langLabels: Record<Locale, string> = {
   /* Membership Section */
   .membership-section {
     background-color: #EEF5F8;
-    padding: 100px 0;
+    padding: 80px 0;
     width: 100%;
   }
 
@@ -526,32 +538,32 @@ const langLabels: Record<Locale, string> = {
   .membership-title {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
-    font-size: 80px;
-    line-height: 104px;
+    font-size: 65px;
+    line-height: 85px;
     letter-spacing: 0.07em;
     color: #000000;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1.5rem 0;
     text-transform: uppercase;
   }
 
   .membership-description {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    font-size: 32px;
-    line-height: 46px;
+    font-size: 26px;
+    line-height: 38px;
     letter-spacing: 0.07em;
     color: #000000;
     text-transform: uppercase;
     max-width: 90%;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     white-space: pre-line;
   }
 
   .membership-footer-text {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: 38px;
-    line-height: 50px;
+    font-size: 32px;
+    line-height: 42px;
     letter-spacing: 0.05em;
     color: #000000;
     margin-top: auto;
@@ -651,31 +663,31 @@ const langLabels: Record<Locale, string> = {
   /* Packs Section */
   .packs-section {
     background-color: #ffffff;
-    padding: 100px 0;
+    padding: 80px 0;
     width: 100%;
   }
 
   .packs-header-container {
     text-align: left;
-    margin-bottom: 143px; /* Espaciado exacto */
+    margin-bottom: 110px;
   }
 
   .packs-title {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
-    font-size: 80px;
-    line-height: 104px;
+    font-size: 65px;
+    line-height: 85px;
     letter-spacing: 0.07em;
     color: #000000;
-    margin: 0 0 24px 0; /* Espaciado exacto */
+    margin: 0 0 20px 0;
     text-transform: uppercase;
   }
 
   .packs-description {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    font-size: 32px;
-    line-height: 46px;
+    font-size: 26px;
+    line-height: 38px;
     letter-spacing: 0.07em;
     color: #000000;
     max-width: 800px;
@@ -798,8 +810,24 @@ const langLabels: Record<Locale, string> = {
     text-align: center;
   }
 
+  .pack-item-5 .pack-hover-content {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+  }
+
   .pack-item-5 .pack-hover-line1,
-  .pack-item-5 .pack-hover-line2,
+  .pack-item-5 .pack-hover-line2 {
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    font-size: 56px;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    margin: 0 auto;
+  }
+
   .pack-item-6 .pack-hover-line1,
   .pack-item-6 .pack-hover-line2 {
     max-width: none;
@@ -981,26 +1009,8 @@ const langLabels: Record<Locale, string> = {
     padding: 80px 10px;
   }
 
-  /* En móvil, mostrar el hover al tocar */
-  @media (max-width: 1024px) {
-    .pack-item-1:active .pack-hover-overlay,
-    .pack-item-1:active .pack-hover-content {
-      opacity: 1;
-    }
-
-    .pack-item-1:active .pack-content-wrapper {
-      opacity: 0;
-    }
-
-    .pack-item-2:active .pack-hover-overlay,
-    .pack-item-2:active .pack-hover-content {
-      opacity: 1;
-    }
-
-    .pack-item-2:active .pack-content-wrapper {
-      opacity: 0;
-    }
-  }
+  /* Hover al tocar DESACTIVADO en mobile - causa bugs de parpadeo */
+  /* Los efectos de hover solo funcionan en desktop (min-width: 769px) */
 
   /* Badge */
   .pack-badge {
@@ -1289,9 +1299,13 @@ const langLabels: Record<Locale, string> = {
     .footer-logo-img { width: 180px; }
 
     /* Membership Tablet */
-    .membership-title { font-size: 60px; line-height: 80px; }
-    .membership-description { font-size: 24px; line-height: 36px; }
+    .membership-title { font-size: 50px; line-height: 65px; }
+    .membership-description { font-size: 20px; line-height: 30px; }
     .membership-right { flex: 0 0 400px; }
+
+    /* Packs Tablet */
+    .packs-title { font-size: 50px; line-height: 65px; }
+    .packs-description { font-size: 20px; line-height: 30px; }
   }
 
   @media (max-width: 768px) {
@@ -1319,8 +1333,17 @@ const langLabels: Record<Locale, string> = {
     }
     
     .plan-btn {
-      width: 100%;
+      width: auto;
       text-align: center;
+    }
+
+    .hero-bg-image {
+      object-position: center right;
+      opacity: 0.6; /* Reducir opacidad de la imagen en mobile */
+    }
+
+    .hero-background::after {
+      background-color: rgba(255, 255, 255, 0.3); /* Overlay blanco claro en mobile */
     }
 
     /* Membership Mobile */
@@ -1329,25 +1352,29 @@ const langLabels: Record<Locale, string> = {
       gap: 3rem;
     }
 
+    .membership-section {
+      padding: 60px 0;
+    }
+
     .membership-right {
       flex: none;
       width: 100%;
     }
 
     .membership-title {
-      font-size: 40px; /* Reducido de 48px */
-      line-height: 50px;
+      font-size: 36px;
+      line-height: 45px;
     }
 
     .membership-description {
-      font-size: 20px;
-      line-height: 30px;
-      margin-bottom: 2rem;
+      font-size: 18px;
+      line-height: 26px;
+      margin-bottom: 1.5rem;
     }
 
     .membership-footer-text {
-      font-size: 24px;
-      line-height: 32px;
+      font-size: 22px;
+      line-height: 30px;
     }
 
     .includes-title {
@@ -1371,17 +1398,17 @@ const langLabels: Record<Locale, string> = {
     }
 
     .packs-header-container {
-      margin-bottom: 60px;
+      margin-bottom: 50px;
     }
 
     .packs-title {
-      font-size: 40px; /* Reducido de 48px */
-      line-height: 50px;
+      font-size: 36px;
+      line-height: 45px;
     }
 
     .packs-description {
-      font-size: 20px;
-      line-height: 30px;
+      font-size: 18px;
+      line-height: 26px;
     }
 
     .packs-grid {
@@ -1615,63 +1642,89 @@ const langLabels: Record<Locale, string> = {
       right: 1rem;
     }
 
-    /* Desactivar hover en mobile - MÁS ESPECIFICO Y FORZADO */
-    .pack-item:hover .pack-hover-overlay,
-    .pack-item:hover .pack-hover-content,
-    .pack-item.touch-active .pack-hover-overlay,
-    .pack-item.touch-active .pack-hover-content,
-    .pack-item:active .pack-hover-overlay,
-    .pack-item:active .pack-hover-content,
-    .pack-item:focus .pack-hover-overlay,
-    .pack-item:focus .pack-hover-content {
-      opacity: 0 !important;
+    /* DESACTIVAR COMPLETAMENTE HOVER EN MOBILE */
+    /* Ocultar elementos de hover desde el inicio */
+    .pack-hover-overlay,
+    .pack-hover-content {
       display: none !important;
+      opacity: 0 !important;
       visibility: hidden !important;
       pointer-events: none !important;
     }
 
-    /* Desactivar COMPLETAMENTE hover en mobile */
-    .pack-item:hover .pack-hover-overlay,
-    .pack-item:hover .pack-hover-content,
-    .pack-item:active .pack-hover-overlay,
-    .pack-item:active .pack-hover-content,
-    .pack-item:focus .pack-hover-overlay,
-    .pack-item:focus .pack-hover-content,
-    .pack-item.touch-active .pack-hover-overlay,
-    .pack-item.touch-active .pack-hover-content {
-      opacity: 0 !important;
-      display: none !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
+    /* Asegurar que el contenido normal siempre esté visible y estático */
+    /* Mantener el fondo original sin cambios */
+    .pack-item,
+    .pack-item:hover,
+    .pack-item:active,
+    .pack-item:focus,
+    .pack-item.touch-active {
+      transform: none !important;
+      transition: none !important;
     }
 
+    /* Forzar colores de fondo originales en mobile */
+    .pack-item:nth-child(odd),
+    .pack-item:nth-child(odd):hover,
+    .pack-item:nth-child(odd):active,
+    .pack-item:nth-child(odd):focus {
+      background-color: #A53716 !important;
+    }
+
+    .pack-item:nth-child(even),
+    .pack-item:nth-child(even):hover,
+    .pack-item:nth-child(even):active,
+    .pack-item:nth-child(even):focus {
+      background-color: #90BBC9 !important;
+    }
+
+    .pack-content-wrapper,
     .pack-item:hover .pack-content-wrapper,
-    .pack-item.touch-active .pack-content-wrapper,
     .pack-item:active .pack-content-wrapper,
-    .pack-item:focus .pack-content-wrapper {
+    .pack-item:focus .pack-content-wrapper,
+    .pack-item.touch-active .pack-content-wrapper {
+      position: static !important;
+      transform: none !important;
       opacity: 1 !important;
       visibility: visible !important;
       display: flex !important;
-      transform: none !important;
+      transition: none !important;
+      text-align: left !important;
+      align-items: flex-start !important;
+      top: auto !important;
+      left: auto !important;
     }
 
-    .pack-item:hover .pack-badge,
-    .pack-item.touch-active .pack-badge,
-    .pack-item:active .pack-badge,
-    .pack-item:focus .pack-badge {
+    .pack-content-wrapper .pack-title,
+    .pack-content-wrapper .pack-price-container,
+    .pack-item:hover .pack-content-wrapper .pack-title,
+    .pack-item:hover .pack-content-wrapper .pack-price-container,
+    .pack-item:active .pack-content-wrapper .pack-title,
+    .pack-item:active .pack-content-wrapper .pack-price-container {
       opacity: 1 !important;
       visibility: visible !important;
+      transition: none !important;
+      text-align: left !important;
     }
 
-    .pack-item:hover .pack-btn,
-    .pack-item.touch-active .pack-btn,
-    .pack-item:active .pack-btn,
-    .pack-item:focus .pack-btn {
+    .pack-badge,
+    .pack-item:hover .pack-badge,
+    .pack-item:active .pack-badge,
+    .pack-item.touch-active .pack-badge {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transition: none !important;
+    }
+
+    .pack-btn {
       position: static !important;
       transform: none !important;
       margin-top: 20px;
       opacity: 1 !important;
       visibility: visible !important;
+      transition: none !important;
+      text-align: center !important;
+      align-self: flex-start !important;
     }
 
     .pack-item:hover .pack-content-wrapper .pack-title,
