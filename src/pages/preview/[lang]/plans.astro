@@ -1,6 +1,6 @@
 ---
-import { LOCALES, type Locale, loadT } from '../../i18n';
-import HeaderPlans from '../../components/HeaderPlans.astro';
+import { LOCALES, type Locale, loadT } from '../../../i18n';
+import HeaderPlans from '../../../components/HeaderPlans.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));

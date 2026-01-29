@@ -1,6 +1,6 @@
 ---
-import { LOCALES, type Locale, getLangFromUrl, loadT } from '../../i18n';
-import HeaderHome from '../../components/HeaderHome.astro';
+import { LOCALES, type Locale, getLangFromUrl, loadT } from '../../../i18n';
+import HeaderHome from '../../../components/HeaderHome.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));

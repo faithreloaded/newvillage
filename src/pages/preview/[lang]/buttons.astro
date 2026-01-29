@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { LOCALES, type Locale, loadT } from '../../i18n/index';
+import { LOCALES, type Locale, loadT } from '../../../i18n/index';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
