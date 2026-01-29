@@ -1,0 +1,1811 @@
+---
+import { LOCALES, type Locale, loadT } from '../../i18n';
+import HeaderPlans from '../../components/HeaderPlans.astro';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home', 'header', 'plans']);
+
+// Función para obtener la URL con el idioma cambiado
+function getLangUrl(newLang: Locale): string {
+  const currentPath = Astro.url.pathname;
+  const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
+  return `/${newLang}${pathWithoutLang || '/plans'}`;
+}
+
+const langLabels: Record<Locale, string> = {
+  es: 'ESP',
+  en: 'ENG',
+  ca: 'CAT'
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta name="description" content="Planes y precios en New Village Studio. Membresías, bonos y clases sueltas. Entrena a tu ritmo." />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+    </style>
+    <title>NewVillage | Planes</title>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- Header -->
+      <HeaderPlans lang={lang} />
+
+      <!-- Hero Section -->
+      <section class="plans-hero-section">
+        <div class="hero-background">
+          <img src="/images/planeshero.jpg" alt="Plans Background" class="hero-bg-image" />
+        </div>
+        
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text-container">
+              <h1 class="hero-title">{t('plansPage.title')}</h1>
+              <div class="hero-description">
+                <p>{t('plansPage.line1')}</p>
+                <p>{t('plansPage.line2')}</p>
+                <p>{t('plansPage.line3')}</p>
+              </div>
+              <div class="hero-buttons">
+                <a href={`/${lang}/booking`} class="plan-btn">{t('plansPage.btnMembership')}</a>
+                <a href={`/${lang}/booking`} class="plan-btn">{t('plansPage.btnBonds')}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Placeholder content for scrolling -->
+      <!-- <div style="height: 100px;"></div> Eliminado placeholder innecesario -->
+
+      <!-- Membership Section -->
+      <section class="membership-section" id="memberships">
+        <div class="container membership-container">
+          <div class="membership-left">
+            <h2 class="membership-title">{t('plansPage.membership.title')}</h2>
+            <p class="membership-description">
+              {t('plansPage.membership.description')}
+            </p>
+            <div class="membership-footer-text">{t('plansPage.membership.footer')}</div>
+          </div>
+          <div class="membership-right">
+            <div class="includes-box">
+              <h3 class="includes-title">{t('plansPage.membership.includesTitle')}</h3>
+              <ul class="includes-list">
+                {(t('plansPage.membership.items') as unknown as string[]).map((item) => (
+                  <li>• {item}</li>
+                ))}
+              </ul>
+              <div class="membership-fee-container">
+                <p class="membership-fee">{t('plansPage.membership.fee')}</p>
+                <p class="membership-fee-note">{t('plansPage.membership.feeNote')}</p>
+              </div>
+              <p class="membership-price">{t('plansPage.membership.price')}</p>
+              <a href={`/${lang}/booking`} class="plan-btn membership-btn">{t('plansPage.membership.button')}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Packs Section -->
+      <section class="packs-section" id="bonds">
+        <div class="container packs-header-container">
+          <h2 class="packs-title">{t('plansPage.packs.title')}</h2>
+          <p class="packs-description">{t('plansPage.packs.description')}</p>
+        </div>
+
+        <div class="packs-grid">
+          {(t('plansPage.packs.items') as unknown as any[]).map((item, index) => (
+            <div class={`pack-item pack-item-${index + 1}`}>
+              {item.recommended && (
+                <div class="pack-badge">
+                  <img src="/images/recomendedcircle.png" alt={t('plansPage.packs.badgeText')} class="badge-img" />
+                </div>
+              )}
+              <div class="pack-hover-overlay"></div>
+              <div class="pack-hover-content">
+                {index === 0 ? (
+                  <>
+                    <p class="pack-hover-line1">UNA CLASE.</p>
+                    <p class="pack-hover-line2">CERO EXCUSAS.</p>
+                  </>
+                ) : index === 1 ? (
+                  <>
+                    <p class="pack-hover-line1">DI HOLA.</p>
+                    <p class="pack-hover-line2">MUÉVETE.</p>
+                    <p class="pack-hover-line3">REPITE.</p>
+                  </>
+                ) : index === 2 ? (
+                  <>
+                    <p class="pack-hover-line1">EL EQUILIBRIO</p>
+                    <p class="pack-hover-line2">PERFECTO</p>
+                  </>
+                ) : index === 3 ? (
+                  <>
+                    <p class="pack-hover-line1">TU PACK MÁS</p>
+                    <p class="pack-hover-line2">COMPLETO</p>
+                  </>
+                ) : index === 4 ? (
+                  <>
+                    <p class="pack-hover-line1">MÁS CLASES.</p>
+                    <p class="pack-hover-line2">MÁS RESULTADOS.</p>
+                  </>
+                ) : index === 5 ? (
+                  <>
+                    <p class="pack-hover-line1">EL MOVIMIENTO</p>
+                    <p class="pack-hover-line2">COMO ESTILO</p>
+                  </>
+                ) : null}
+              </div>
+              <div class="pack-content-wrapper">
+                <h3 class="pack-title">
+                  <span class="pack-title-main">{item.title}</span>
+                  {item.subtitle && <span class="pack-subtitle">{item.subtitle}</span>}
+                </h3>
+                <div class="pack-price-container">
+                  <p class="pack-price">{item.price}</p>
+                  <p class="pack-validity">{item.validity}</p>
+                  {item.note && <p class="pack-note">{item.note}</p>}
+                </div>
+                <a href={`/${lang}/booking`} class="pack-btn">{t('plansPage.packs.btnReserve')}</a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="container packs-footer-container">
+          <p class="packs-footer-text">{t('plansPage.packs.footer')}</p>
+        </div>
+      </section>
+
+      <!-- FAQs Modal -->
+      <div id="faqs-modal" class="faqs-modal">
+        <div class="faqs-modal-content">
+          <button class="faqs-modal-close" aria-label="Close modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <h2 class="faqs-title">{t('faqs.title')}</h2>
+          <div class="faqs-accordion">
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q1')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a1')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q2')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a2')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q3')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a3')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q4')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a4')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q5')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a5')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="custom-footer">
+        <div class="container" style="display: block;">
+          <div class="footer-top">
+            <div class="footer-left">
+              <img src="/images/logofooter.svg" alt="NewVillage Logo" class="footer-logo-img" />
+            </div>
+            <div class="footer-right">
+              <nav class="footer-links">
+                <button id="faqs-trigger" class="footer-link faq-scroll-trigger" style="background:none; border:none; padding:0; cursor:pointer;">{t('footerLinks.faqs')}</button>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/contact`} class="footer-link">{t('footerLinks.contact')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/privacy`} class="footer-link">{t('footerLinks.privacy')}</a>
+                <a href="#" class="footer-social-link">
+                  <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                </a>
+              </nav>
+            </div>
+          </div>
+          
+          <div class="footer-bottom">
+            <div class="footer-text-absolute">
+              <span class="footer-text-main">NEW VILLAGE STUDIO.</span>
+              <span class="footer-text-sub">MOVE, MEET & CONNECT</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  <script>
+    // FAQs Logic
+    const faqTrigger = document.getElementById('faqs-trigger');
+    const faqModal = document.getElementById('faqs-modal');
+    const faqClose = document.querySelector('.faqs-modal-close');
+    const faqModalContent = document.querySelector('.faqs-modal-content');
+
+    function openFaqModal(e) {
+      e.preventDefault();
+      faqModal?.classList.add('open');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeFaqModal() {
+      faqModal?.classList.remove('open');
+      document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    faqTrigger?.addEventListener('click', openFaqModal);
+    faqClose?.addEventListener('click', closeFaqModal);
+
+    // Close when clicking outside
+    faqModal?.addEventListener('click', (e) => {
+      if (e.target === faqModal) {
+        closeFaqModal();
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && faqModal?.classList.contains('open')) {
+        closeFaqModal();
+      }
+    });
+
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+
+        // Cerrar todos
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+          const icon = i.querySelector('.faq-icon');
+          if(icon) icon.style.transform = 'rotate(0deg)';
+        });
+
+        // Abrir actual si no estaba abierto
+        if (!isActive) {
+          item.classList.add('active');
+          const icon = item.querySelector('.faq-icon');
+          if(icon) icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  </script>
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Oswald', sans-serif;
+    background-color: #ffffff;
+    color: #2c2c2c;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1240px; /* Actualizado a 1240px */
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box; /* Asegurar modelo de caja */
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hero Section */
+  .plans-hero-section {
+    position: relative;
+    width: 100%;
+    height: 800px; /* Altura fija */
+    min-height: 800px;
+    overflow: hidden;
+    /* display: flex; Eliminado para evitar conflictos con el container */
+    /* align-items: center; */
+    padding-top: 100px; /* Espacio extra para separar del header */
+  }
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center; /* Adjust if needed */
+  }
+
+  .hero-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado verticalmente */
+    align-items: flex-start; /* Alineado a la izquierda */
+    width: 100%; /* Asegurar ancho completo */
+    padding: 0; /* Asegurar sin padding extra */
+    margin: 0; /* Asegurar sin margen extra */
+  }
+
+  .hero-text-container {
+    width: 100%; /* Ocupar todo el ancho disponible */
+    max-width: 100%; /* Eliminar restricción de ancho */
+    text-align: left;
+    padding: 0; /* Asegurar sin padding extra */
+  }
+
+  .hero-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    white-space: pre-line;
+    font-size: 54px;
+    line-height: 65px;
+    letter-spacing: 0.04em; /* 4% */
+    color: #2c2c2c; /* Assuming dark text like in the image */
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.3s forwards;
+  }
+
+  .hero-description {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 37px;
+    line-height: 50px;
+    letter-spacing: 0.04em; /* 4% */
+    color: #2c2c2c;
+    margin: 0 0 49px 0;
+    text-transform: uppercase;
+  }
+
+  .hero-description p {
+    margin: 0;
+    opacity: 0;
+  }
+
+  .hero-description p:nth-child(1) {
+    animation: fadeUp 0.8s ease-out 0.5s forwards;
+  }
+
+  .hero-description p:nth-child(2) {
+    animation: fadeUp 0.8s ease-out 0.7s forwards;
+  }
+
+  .hero-description p:nth-child(3) {
+    animation: fadeUp 0.8s ease-out 0.9s forwards;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 20px; /* Gap between buttons */
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1.1s forwards;
+  }
+
+  .plan-btn {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 40px;
+    letter-spacing: 0.05em; /* 5% */
+    color: #ED6D64;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 2px solid #ED6D64;
+    padding: 0 1.5rem; /* Horizontal padding reducido */
+    height: 60px; /* Altura reducida */
+    display: inline-flex; /* Usar flex para centrar verticalmente */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px; /* Rounded pill shape like image */
+    transition: all 0.3s ease;
+    background: transparent;
+    box-sizing: border-box;
+    min-width: 180px; /* Ancho mínimo para que ambos botones tengan el mismo ancho */
+  }
+
+  .plan-btn:hover {
+    background-color: #ED6D64;
+    color: #ffffff;
+  }
+
+  /* Membership Section */
+  .membership-section {
+    background-color: #EEF5F8;
+    padding: 80px 0;
+    width: 100%;
+  }
+
+  .membership-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 4rem;
+  }
+
+  .membership-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .membership-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 65px;
+    line-height: 85px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    margin: 0 0 1.5rem 0;
+    text-transform: uppercase;
+  }
+
+  .membership-description {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 38px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    text-transform: uppercase;
+    max-width: 90%;
+    margin-bottom: 3rem;
+    white-space: pre-line;
+  }
+
+  .membership-footer-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 42px;
+    letter-spacing: 0.05em;
+    color: #000000;
+    margin-top: auto;
+  }
+
+  .membership-right {
+    flex: 0 0 500px; /* Ancho fijo o flexible según diseño */
+    max-width: 100%;
+  }
+
+  .includes-box {
+    background-color: #90BBC9;
+    padding: 4rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .includes-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 43px;
+    line-height: 104px; /* Según specs */
+    letter-spacing: 0.05em; /* Asumido estándar */
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    border-bottom: 2px solid #FCF5F5;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .includes-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 2rem 0;
+  }
+
+  .includes-list li {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 50px;
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+  }
+
+  .membership-fee-container {
+    margin-bottom: 1rem;
+  }
+
+  .membership-fee {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300; /* Asumido similar a bullets */
+    font-size: 26px;
+    line-height: 36px;
+    letter-spacing: 0.05em;
+  }
+
+  .membership-fee-note {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+  }
+
+  .membership-price {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 55px;
+    line-height: 104px;
+    letter-spacing: 0.07em;
+    margin: 1rem 0 2rem 0;
+  }
+
+  .membership-btn {
+    align-self: flex-start;
+    border-color: #ED6D64;
+    color: #ED6D64;
+  }
+
+  .membership-btn:hover {
+    background-color: #ED6D64;
+    color: #ffffff;
+    border-color: #ED6D64;
+  }
+
+  .membership-btn:hover {
+    background-color: #ED6D64;
+    color: #ffffff;
+    border-color: #ED6D64;
+  }
+
+  /* Packs Section */
+  .packs-section {
+    background-color: #ffffff;
+    padding: 80px 0;
+    width: 100%;
+  }
+
+  .packs-header-container {
+    text-align: left;
+    margin-bottom: 110px;
+  }
+
+  .packs-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 65px;
+    line-height: 85px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+  }
+
+  .packs-description {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 38px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    max-width: 800px;
+    text-transform: uppercase;
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  .packs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pack-item {
+    position: relative;
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrado verticalmente */
+    min-height: 500px;
+    color: #ffffff;
+  }
+
+  .pack-content-wrapper {
+    max-width: 220px; /* Ancho real del contenido */
+    width: 100%;
+    margin: 0 auto; /* Lo centra horizontalmente */
+    text-align: left; /* Texto alineado a la izquierda */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    z-index: 4;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Colores intercalados */
+  .pack-item:nth-child(odd) {
+    background-color: #A53716; /* Rojo */
+  }
+
+  .pack-item:nth-child(even) {
+    background-color: #90BBC9; /* Azul */
+  }
+
+  /* Hover overlay y contenido */
+  .pack-hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/images/hoverclasesuelta.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .pack-hover-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #A53716;
+    opacity: 0.5;
+    z-index: 2;
+  }
+
+  .pack-hover-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+  }
+
+  .pack-hover-line1,
+  .pack-hover-line2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .pack-hover-line1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .pack-hover-line3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  /* Estilos específicos para textos más anchos */
+  .pack-item-3 .pack-hover-line1,
+  .pack-item-3 .pack-hover-line2,
+  .pack-item-4 .pack-hover-line1,
+  .pack-item-4 .pack-hover-line2 {
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .pack-item-5 .pack-hover-content {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  .pack-item-5 .pack-hover-line1,
+  .pack-item-5 .pack-hover-line2 {
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    font-size: 56px;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    margin: 0 auto;
+  }
+
+  .pack-item-6 .pack-hover-line1,
+  .pack-item-6 .pack-hover-line2 {
+    max-width: none;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    font-size: 56px;
+    line-height: 1.0;
+    letter-spacing: 0.08em;
+  }
+
+  /* Hover effect solo para el primer pack (CLASE SUELTA) */
+  .pack-item-1:hover .pack-hover-overlay,
+  .pack-item-1:hover .pack-hover-content,
+  .pack-item-1.touch-active .pack-hover-overlay,
+  .pack-item-1.touch-active .pack-hover-content {
+    opacity: 1;
+  }
+
+  .pack-item-1:hover .pack-content-wrapper .pack-title,
+  .pack-item-1:hover .pack-content-wrapper .pack-price-container,
+  .pack-item-1.touch-active .pack-content-wrapper .pack-title,
+  .pack-item-1.touch-active .pack-content-wrapper .pack-price-container {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Hover effect para el segundo pack (PACK SAY HI) */
+  .pack-item-2 .pack-hover-overlay {
+    background-image: url('/images/hoverpacksihi.webp');
+  }
+
+  .pack-item-2:hover .pack-hover-overlay,
+  .pack-item-2:hover .pack-hover-content,
+  .pack-item-2.touch-active .pack-hover-overlay,
+  .pack-item-2.touch-active .pack-hover-content {
+    opacity: 1;
+  }
+
+  .pack-item-2:hover .pack-content-wrapper .pack-title,
+  .pack-item-2:hover .pack-content-wrapper .pack-price-container,
+  .pack-item-2.touch-active .pack-content-wrapper .pack-title,
+  .pack-item-2.touch-active .pack-content-wrapper .pack-price-container {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pack-item-2:hover .pack-badge,
+  .pack-item-2.touch-active .pack-badge {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Hover effect para el tercer pack (PACK S) */
+  .pack-item-3 .pack-hover-overlay {
+    background-image: url('/images/packs.webp');
+  }
+
+  .pack-item-3:hover .pack-hover-overlay,
+  .pack-item-3:hover .pack-hover-content,
+  .pack-item-3.touch-active .pack-hover-overlay,
+  .pack-item-3.touch-active .pack-hover-content {
+    opacity: 1;
+  }
+
+  .pack-item-3:hover .pack-content-wrapper .pack-title,
+  .pack-item-3:hover .pack-content-wrapper .pack-price-container,
+  .pack-item-3.touch-active .pack-content-wrapper .pack-title,
+  .pack-item-3.touch-active .pack-content-wrapper .pack-price-container {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pack-item-3:hover .pack-badge,
+  .pack-item-3.touch-active .pack-badge {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Hover effect para el cuarto pack (PACK M) */
+  .pack-item-4 .pack-hover-overlay {
+    background-image: url('/images/packm.webp');
+  }
+
+  .pack-item-4:hover .pack-hover-overlay,
+  .pack-item-4:hover .pack-hover-content,
+  .pack-item-4.touch-active .pack-hover-overlay,
+  .pack-item-4.touch-active .pack-hover-content {
+    opacity: 1;
+  }
+
+  .pack-item-4:hover .pack-content-wrapper .pack-title,
+  .pack-item-4:hover .pack-content-wrapper .pack-price-container,
+  .pack-item-4.touch-active .pack-content-wrapper .pack-title,
+  .pack-item-4.touch-active .pack-content-wrapper .pack-price-container {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pack-item-4:hover .pack-badge,
+  .pack-item-4.touch-active .pack-badge {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Hover effect para el quinto pack (PACK L) */
+  .pack-item-5 .pack-hover-overlay {
+    background-image: url('/images/packl.webp');
+  }
+
+  .pack-item-5:hover .pack-hover-overlay,
+  .pack-item-5:hover .pack-hover-content,
+  .pack-item-5.touch-active .pack-hover-overlay,
+  .pack-item-5.touch-active .pack-hover-content {
+    opacity: 1;
+  }
+
+  .pack-item-5:hover .pack-content-wrapper .pack-title,
+  .pack-item-5:hover .pack-content-wrapper .pack-price-container,
+  .pack-item-5.touch-active .pack-content-wrapper .pack-title,
+  .pack-item-5.touch-active .pack-content-wrapper .pack-price-container {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pack-item-5:hover .pack-badge,
+  .pack-item-5.touch-active .pack-badge {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Hover effect para el sexto pack (PACK XL) */
+  .pack-item-6 .pack-hover-overlay {
+    background-image: url('/images/packxl.webp');
+  }
+
+  .pack-item-6:hover .pack-hover-overlay,
+  .pack-item-6:hover .pack-hover-content,
+  .pack-item-6.touch-active .pack-hover-overlay,
+  .pack-item-6.touch-active .pack-hover-content {
+    opacity: 1;
+  }
+
+  .pack-item-6:hover .pack-content-wrapper .pack-title,
+  .pack-item-6:hover .pack-content-wrapper .pack-price-container,
+  .pack-item-6.touch-active .pack-content-wrapper .pack-title,
+  .pack-item-6.touch-active .pack-content-wrapper .pack-price-container {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pack-item-6:hover .pack-badge,
+  .pack-item-6.touch-active .pack-badge {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Centrar contenido durante hover para que el botón quede centrado */
+  .pack-item:hover .pack-content-wrapper,
+  .pack-item.touch-active .pack-content-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    align-items: center;
+  }
+
+  .pack-item:hover .pack-content-wrapper .pack-btn,
+  .pack-item.touch-active .pack-content-wrapper .pack-btn {
+    margin-top: 20px;
+  }
+
+  /* Reducir padding durante hover para dar más espacio a los textos largos */
+  .pack-item-5:hover,
+  .pack-item-5.touch-active,
+  .pack-item-6:hover,
+  .pack-item-6.touch-active {
+    padding: 80px 10px;
+  }
+
+  /* Hover al tocar DESACTIVADO en mobile - causa bugs de parpadeo */
+  /* Los efectos de hover solo funcionan en desktop (min-width: 769px) */
+
+  /* Badge */
+  .pack-badge {
+    position: absolute;
+    top: 38%;
+    transform: translateY(-50%);
+    right: 80px;
+    width: 150px;
+    height: 150px;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .badge-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    animation: rotateBadge 20s linear infinite;
+  }
+
+  @keyframes rotateBadge {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Ocultar badge en pantallas menores a 1800px */
+  @media (max-width: 1800px) {
+    .pack-badge {
+      display: none;
+    }
+  }
+
+  .pack-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 1.2; /* Ajustado para mejor legibilidad */
+    letter-spacing: 0.07em;
+    margin: 0 0 2rem 0;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pack-title-main {
+    display: block;
+  }
+
+  .pack-subtitle {
+    display: block;
+    font-weight: 400;
+  }
+
+  .pack-price-container {
+    margin-bottom: 2rem;
+  }
+
+  .pack-price {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 50px;
+    line-height: 104px;
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+
+  .pack-validity {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 27px;
+    line-height: 1.2; /* Ajustado */
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+
+  .pack-note {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+  }
+
+  .pack-btn {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 40px;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 2px solid #ffffff;
+    padding: 0 1.5rem;
+    height: 60px; /* Altura reducida */
+    display: inline-flex; /* Usar flex para centrar verticalmente */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    background: transparent;
+    margin-top: auto;
+    box-sizing: border-box;
+  }
+
+  .pack-btn:hover {
+    background-color: #ffffff;
+    color: inherit; /* Hereda el color del fondo (rojo o azul) */
+  }
+  
+  .pack-item:nth-child(odd) .pack-btn:hover {
+    color: #A53716;
+  }
+
+  .pack-item:nth-child(even) .pack-btn:hover {
+    color: #90BBC9;
+  }
+
+  .packs-footer-container {
+    margin-top: 75px; /* Espaciado exacto desde la grid */
+    text-align: center;
+  }
+
+  .packs-footer-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 50px;
+    letter-spacing: 0.05em;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* Footer */
+  .custom-footer {
+    background-color: #ffffff;
+    padding: 40px 0 40px 0;
+    margin-top: 0;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Alineado abajo */
+    margin-bottom: 100px;
+  }
+
+  .footer-logo-img {
+    height: auto;
+    width: 180px;
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-link {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;
+    letter-spacing: 2px;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #ED6D64;
+  }
+
+  .footer-separator {
+    color: #ED6D64;
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 4px;
+  }
+
+  .footer-social-icon {
+    width: 35px;
+    height: 35px;
+    color: #000000;
+    margin-left: 8px;
+    transition: color 0.3s ease;
+  }
+
+  .footer-social-icon:hover {
+    color: #ED6D64;
+  }
+
+  .footer-bottom {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 280px;
+    width: 100%;
+    margin-top: 60px;
+    overflow: visible;
+  }
+
+  .footer-bottom::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    max-width: 1000px;
+    background-color: #ED6D64;
+    -webkit-mask-image: url('/images/logoicon.svg');
+    mask-image: url('/images/logoicon.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0.4;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .footer-text-absolute {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; /* Todo en una línea */
+    gap: 10px;
+  }
+
+  .footer-text-main {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .footer-text-sub {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-title { font-size: 44px; line-height: 1.2; }
+    .hero-description { font-size: 28px; line-height: 1.3; }
+    
+    .footer-top {
+      margin-bottom: 80px;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+    
+    .footer-links {
+      justify-content: center;
+    }
+    
+    .footer-link, .footer-separator { font-size: 24px; line-height: 34px; }
+    .footer-text-main, .footer-text-sub { font-size: 26px; line-height: 34px; }
+    .footer-text-absolute { flex-direction: column; gap: 5px; }
+    .footer-logo-img { width: 180px; }
+
+    /* Membership Tablet */
+    .membership-title { font-size: 50px; line-height: 65px; }
+    .membership-description { font-size: 20px; line-height: 30px; }
+    .membership-right { flex: 0 0 400px; }
+
+    /* Packs Tablet */
+    .packs-title { font-size: 50px; line-height: 65px; }
+    .packs-description { font-size: 20px; line-height: 30px; }
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 1.5rem; }
+    
+    .plans-hero-section { min-height: 600px; }
+    
+    .hero-title {
+      font-size: 36px;
+      line-height: 42px;
+      margin-bottom: 1rem;
+      white-space: pre-line;
+    }
+    
+    .hero-description {
+      font-size: 22px;
+      line-height: 30px;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    
+    .plan-btn {
+      width: auto;
+      text-align: center;
+    }
+
+    .hero-bg-image {
+      object-position: center right;
+      opacity: 0.6; /* Reducir opacidad de la imagen en mobile */
+    }
+
+    .hero-background::after {
+      background-color: rgba(255, 255, 255, 0.3); /* Overlay blanco claro en mobile */
+    }
+
+    /* Membership Mobile */
+    .membership-container {
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .membership-section {
+      padding: 60px 0;
+    }
+
+    .membership-right {
+      flex: none;
+      width: 100%;
+    }
+
+    .membership-title {
+      font-size: 36px;
+      line-height: 45px;
+    }
+
+    .membership-description {
+      font-size: 18px;
+      line-height: 26px;
+      margin-bottom: 1.5rem;
+    }
+
+    .membership-footer-text {
+      font-size: 22px;
+      line-height: 30px;
+    }
+
+    .includes-title {
+      font-size: 32px;
+      line-height: 50px;
+    }
+
+    .includes-list li {
+      font-size: 20px;
+      line-height: 30px;
+    }
+
+    .membership-price {
+      font-size: 40px;
+      line-height: 60px;
+    }
+
+    /* Packs Mobile */
+    .packs-section {
+      padding: 60px 0;
+    }
+
+    .packs-header-container {
+      margin-bottom: 50px;
+    }
+
+    .packs-title {
+      font-size: 36px;
+      line-height: 45px;
+    }
+
+    .packs-description {
+      font-size: 18px;
+      line-height: 26px;
+    }
+
+    .packs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pack-item {
+      padding: 40px 20px;
+      min-height: auto;
+    }
+
+    .packs-footer-container {
+      margin-top: 40px;
+    }
+
+    .packs-footer-text {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    /* Footer Mobile */
+    .custom-footer {
+      padding: 30px 0;
+      margin-top: 0;
+    }
+
+    .footer-top {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .footer-links {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-link {
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    .footer-separator {
+      display: none;
+    }
+
+    .footer-social-icon {
+      margin-left: 0;
+      margin-top: 20px;
+    }
+
+    .footer-bottom {
+      min-height: 200px;
+      margin-top: 20px;
+    }
+
+    .footer-text-absolute {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .footer-text-main,
+    .footer-text-sub {
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 2px;
+      white-space: normal;
+    }
+    }
+
+  /* FAQs Modal */
+  .faqs-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+
+  .faqs-modal.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .faqs-modal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .faqs-modal.open .faqs-modal-content {
+    transform: translateY(0);
+  }
+
+  .faqs-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #2c2c2c;
+    transition: color 0.3s ease;
+    padding: 0.5rem;
+    z-index: 10;
+  }
+
+  .faqs-modal-close:hover {
+    color: #ED6D64;
+  }
+
+  /* FAQs Styles inside Modal */
+  .faqs-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    width: 100%;
+  }
+
+  .faqs-accordion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.3s ease;
+  }
+
+  .faq-question span {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-right: 1rem;
+  }
+
+  .faq-question:hover span {
+    color: #ED6D64;
+  }
+
+  .faq-icon {
+    transition: transform 0.3s ease;
+    color: #ED6D64;
+    flex-shrink: 0;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer p {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+  }
+
+  /* Responsive Modal */
+  @media (max-width: 768px) {
+    .faqs-modal-content {
+      width: 95%;
+      padding: 2rem 1.5rem;
+      max-height: 85vh;
+    }
+
+    .faqs-title {
+      font-size: 32px;
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-question span {
+      font-size: 18px;
+    }
+
+    .faq-answer p {
+      font-size: 16px;
+    }
+
+    .faqs-modal-close {
+      top: 1rem;
+      right: 1rem;
+    }
+
+    /* DESACTIVAR COMPLETAMENTE HOVER EN MOBILE */
+    /* Ocultar elementos de hover desde el inicio */
+    .pack-hover-overlay,
+    .pack-hover-content {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    /* Asegurar que el contenido normal siempre esté visible y estático */
+    /* Mantener el fondo original sin cambios */
+    .pack-item,
+    .pack-item:hover,
+    .pack-item:active,
+    .pack-item:focus,
+    .pack-item.touch-active {
+      transform: none !important;
+      transition: none !important;
+    }
+
+    /* Forzar colores de fondo originales en mobile */
+    .pack-item:nth-child(odd),
+    .pack-item:nth-child(odd):hover,
+    .pack-item:nth-child(odd):active,
+    .pack-item:nth-child(odd):focus {
+      background-color: #A53716 !important;
+    }
+
+    .pack-item:nth-child(even),
+    .pack-item:nth-child(even):hover,
+    .pack-item:nth-child(even):active,
+    .pack-item:nth-child(even):focus {
+      background-color: #90BBC9 !important;
+    }
+
+    .pack-content-wrapper,
+    .pack-item:hover .pack-content-wrapper,
+    .pack-item:active .pack-content-wrapper,
+    .pack-item:focus .pack-content-wrapper,
+    .pack-item.touch-active .pack-content-wrapper {
+      position: static !important;
+      transform: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: flex !important;
+      transition: none !important;
+      text-align: left !important;
+      align-items: flex-start !important;
+      top: auto !important;
+      left: auto !important;
+    }
+
+    .pack-content-wrapper .pack-title,
+    .pack-content-wrapper .pack-price-container,
+    .pack-item:hover .pack-content-wrapper .pack-title,
+    .pack-item:hover .pack-content-wrapper .pack-price-container,
+    .pack-item:active .pack-content-wrapper .pack-title,
+    .pack-item:active .pack-content-wrapper .pack-price-container {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transition: none !important;
+      text-align: left !important;
+    }
+
+    .pack-badge,
+    .pack-item:hover .pack-badge,
+    .pack-item:active .pack-badge,
+    .pack-item.touch-active .pack-badge {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transition: none !important;
+    }
+
+    .pack-btn {
+      position: static !important;
+      transform: none !important;
+      margin-top: 20px;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transition: none !important;
+      text-align: center !important;
+      align-self: flex-start !important;
+    }
+
+    .pack-item:hover .pack-content-wrapper .pack-title,
+    .pack-item:hover .pack-content-wrapper .pack-price-container,
+    .pack-item.touch-active .pack-content-wrapper .pack-title,
+    .pack-item.touch-active .pack-content-wrapper .pack-price-container,
+    .pack-item:active .pack-content-wrapper .pack-title,
+    .pack-item:active .pack-content-wrapper .pack-price-container,
+    .pack-item:focus .pack-content-wrapper .pack-title,
+    .pack-item:focus .pack-content-wrapper .pack-price-container {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    
+    /* Eliminar transformaciones y escalas en mobile */
+    .pack-item:hover,
+    .pack-item.touch-active,
+    .pack-item:active,
+    .pack-item:focus {
+      transform: none !important;
+      padding: 40px 0 !important; /* Mantener padding original */
+      background-color: transparent !important;
+    }
+  }
+
+  </style>
+
+  <script>
+    // FAQs Logic
+    const faqTrigger = document.getElementById('faqs-trigger');
+    const faqModal = document.getElementById('faqs-modal');
+    const faqClose = document.querySelector('.faqs-modal-close');
+    const faqModalContent = document.querySelector('.faqs-modal-content');
+
+    function openFaqModal(e) {
+      e.preventDefault();
+      faqModal?.classList.add('open');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeFaqModal() {
+      faqModal?.classList.remove('open');
+      document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    faqTrigger?.addEventListener('click', openFaqModal);
+    faqClose?.addEventListener('click', closeFaqModal);
+
+    // Close when clicking outside
+    faqModal?.addEventListener('click', (e) => {
+      if (e.target === faqModal) {
+        closeFaqModal();
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && faqModal?.classList.contains('open')) {
+        closeFaqModal();
+      }
+    });
+
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+
+        // Cerrar todos
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+          const icon = i.querySelector('.faq-icon');
+          if(icon) icon.style.transform = 'rotate(0deg)';
+        });
+
+        if (!isActive) {
+          item.classList.add('active');
+          const icon = item.querySelector('.faq-icon');
+          if(icon) icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  </script>

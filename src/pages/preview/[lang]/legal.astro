@@ -13,7 +13,7 @@ const t = await loadT(lang, ['home', 'header']);
 function getLangUrl(newLang: Locale): string {
   const currentPath = Astro.url.pathname;
   const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
-  return `/${newLang}${pathWithoutLang || '/privacy'}`;
+  return `/${newLang}${pathWithoutLang || '/legal'}`;
 }
 
 const langLabels: Record<Locale, string> = {
@@ -29,35 +29,32 @@ const langLabels: Record<Locale, string> = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/images/favicon.png" />
-    <meta name="description" content="Política de Privacidad de NewVillage Studio. Conoce cómo protegemos tus datos." />
+    <meta name="description" content="Aviso Legal y Condiciones de Uso de New Village Studio." />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
     </style>
-    <title>NewVillage | Política de Privacidad</title>
+    <title>NewVillage | Legal</title>
   </head>
   <body>
     <div class="page-wrapper">
       <!-- Header -->
       <NewHeader lang={lang} overlay={false} />
-  
+
       <main class="legal-content">
     <div class="container">
-          <h1 class="legal-title">POLÍTICA DE PRIVACIDAD</h1>
+          <h1 class="legal-title">AVISO LEGAL</h1>
           <div class="legal-text">
-            <p><strong>1. RESPONSABLE DEL TRATAMIENTO</strong></p>
-            <p>El responsable del tratamiento de sus datos personales es New Village Studio.</p>
-            
-            <p><strong>2. FINALIDAD DEL TRATAMIENTO</strong></p>
-            <p>Tratamos la información que nos facilitan las personas interesadas con el fin de gestionar el envío de la información que nos soliciten, así como facilitar a los interesados ofertas de productos y servicios de su interés.</p>
+            <p><strong>1. DATOS IDENTIFICATIVOS</strong></p>
+            <p>En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: la empresa titular de dominio web es New Village Studio (en adelante New Village), con domicilio a estos efectos en Poblenou, Barcelona. Correo electrónico de contacto: info@newvillage.com del sitio web.</p>
 
-            <p><strong>3. LEGITIMACIÓN</strong></p>
-            <p>La base legal para el tratamiento de sus datos es el consentimiento del interesado.</p>
-            
-            <p><strong>4. DESTINATARIOS</strong></p>
-            <p>Los datos no se cederán a terceros salvo obligación legal.</p>
+            <p><strong>2. USUARIOS</strong></p>
+            <p>El acceso y/o uso de este portal de New Village atribuye la condición de USUARIO, que acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí reflejadas. Las citadas Condiciones serán de aplicación independientemente de las Condiciones Generales de Contratación que en su caso resulten de obligado cumplimiento.</p>
 
-            <p><strong>5. DERECHOS</strong></p>
-            <p>Cualquier persona tiene derecho a obtener confirmación sobre si en New Village Studio estamos tratando datos personales que les conciernan, o no.</p>
+            <p><strong>3. USO DEL PORTAL</strong></p>
+            <p>New Village proporciona el acceso a multitud de informaciones, servicios, programas o datos (en adelante, "los contenidos") en Internet pertenecientes a New Village o a sus licenciantes a los que el USUARIO pueda tener acceso. El USUARIO asume la responsabilidad del uso del portal.</p>
+            
+            <p><strong>4. PROTECCIÓN DE DATOS</strong></p>
+            <p>New Village cumple con las directrices de la normativa vigente en materia de protección de datos personales, el Reglamento (UE) 2016/679 de 27 de abril de 2016 (RGPD), relativo a la protección de las personas físicas en cuanto al tratamiento de datos personales y a la libre circulación de estos datos.</p>
           </div>
         </div>
       </main>
@@ -190,7 +187,7 @@ const langLabels: Record<Locale, string> = {
   }
 
   .container {
-    max-width: 1240px;
+    max-width: 1240px; /* Actualizado a 1240px */
     margin: 0 auto;
     padding: 0 2rem;
   }
@@ -546,7 +543,7 @@ const langLabels: Record<Locale, string> = {
     .faqs-title {
       font-size: 32px;
       margin-bottom: 1.5rem;
-  }
+    }
 
     .faq-question span {
       font-size: 18px;

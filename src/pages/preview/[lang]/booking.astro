@@ -13,7 +13,7 @@ const t = await loadT(lang, ['home', 'header']);
 function getLangUrl(newLang: Locale): string {
   const currentPath = Astro.url.pathname;
   const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
-  return `/${newLang}${pathWithoutLang || '/privacy'}`;
+  return `/${newLang}${pathWithoutLang || '/booking'}`;
 }
 
 const langLabels: Record<Locale, string> = {
@@ -29,35 +29,32 @@ const langLabels: Record<Locale, string> = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/images/favicon.png" />
-    <meta name="description" content="Política de Privacidad de NewVillage Studio. Conoce cómo protegemos tus datos." />
+    <meta name="description" content="Reserva tus clases en New Village Studio. Horarios y disponibilidad." />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
     </style>
-    <title>NewVillage | Política de Privacidad</title>
+    <title>NewVillage | Reserva</title>
   </head>
   <body>
     <div class="page-wrapper">
       <!-- Header -->
       <NewHeader lang={lang} overlay={false} />
-  
-      <main class="legal-content">
-    <div class="container">
-          <h1 class="legal-title">POLÍTICA DE PRIVACIDAD</h1>
-          <div class="legal-text">
-            <p><strong>1. RESPONSABLE DEL TRATAMIENTO</strong></p>
-            <p>El responsable del tratamiento de sus datos personales es New Village Studio.</p>
-            
-            <p><strong>2. FINALIDAD DEL TRATAMIENTO</strong></p>
-            <p>Tratamos la información que nos facilitan las personas interesadas con el fin de gestionar el envío de la información que nos soliciten, así como facilitar a los interesados ofertas de productos y servicios de su interés.</p>
 
-            <p><strong>3. LEGITIMACIÓN</strong></p>
-            <p>La base legal para el tratamiento de sus datos es el consentimiento del interesado.</p>
-            
-            <p><strong>4. DESTINATARIOS</strong></p>
-            <p>Los datos no se cederán a terceros salvo obligación legal.</p>
-
-            <p><strong>5. DERECHOS</strong></p>
-            <p>Cualquier persona tiene derecho a obtener confirmación sobre si en New Village Studio estamos tratando datos personales que les conciernan, o no.</p>
+      <main class="booking-content">
+        <div class="container">
+          <h1 class="booking-title">{t('actions.reserve')}</h1>
+          <div class="booking-widget-container">
+            <!-- VirtuaGym Integration Placeholder -->
+            <div class="virtuagym-placeholder">
+              <p>{t('booking.loading')}</p>
+              <iframe 
+                src="https://innerflow.virtuagym.com/classes/week" 
+                width="100%" 
+                height="800" 
+                frameborder="0"
+                allow="camera; microphone; autoplay; encrypted-media;"
+              ></iframe>
+            </div>
           </div>
         </div>
       </main>
@@ -190,17 +187,17 @@ const langLabels: Record<Locale, string> = {
   }
 
   .container {
-    max-width: 1240px;
+    max-width: 1240px; /* Actualizado a 1240px */
     margin: 0 auto;
     padding: 0 2rem;
   }
 
-  .legal-content {
-    padding: 6rem 0;
-    min-height: 60vh;
+  .booking-content {
+    padding: 4rem 0;
+    min-height: 80vh;
   }
 
-  .legal-title {
+  .booking-title {
     font-size: 48px;
     text-align: center;
     margin-bottom: 3rem;
@@ -208,16 +205,20 @@ const langLabels: Record<Locale, string> = {
     font-weight: 500;
   }
 
-  .legal-text {
-    max-width: 800px;
-    margin: 0 auto;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.6;
+  .booking-widget-container {
+    background: #f9f9f9;
+    min-height: 600px;
+    border-radius: 10px;
+    overflow: hidden;
   }
-
-  .legal-text p {
-    margin-bottom: 1.5rem;
+  
+  .virtuagym-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   /* Footer */
@@ -347,7 +348,7 @@ const langLabels: Record<Locale, string> = {
     white-space: nowrap;
   }
 
-    /* Footer Mobile */
+  /* Footer Mobile */
     @media (max-width: 768px) {
     .custom-footer {
       padding: 30px 0;
@@ -546,7 +547,7 @@ const langLabels: Record<Locale, string> = {
     .faqs-title {
       font-size: 32px;
       margin-bottom: 1.5rem;
-  }
+    }
 
     .faq-question span {
       font-size: 18px;
