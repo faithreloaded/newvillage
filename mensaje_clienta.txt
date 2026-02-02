@@ -1,0 +1,22 @@
+Hola,
+
+Para revisar las páginas de la web, tienes que usar estos links exactos:
+
+**Página de inicio:**
+https://newvillage.vercel.app/es/home
+
+**Página de planes:**
+https://newvillage.vercel.app/es/plans
+
+**Página de contacto:**
+https://newvillage.vercel.app/es/contact
+
+**Página legal:**
+https://newvillage.vercel.app/es/legal
+
+**Página de privacidad:**
+https://newvillage.vercel.app/es/privacy
+
+**Importante:** Si entras al link principal de la web (sin poner nada más), te aparecerá la página "Coming Soon". Para revisar las otras páginas, tienes que usar los links exactos que te he puesto arriba.
+
+Un saludo.

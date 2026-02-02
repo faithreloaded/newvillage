@@ -82,7 +82,9 @@
     "q4": "OFERIU CLASSES PRIVADES?",
     "a4": "Sí, oferim sessions privades individuals i per a grups petits. Posa't en contacte amb nosaltres per a més informació sobre tarifes i disponibilitat.",
     "q5": "TENIU VESTIDORS I DUTXES?",
-    "a5": "Sí, disposem de vestidors complets amb dutxes i taquilles perquè puguis canviar-te còmodament abans i després de la teva pràctica."
+    "a5": "Sí, disposem de vestidors complets amb dutxes i taquilles perquè puguis canviar-te còmodament abans i després de la teva pràctica.",
+    "q6": "QUÈ PASSA SI ARRIBO TARD A CLASSE?",
+    "a6": "Per garantir la qualitat de la sessió i el respecte al grup, no es permetrà l'accés un cop hagin transcorregut 5 minuts des de l'inici de la classe. Et recomanem arribar amb uns minuts d'antelació per preparar-te i començar junts."
   },
   "account": {
     "accessText": "Accés a clients properament.",

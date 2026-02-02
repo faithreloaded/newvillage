@@ -82,7 +82,9 @@
     "q4": "DO YOU OFFER PRIVATE CLASSES?",
     "a4": "Yes, we offer individual private sessions and small group sessions. Contact us for more information on rates and availability.",
     "q5": "DO YOU HAVE CHANGING ROOMS AND SHOWERS?",
-    "a5": "Yes, we have full changing rooms with showers and lockers so you can change comfortably before and after your practice."
+    "a5": "Yes, we have full changing rooms with showers and lockers so you can change comfortably before and after your practice.",
+    "q6": "WHAT HAPPENS IF I ARRIVE LATE TO CLASS?",
+    "a6": "To ensure the quality of the session and respect for the group, access will not be permitted once 5 minutes have passed from the start of the class. We recommend arriving a few minutes early to get ready and begin together."
   },
   "account": {
     "accessText": "Customer access coming soon.",

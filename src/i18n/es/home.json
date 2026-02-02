@@ -78,7 +78,9 @@
     "q4": "¿OFRECÉIS CLASES PRIVADAS?",
     "a4": "Sí, ofrecemos sesiones privadas individuales y para grupos pequeños. Ponte en contacto con nosotros para más información sobre tarifas y disponibilidad.",
     "q5": "¿TENÉIS VESTUARIOS Y DUCHAS?",
-    "a5": "Sí, disponemos de vestuarios completos con duchas y taquillas para que puedas cambiarte cómodamente antes y después de tu práctica."
+    "a5": "Sí, disponemos de vestuarios completos con duchas y taquillas para que puedas cambiarte cómodamente antes y después de tu práctica.",
+    "q6": "¿QUÉ OCURRE SI LLEGO TARDE A CLASE?",
+    "a6": "Para garantizar la calidad de la sesión y el respeto al grupo, no se permitirá el acceso una vez hayan transcurrido 5 minutos desde el inicio de la clase. Te recomendamos llegar con unos minutos de antelación para prepararte y empezar juntos."
   },
   "account": {
     "accessText": "Acceso a clientes próximamente.",
