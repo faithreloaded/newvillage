@@ -110,9 +110,9 @@ const langLabels: Record<Locale, string> = {
               <div class="discipline-overlay">
                 <h3 class="discipline-overlay-title">{t('disciplines.barreTitle')}</h3>
                 <p class="discipline-overlay-tags">{t('disciplines.barreTags')}</p>
-                <button class="discipline-view-more-btn mobile-only">
+                <a href={`/${lang}/plans`} class="discipline-view-more-btn mobile-only">
                   <span>{t('disciplines.viewMore')}</span>
-                </button>
+                </a>
             </div>
               <div class="discipline-gradient-overlay">
                 <button class="discipline-view-more-btn desktop-only">
@@ -128,9 +128,9 @@ const langLabels: Record<Locale, string> = {
               <div class="discipline-overlay">
                 <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
                 <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
-                <button class="discipline-view-more-btn mobile-only">
+                <a href={`/${lang}/plans`} class="discipline-view-more-btn mobile-only">
                   <span>{t('disciplines.viewMore')}</span>
-                </button>
+                </a>
               </div>
               <div class="discipline-gradient-overlay">
                 <button class="discipline-view-more-btn desktop-only">
@@ -146,9 +146,9 @@ const langLabels: Record<Locale, string> = {
               <div class="discipline-overlay">
                 <h3 class="discipline-overlay-title">{t('disciplines.functionalTitle')}</h3>
                 <p class="discipline-overlay-tags">{t('disciplines.functionalTags')}</p>
-                <button class="discipline-view-more-btn mobile-only">
+                <a href={`/${lang}/plans`} class="discipline-view-more-btn mobile-only">
                   <span>{t('disciplines.viewMore')}</span>
-                </button>
+                </a>
         </div>
               <div class="discipline-gradient-overlay">
                 <button class="discipline-view-more-btn desktop-only">
@@ -164,9 +164,9 @@ const langLabels: Record<Locale, string> = {
               <div class="discipline-overlay">
                 <h3 class="discipline-overlay-title">{t('disciplines.yogaTitle')}</h3>
                 <p class="discipline-overlay-tags">{t('disciplines.yogaTags')}</p>
-                <button class="discipline-view-more-btn mobile-only">
+                <a href={`/${lang}/plans`} class="discipline-view-more-btn mobile-only">
                   <span>{t('disciplines.viewMore')}</span>
-                </button>
+                </a>
     </div>
               <div class="discipline-gradient-overlay">
                 <button class="discipline-view-more-btn desktop-only">
@@ -466,6 +466,7 @@ const langLabels: Record<Locale, string> = {
         const isOpen = detail.classList.contains('active');
         const isMobile = window.innerWidth <= 768;
 
+        // Cerrar otros detalles abiertos
         document.querySelectorAll('.discipline-detail').forEach(d => {
           if (d.id !== `${disciplineName}-detail`) {
             d.classList.remove('active');
@@ -479,35 +480,32 @@ const langLabels: Record<Locale, string> = {
         });
 
         if (isOpen) {
+          // Cerrar este detalle
           detail.classList.remove('active');
           if (isMobile) detail.style.display = 'none';
           item.classList.remove('active');
         } else {
+          // Abrir este detalle
           detail.classList.add('active');
           item.classList.add('active');
+          if (isMobile) detail.style.display = 'flex';
           
-          if (isMobile) {
-            detail.style.display = 'flex';
-            const itemIndex = Array.from(carouselItems).indexOf(item);
-            if (itemIndex !== -1 && itemIndex !== currentCarouselIndex) {
-              currentCarouselIndex = itemIndex;
-              updateCarousel();
-            }
+          // Scroll suave al detalle (solo en desktop o si queremos en móvil)
+          if (!isMobile) {
+            setTimeout(() => {
+              const detailRect = detail.getBoundingClientRect();
+              const absoluteTop = window.pageYOffset + detailRect.top;
+              const headerOffset = 80;
+              const windowHeight = window.innerHeight;
+              const detailHeight = detailRect.height;
+              const centerOffset = (windowHeight - detailHeight) / 2;
+              const scrollTop = absoluteTop - headerOffset - Math.max(centerOffset, 50);
+              window.scrollTo({
+                top: Math.max(scrollTop, 0),
+                behavior: 'smooth'
+              });
+            }, 350);
           }
-          
-          setTimeout(() => {
-            const detailRect = detail.getBoundingClientRect();
-            const absoluteTop = window.pageYOffset + detailRect.top;
-            const headerOffset = isMobile ? 120 : 80;
-            const windowHeight = window.innerHeight;
-            const detailHeight = detailRect.height;
-            const centerOffset = (windowHeight - detailHeight) / 2;
-            const scrollTop = absoluteTop - headerOffset - Math.max(centerOffset, 50);
-            window.scrollTo({
-              top: Math.max(scrollTop, 0),
-              behavior: 'smooth'
-            });
-          }, 350);
         }
       }
 
@@ -626,104 +624,27 @@ const langLabels: Record<Locale, string> = {
       });
 
       const carouselItems = document.querySelectorAll('.discipline-item');
-      const prevBtn = document.querySelector('.carousel-prev');
-      const nextBtn = document.querySelector('.carousel-next');
       let currentCarouselIndex = 0;
 
       function updateCarousel() {
         const isMobile = window.innerWidth <= 768;
         
-        if (!isMobile) {
-          carouselItems.forEach(item => {
-            item.style.display = '';
-            item.classList.remove('active-slide');
-          });
-          document.querySelectorAll('.discipline-detail').forEach(detail => {
-            if (!detail.classList.contains('active')) {
-              detail.style.display = '';
-            }
-          });
-          return;
-        }
-
-        carouselItems.forEach((item, index) => {
-          if (index === currentCarouselIndex) {
-            item.style.display = 'block';
-            item.classList.add('active-slide');
-          } else {
-            item.style.display = 'none';
-            item.classList.remove('active-slide');
-          }
+        // En móvil: mostrar todos los items (sin carrusel)
+        // En desktop: comportamiento normal
+        carouselItems.forEach(item => {
+          item.style.display = '';
+          item.classList.remove('active-slide');
         });
         
         document.querySelectorAll('.discipline-detail').forEach(detail => {
-           const id = detail.id.replace('-detail', '');
-           const currentDiscipline = carouselItems[currentCarouselIndex]?.dataset.discipline;
-           const isActive = detail.classList.contains('active');
-           
-           if (isActive) {
-             detail.style.display = 'flex';
-           } else if (id !== currentDiscipline) {
-             detail.style.display = 'none';
-           } else {
-             detail.style.display = 'none';
-           }
-        });
-      }
-
-      function nextSlide() {
-        currentCarouselIndex = (currentCarouselIndex + 1) % carouselItems.length;
-        updateCarousel();
-      }
-
-      function prevSlide() {
-        currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
-        updateCarousel();
-      }
-
-      if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          prevSlide();
-        });
-        nextBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          nextSlide();
+          if (!detail.classList.contains('active')) {
+            detail.style.display = isMobile ? 'none' : '';
+          }
         });
       }
 
       window.addEventListener('resize', updateCarousel);
       setTimeout(updateCarousel, 100);
-
-      let touchStartX = 0;
-      let touchEndX = 0;
-      const carouselContainer = document.querySelector('.disciplines-carousel-wrapper');
-
-      if (carouselContainer) {
-        carouselContainer.addEventListener('touchstart', e => {
-          touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        carouselContainer.addEventListener('touchend', e => {
-          touchEndX = e.changedTouches[0].screenX;
-          handleSwipe();
-        }, { passive: true });
-      }
-
-      function handleSwipe() {
-        const threshold = 50;
-        const isMobile = window.innerWidth <= 768;
-        
-        if (!isMobile) return;
-
-        if (touchEndX < touchStartX - threshold) {
-          nextSlide();
-        }
-        
-        if (touchEndX > touchStartX + threshold) {
-          prevSlide();
-        }
-      }
     </script>
 
   </body>
@@ -1511,58 +1432,113 @@ const langLabels: Record<Locale, string> = {
       opacity: 0.75;
       right: 0;
     }
-    .disciplines-section { padding: 80px 0 80px 0 !important; margin-bottom: 0 !important; }
+    
+    /* Disciplinas simplificadas para móvil */
+    .disciplines-section { padding: 60px 0 60px 0 !important; margin-bottom: 0 !important; }
     .disciplines-title { font-size: 28px; line-height: 1.0; margin-bottom: 0.75rem; }
-    .disciplines-subtitle { font-size: 20px; line-height: 1.3; max-width: 100%; margin-bottom: 60px; }
-    .disciplines-grid { display: flex !important; flex-direction: column !important; margin-bottom: 4rem; }
-    .discipline-item { width: 100%; }
-    .discipline-image { height: 350px; }
-    .discipline-overlay-title { font-size: 32px; line-height: 36px; margin-bottom: 0.75rem; }
-    .discipline-overlay-tags { font-size: 13px; line-height: 18px; }
-    .discipline-item .discipline-overlay { opacity: 1; background-color: rgba(0, 0, 0, 0.3); }
-    .discipline-item.active .discipline-overlay { background-color: rgba(165, 55, 22, 0.7); }
-    .mobile-only { display: flex; }
+    .disciplines-subtitle { font-size: 18px; line-height: 1.3; max-width: 100%; margin-bottom: 40px; }
+    
+    /* Ocultar botones de carrusel */
+    .carousel-nav-btn,
+    .carousel-prev,
+    .carousel-next { display: none !important; }
+    
+    /* Wrapper sin fondo naranja, sin padding lateral excesivo */
     .disciplines-carousel-wrapper {
       position: relative;
-      background-color: #DB5639;
-      padding: 60px 50px;
-      margin-left: -1.5rem;
-      width: calc(100% + 3rem);
-      box-sizing: border-box;
-      touch-action: pan-y pinch-zoom;
-      min-height: 500px;
-      display: flex;
-      align-items: center;
-    }
-    .discipline-detail {
-      margin-top: 2rem;
-      background: white;
-      padding: 2rem 1.5rem;
+      background-color: transparent;
+      padding: 0;
+      margin-left: 0;
       width: 100%;
-      display: none;
+      box-sizing: border-box;
+      min-height: auto;
+      display: block;
+    }
+    
+    /* Grid como lista vertical simple */
+    .disciplines-grid { 
+      display: flex !important; 
+      flex-direction: column !important; 
+      gap: 20px;
+      margin-bottom: 0;
+    }
+    
+    /* Cada disciplina visible */
+    .discipline-item { 
+      width: 100%; 
+      display: block !important;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .discipline-image { 
+      height: 280px;
+      transform: none !important; /* Sin zoom en móvil */
+    }
+    
+    /* Quitar hover en móvil */
+    .discipline-item:hover .discipline-image,
+    .discipline-item.active .discipline-image {
+      transform: none !important;
+    }
+    
+    .discipline-overlay {
+      opacity: 1 !important;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      box-sizing: border-box;
-      position: relative;
+      padding: 1.5rem;
     }
-    .discipline-detail.active { display: flex; animation: fadeIn 0.5s ease; }
-    .carousel-nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      padding: 10px;
+    
+    .discipline-overlay-title { font-size: 28px; line-height: 32px; margin-bottom: 0.5rem; }
+    .discipline-overlay-tags { font-size: 12px; line-height: 16px; margin-bottom: 1rem; }
+    
+    /* Sin cambio de fondo en active en móvil */
+    .discipline-item.active .discipline-overlay { background-color: rgba(0, 0, 0, 0.4); }
+    
+    /* Botón Descubre visible en móvil - bordes redondeados */
+    .mobile-only { display: flex; }
+    .discipline-view-more-btn.mobile-only {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 12px 28px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 1px;
       cursor: pointer;
-      z-index: 10;
-      display: flex;
+      text-decoration: none;
+      border-radius: 30px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
     }
-    .carousel-prev { left: 5px; }
-    .carousel-next { right: 5px; }
+    
+    /* Ocultar gradient overlay en móvil */
+    .discipline-gradient-overlay { display: none !important; }
+    
+    /* Ocultar detalles desplegables en móvil - el botón lleva a planes */
+    .discipline-detail { 
+      display: none !important; 
+    }
+    
+    /* Ocultar botón cerrar en móvil */
+    .mobile-close-detail { display: none !important; }
+    
+    /* Ocultar programas en móvil */
+    .discipline-programs,
+    .discipline-programs-5,
+    .discipline-programs-2,
+    .program-box,
+    .program-row { 
+      display: none !important; 
+    }
+    
     .cta-section { height: auto; min-height: 350px; padding: 3rem 1.5rem; }
     .cta-text { font-size: 30px; line-height: 36px; max-width: 100%; padding: 0 1rem; }
     .local-image-section { height: 350px; }
