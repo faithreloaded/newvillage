@@ -528,15 +528,26 @@ const langLabels: Record<Locale, string> = {
         const disciplineName = disciplineItem.dataset.discipline;
         if (!disciplineName) return;
         
-        if (e.target.closest('.discipline-view-more-btn')) {
+        const isMobile = window.innerWidth <= 768;
+        
+        // Si es móvil y se hace clic en el botón Discover, permitir navegación
+        if (e.target.closest('.discipline-view-more-btn.mobile-only')) {
+          if (isMobile) {
+            // En móvil, permitir que el enlace funcione normalmente
+            return;
+          }
+          // En desktop, mantener el comportamiento de toggle
           e.preventDefault();
           e.stopPropagation();
           toggleDiscipline(disciplineName);
           return;
         }
         
-        e.preventDefault();
-        toggleDiscipline(disciplineName);
+        // Solo prevenir comportamiento por defecto si no es móvil
+        if (!isMobile) {
+          e.preventDefault();
+          toggleDiscipline(disciplineName);
+        }
       });
 
       function handleMobileLayout() {
