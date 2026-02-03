@@ -106,76 +106,96 @@ const langLabels: Record<Locale, string> = {
             </button>
             <div class="disciplines-grid">
             <div class="discipline-item" data-discipline="barre">
-              <img src="/images/barre.jpg" alt="Barre" class="discipline-image" />
-              <div class="discipline-overlay">
-                <h3 class="discipline-overlay-title">{t('disciplines.barreTitle')}</h3>
-                <p class="discipline-overlay-tags">{t('disciplines.barreTags')}</p>
-                <a href={`/${lang}/plans`} class="discipline-view-more-btn mobile-only">
-                  <span>{t('disciplines.viewMore')}</span>
-                </a>
-            </div>
-              <div class="discipline-gradient-overlay">
-                <button class="discipline-view-more-btn desktop-only">
-                  <span>{t('disciplines.viewMore')}</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-                </button>
-            </div>
+              <div class="discipline-image-wrapper">
+                <img src="/images/barre.jpg" alt="Barre" class="discipline-image" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.barreTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.barreTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mobile-accordion-content">
+                <p class="mobile-accordion-text">{t('disciplines.barreShortDesc')}</p>
+              </div>
           </div>
             <div class="discipline-item" data-discipline="pilates">
-              <img src="/images/pilates.jpg" alt="Pilates" class="discipline-image discipline-image-right" />
-              <div class="discipline-overlay">
-                <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
-                <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
-                <a href={`/${lang}/plans`} class="discipline-view-more-btn mobile-only">
-                  <span>{t('disciplines.viewMore')}</span>
-                </a>
+              <div class="discipline-image-wrapper">
+                <img src="/images/pilates.jpg" alt="Pilates" class="discipline-image discipline-image-right" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <div class="discipline-gradient-overlay">
-                <button class="discipline-view-more-btn desktop-only">
-                  <span>{t('disciplines.viewMore')}</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-                </button>
-            </div>
+              <div class="mobile-accordion-content">
+                <p class="mobile-accordion-text">{t('disciplines.pilatesShortDesc')}</p>
+              </div>
           </div>
             <div class="discipline-item" data-discipline="funcional">
-              <img src="/images/funcional.jpg" alt="Funcional" class="discipline-image discipline-image-right" />
-              <div class="discipline-overlay">
-                <h3 class="discipline-overlay-title">{t('disciplines.functionalTitle')}</h3>
-                <p class="discipline-overlay-tags">{t('disciplines.functionalTags')}</p>
-                <a href={`/${lang}/plans`} class="discipline-view-more-btn mobile-only">
-                  <span>{t('disciplines.viewMore')}</span>
-                </a>
-        </div>
-              <div class="discipline-gradient-overlay">
-                <button class="discipline-view-more-btn desktop-only">
-                  <span>{t('disciplines.viewMore')}</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-        </div>
+              <div class="discipline-image-wrapper">
+                <img src="/images/funcional.jpg" alt="Funcional" class="discipline-image discipline-image-right" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.functionalTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.functionalTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mobile-accordion-content">
+                <p class="mobile-accordion-text">{t('disciplines.functionalShortDesc')}</p>
+              </div>
       </div>
             <div class="discipline-item" data-discipline="yoga">
-              <img src="/images/yoga.jpg" alt="Yoga" class="discipline-image discipline-image-right" />
-              <div class="discipline-overlay">
-                <h3 class="discipline-overlay-title">{t('disciplines.yogaTitle')}</h3>
-                <p class="discipline-overlay-tags">{t('disciplines.yogaTags')}</p>
-                <a href={`/${lang}/plans`} class="discipline-view-more-btn mobile-only">
-                  <span>{t('disciplines.viewMore')}</span>
-                </a>
-    </div>
-              <div class="discipline-gradient-overlay">
-                <button class="discipline-view-more-btn desktop-only">
-                  <span>{t('disciplines.viewMore')}</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-        </div>
+              <div class="discipline-image-wrapper">
+                <img src="/images/yoga.jpg" alt="Yoga" class="discipline-image discipline-image-right" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.yogaTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.yogaTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mobile-accordion-content">
+                <p class="mobile-accordion-text">{t('disciplines.yogaShortDesc')}</p>
+              </div>
             </div>
           </div>
 
@@ -656,6 +676,47 @@ const langLabels: Record<Locale, string> = {
 
       window.addEventListener('resize', updateCarousel);
       setTimeout(updateCarousel, 100);
+
+      // Mobile Accordion functionality
+      document.querySelectorAll('.mobile-accordion-trigger').forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const disciplineItem = this.closest('.discipline-item');
+          const accordionContent = disciplineItem.querySelector('.mobile-accordion-content');
+          const buttonText = this.querySelector('span');
+          const viewMoreText = this.dataset.viewMore;
+          const viewLessText = this.dataset.viewLess;
+          
+          const isOpen = accordionContent.classList.contains('open');
+          
+          // Close all other accordions
+          document.querySelectorAll('.mobile-accordion-content').forEach(content => {
+            if (content !== accordionContent) {
+              content.classList.remove('open');
+            }
+          });
+          document.querySelectorAll('.mobile-accordion-trigger').forEach(btn => {
+            if (btn !== this) {
+              btn.classList.remove('active');
+              const otherText = btn.querySelector('span');
+              otherText.textContent = btn.dataset.viewMore;
+            }
+          });
+          
+          // Toggle current accordion
+          if (isOpen) {
+            accordionContent.classList.remove('open');
+            this.classList.remove('active');
+            buttonText.textContent = viewMoreText;
+          } else {
+            accordionContent.classList.add('open');
+            this.classList.add('active');
+            buttonText.textContent = viewLessText;
+          }
+        });
+      });
     </script>
 
   </body>
@@ -841,6 +902,12 @@ const langLabels: Record<Locale, string> = {
     cursor: pointer;
   }
 
+  .discipline-image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
   .discipline-image {
     width: 100%;
     height: 485px;
@@ -873,12 +940,14 @@ const langLabels: Record<Locale, string> = {
   }
 
   .discipline-item:hover .discipline-overlay,
-  .discipline-item.active .discipline-overlay {
+  .discipline-item.active .discipline-overlay,
+  .discipline-image-wrapper:hover .discipline-overlay {
     opacity: 0.7;
   }
 
   .discipline-item:hover .discipline-image,
-  .discipline-item.active .discipline-image {
+  .discipline-item.active .discipline-image,
+  .discipline-image-wrapper:hover .discipline-image {
     transform: scale(1.05);
   }
 
@@ -1419,6 +1488,10 @@ const langLabels: Record<Locale, string> = {
     display: none;
   }
 
+  .mobile-accordion-content {
+    display: none;
+  }
+
   @media (max-width: 1024px) {
     .desktop-only { display: none !important; }
     .mobile-only { display: block !important; }
@@ -1477,9 +1550,10 @@ const langLabels: Record<Locale, string> = {
     /* Cada disciplina visible */
     .discipline-item { 
       width: 100%; 
-      display: block !important;
+      display: flex !important;
+      flex-direction: column;
       position: relative;
-      border-radius: 8px;
+      border-radius: 0;
       overflow: hidden;
     }
     
@@ -1532,6 +1606,35 @@ const langLabels: Record<Locale, string> = {
     
     /* Ocultar gradient overlay en móvil */
     .discipline-gradient-overlay { display: none !important; }
+    
+    /* Acordeón móvil */
+    .mobile-accordion-content {
+      display: block;
+      position: relative;
+      z-index: 10;
+      max-height: 0;
+      overflow: hidden;
+      background-color: #A53716;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+    
+    .mobile-accordion-content.open {
+      max-height: 200px;
+      padding: 1.25rem 1.5rem;
+    }
+    
+    .mobile-accordion-text {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #ffffff;
+      margin: 0;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
     
     /* Ocultar detalles desplegables en móvil - el botón lleva a planes */
     .discipline-detail { 
