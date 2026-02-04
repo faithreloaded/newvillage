@@ -37,7 +37,7 @@ const movementLink = `/${lang}/#disciplines`;
           <a href={`/${lang}/`} class="nav-link">HOME</a>
           <a href={movementLink} class="nav-link">{t('nav.movement')}</a>
           <a href={`/${lang}/plans`} class="nav-link">{t('nav.plans')}</a>
-          <a href="#" class="nav-link my-account-trigger">{t('nav.myAccount')}</a>
+          <a href={`/${lang}/booking`} class="nav-link">{t('nav.myAccount')}</a>
         </nav>
         
         <a href="https://newvillage.virtuagym.com/" target="_blank" rel="noopener noreferrer" class="btn-reserva">{t('actions.reserve')}</a>
@@ -58,7 +58,7 @@ const movementLink = `/${lang}/#disciplines`;
       </div>
 
       <button class="hamburger-btn mobile-only" id="hamburger-btn" aria-label="Menu">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2c2c2c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hamburger-icon">
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -88,7 +88,7 @@ const movementLink = `/${lang}/#disciplines`;
       <a href={`/${lang}/`} class="mobile-nav-link">HOME</a>
       <a href={movementLink} class="mobile-nav-link">{t('nav.movement')}</a>
       <a href={`/${lang}/plans`} class="mobile-nav-link">{t('nav.plans')}</a>
-      <a href="#" class="mobile-nav-link my-account-trigger">{t('nav.myAccount')}</a>
+      <a href={`/${lang}/booking`} class="mobile-nav-link">{t('nav.myAccount')}</a>
     </nav>
     
     <a href="https://newvillage.virtuagym.com/" target="_blank" rel="noopener noreferrer" class="btn-reserva mobile-btn-reserva">{t('actions.reserve')}</a>
@@ -106,21 +106,6 @@ const movementLink = `/${lang}/#disciplines`;
   </div>
 </div>
 
-<div class="modal-overlay" id="account-modal">
-  <div class="modal-content">
-    <button class="modal-close" id="close-account-modal">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
-    <h2 class="modal-title">{t('nav.myAccount')}</h2>
-    <div class="modal-body">
-      <p class="modal-text">{t('account.accessText')}</p>
-      <a href="https://innerflow.virtuagym.com/" target="_blank" class="modal-btn">{t('account.button')}</a>
-    </div>
-  </div>
-</div>
 
 <script>
   const hamburgerBtn = document.getElementById('hamburger-btn');
@@ -144,48 +129,23 @@ const movementLink = `/${lang}/#disciplines`;
   closeMenuBtn?.addEventListener('click', closeMenu);
   overlay?.addEventListener('click', closeMenu);
 
-  const accountModal = document.getElementById('account-modal');
-  const closeAccountBtn = document.getElementById('close-account-modal');
-  const accountTriggers = document.querySelectorAll('.my-account-trigger');
-
-  function openAccountModal(e: Event) {
-    e.preventDefault();
-    accountModal?.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeAccountModal() {
-    accountModal?.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  accountTriggers.forEach(trigger => trigger.addEventListener('click', openAccountModal));
-  closeAccountBtn?.addEventListener('click', closeAccountModal);
-  accountModal?.addEventListener('click', (e) => {
-    if (e.target === accountModal) closeAccountModal();
-  });
-
-  // Home: header desaparece al hacer scroll DOWN
+  // Home: header cambia de color al hacer scroll
   const header = document.getElementById('header-home');
-  let lastScrollTop = 0;
-
+  
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const scrollingDown = scrollTop > lastScrollTop;
-
-    if (scrollingDown && scrollTop > 80) {
-      header?.classList.add('header-hidden');
-    } else if (scrollTop <= 50) {
-      header?.classList.remove('header-hidden');
+    
+    if (scrollTop > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
     }
-
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
   }, { passive: true });
 </script>
 
 <style>
   .header-home {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -193,13 +153,12 @@ const movementLink = `/${lang}/#disciplines`;
     z-index: 100;
     padding: 1.2rem 0;
     animation: fadeDown 0.8s ease-out;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease;
+    background: transparent;
   }
 
-  .header-home.header-hidden {
-    opacity: 0;
-    transform: translateY(-100%);
-    pointer-events: none;
+  .header-home.scrolled {
+    background: #ffffff;
   }
 
   @keyframes fadeDown {
@@ -240,6 +199,12 @@ const movementLink = `/${lang}/#disciplines`;
     height: 52px;
     width: auto;
     max-width: 300px;
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
+  }
+
+  .header-home.scrolled .logo-icon {
+    filter: none;
   }
 
   /* Logo más pequeño en mobile */
@@ -263,7 +228,7 @@ const movementLink = `/${lang}/#disciplines`;
   }
 
   .nav-link {
-    color: #2c2c2c;
+    color: #ffffff;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
@@ -271,7 +236,11 @@ const movementLink = `/${lang}/#disciplines`;
     line-height: 45px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    transition: opacity 0.2s ease;
+    transition: color 0.3s ease, opacity 0.2s ease;
+  }
+
+  .header-home.scrolled .nav-link {
+    color: #2c2c2c;
   }
 
   .nav-link:hover {
@@ -308,7 +277,7 @@ const movementLink = `/${lang}/#disciplines`;
   .lang-toggle {
     background: none;
     border: none;
-    color: #2c2c2c;
+    color: #ffffff;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -319,7 +288,11 @@ const movementLink = `/${lang}/#disciplines`;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease;
+  }
+
+  .header-home.scrolled .lang-toggle {
+    color: #2c2c2c;
   }
 
   .lang-toggle::after {
@@ -328,8 +301,12 @@ const movementLink = `/${lang}/#disciplines`;
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 4px solid #2c2c2c;
-    transition: transform 0.2s ease;
+    border-top: 4px solid #ffffff;
+    transition: transform 0.2s ease, border-top-color 0.3s ease;
+  }
+
+  .header-home.scrolled .lang-toggle::after {
+    border-top-color: #2c2c2c;
   }
 
   .lang-dropdown:hover .lang-toggle::after {
@@ -386,6 +363,16 @@ const movementLink = `/${lang}/#disciplines`;
     cursor: pointer;
     padding: 0.5rem;
     display: none;
+    color: #ffffff;
+    transition: color 0.3s ease;
+  }
+
+  .header-home.scrolled .hamburger-btn {
+    color: #2c2c2c;
+  }
+
+  .hamburger-icon {
+    color: inherit;
   }
 
   .mobile-menu-overlay {
@@ -495,94 +482,6 @@ const movementLink = `/${lang}/#disciplines`;
     color: #ED6D64;
   }
 
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 2000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-  }
-
-  .modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .modal-content {
-    background: white;
-    padding: 3rem;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    text-align: center;
-    transform: translateY(20px);
-    transition: transform 0.3s ease;
-  }
-
-  .modal-overlay.active .modal-content {
-    transform: translateY(0);
-  }
-
-  /* Modal responsive */
-  @media (max-width: 768px) {
-    .modal-content {
-      width: 95%;
-      padding: 2rem 1.5rem;
-      margin: 0 1rem;
-    }
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-  }
-
-  .modal-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 32px;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-  }
-
-  .modal-text {
-    font-family: 'Oswald', sans-serif;
-    font-size: 18px;
-    margin-bottom: 2rem;
-    color: #666;
-  }
-
-  .modal-btn {
-    display: inline-block;
-    background-color: #ED6D64;
-    color: white;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 500;
-    text-transform: uppercase;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-  }
-
-  .modal-btn:hover {
-    background-color: #DB5639;
-  }
 
   @media (max-width: 1024px) {
     .desktop-only {
