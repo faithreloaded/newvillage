@@ -375,30 +375,15 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
                 </div>
               </div>
               <div class="mobile-accordion-content">
-                <p class="mobile-accordion-text">{t('disciplines.barreShortDesc')}</p>
-              </div>
-          </div>
-            <div class="discipline-item" data-discipline="pilates">
-              <div class="discipline-image-wrapper">
-                <img src="/images/pilates.webp" alt="Pilates" class="discipline-image discipline-image-right" />
-                <div class="discipline-overlay">
-                  <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
-                  <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
-                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
-                    <span>{t('disciplines.viewMore')}</span>
-                  </button>
+                <div class="mobile-accordion-text">
+                  <h4 class="mobile-discipline-subtitle">{t('disciplines.barreDetailSubtitle')}</h4>
+                  <p class="mobile-discipline-description">{t('disciplines.barreDetailText')}</p>
+                  <ul class="mobile-discipline-programs">
+                    <li><strong>{t('disciplines.barreProgram1Title')}:</strong> {t('disciplines.barreProgram1Text').replace(/\n/g, ' ')}</li>
+                    <li><strong>{t('disciplines.barreProgram2Title')}:</strong> {t('disciplines.barreProgram2Text').replace(/\n/g, ' ')}</li>
+                    <li><strong>{t('disciplines.barreProgram3Title')}:</strong> {t('disciplines.barreProgram3Text').replace(/\n/g, ' ')}</li>
+                  </ul>
                 </div>
-                <div class="discipline-gradient-overlay">
-                  <button class="discipline-view-more-btn desktop-only">
-                    <span>{t('disciplines.viewMore')}</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="mobile-accordion-content">
-                <p class="mobile-accordion-text">{t('disciplines.pilatesShortDesc')}</p>
               </div>
           </div>
             <div class="discipline-item" data-discipline="funcional">
@@ -421,9 +406,50 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
                 </div>
               </div>
               <div class="mobile-accordion-content">
-                <p class="mobile-accordion-text">{t('disciplines.functionalShortDesc')}</p>
+                <div class="mobile-accordion-text">
+                  <h4 class="mobile-discipline-subtitle">{t('disciplines.functionalDetailSubtitle')}</h4>
+                  <p class="mobile-discipline-description">{t('disciplines.functionalDetailText')}</p>
+                  <ul class="mobile-discipline-programs">
+                    <li><strong>{t('disciplines.functionalProgram1Title')}:</strong> {t('disciplines.functionalProgram1Text')}</li>
+                    <li><strong>{t('disciplines.functionalProgram2Title')}:</strong> {t('disciplines.functionalProgram2Text')}</li>
+                    <li><strong>{t('disciplines.functionalProgram3Title')}:</strong> {t('disciplines.functionalProgram3Text')}</li>
+                    <li><strong>{t('disciplines.functionalProgram4Title')}:</strong> {t('disciplines.functionalProgram4Text')}</li>
+                    <li><strong>{t('disciplines.functionalProgram5Title')}:</strong> {t('disciplines.functionalProgram5Text')}</li>
+                  </ul>
+                </div>
               </div>
       </div>
+            <div class="discipline-item" data-discipline="pilates">
+              <div class="discipline-image-wrapper">
+                <img src="/images/pilates.webp" alt="Pilates" class="discipline-image discipline-image-right" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mobile-accordion-content">
+                <div class="mobile-accordion-text">
+                  <h4 class="mobile-discipline-subtitle">{t('disciplines.pilatesDetailSubtitle')}</h4>
+                  <p class="mobile-discipline-description">{t('disciplines.pilatesDetailText')}</p>
+                  <ul class="mobile-discipline-programs">
+                    <li><strong>{t('disciplines.pilatesProgram1Title')}:</strong> {t('disciplines.pilatesProgram1Text').replace(/\n/g, ' ')}</li>
+                    <li><strong>{t('disciplines.pilatesProgram2Title')}:</strong> {t('disciplines.pilatesProgram2Text').replace(/\n/g, ' ')}</li>
+                    <li><strong>{t('disciplines.pilatesProgram3Title')}:</strong> {t('disciplines.pilatesProgram3Text').replace(/\n/g, ' ')}</li>
+                  </ul>
+                </div>
+              </div>
+          </div>
             <div class="discipline-item" data-discipline="yoga">
               <div class="discipline-image-wrapper">
                 <img src="/images/yoga.webp" alt="Yoga" class="discipline-image discipline-image-right" />
@@ -444,7 +470,14 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
                 </div>
               </div>
               <div class="mobile-accordion-content">
-                <p class="mobile-accordion-text">{t('disciplines.yogaShortDesc')}</p>
+                <div class="mobile-accordion-text">
+                  <h4 class="mobile-discipline-subtitle">{t('disciplines.yogaDetailSubtitle')}</h4>
+                  <p class="mobile-discipline-description">{t('disciplines.yogaDetailText')}</p>
+                  <ul class="mobile-discipline-programs">
+                    <li><strong>{t('disciplines.yogaProgram1Title')}:</strong> {t('disciplines.yogaProgram1Text')}</li>
+                    <li><strong>{t('disciplines.yogaProgram2Title')}:</strong> {t('disciplines.yogaProgram2Text')}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -2133,8 +2166,8 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
     }
     
     .mobile-accordion-content.open {
-      max-height: 200px;
-      padding: 1.25rem 1.5rem;
+      max-height: 600px;
+      padding: 1.5rem 1.5rem;
     }
     
     .mobile-accordion-text {
@@ -2144,8 +2177,60 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
       line-height: 1.5;
       color: #ffffff;
       margin: 0;
-      text-align: center;
+      text-align: left;
       letter-spacing: 0.02em;
+    }
+
+    .mobile-discipline-subtitle {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.4;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin: 0 0 0.75rem 0;
+      letter-spacing: 0.5px;
+    }
+
+    .mobile-discipline-description {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #ffffff;
+      margin: 0 0 1rem 0;
+    }
+
+    .mobile-discipline-programs {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-discipline-programs li {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .mobile-discipline-programs li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #ED6D64;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .mobile-discipline-programs li strong {
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
     /* Ocultar detalles desplegables en móvil - el botón lleva a planes */
