@@ -204,23 +204,21 @@ const langLabels: Record<Locale, string> = {
     padding: 0 2rem;
   }
 
-  /* Header sticky en booking */
-  .custom-header.header-static {
-    position: fixed;
+  /* Header sticky en booking - GLOBAL para sobrescribir estilos del componente */
+  :global(.custom-header) {
+    position: fixed !important;
     top: 0;
     left: 0;
     right: 0;
-    background: #ffffff;
+    width: 100%;
+    z-index: 1000;
+    background: #ffffff; /* Fondo blanco por defecto */
     border-bottom: 1px solid #eee;
-    z-index: 100;
-  }
-
-  .page-wrapper {
-    padding-top: 80px;
+    transition: background-color 0.3s ease;
   }
 
   .booking-content {
-    padding: 4rem 0 1rem 0;
+    padding: 8rem 0 1rem 0;
     min-height: 60vh;
   }
 
@@ -256,12 +254,8 @@ const langLabels: Record<Locale, string> = {
   }
 
   @media (max-width: 768px) {
-    .page-wrapper {
-      padding-top: 70px;
-    }
-
     .booking-content {
-      padding: 3rem 0 1rem 0;
+      padding: 6rem 0 1rem 0;
     }
 
     .booking-title {
