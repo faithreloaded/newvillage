@@ -132,6 +132,58 @@ const movementLink = `/${lang}/#disciplines`;
   // Home: header cambia de color al hacer scroll
   const header = document.getElementById('header-home');
   
+  // Smooth scroll a la sección de disciplinas
+  function scrollToDisciplines(e) {
+    const target = e.target;
+    if (target.href && target.href.includes('#disciplines')) {
+      e.preventDefault();
+      
+      const disciplinesSection = document.getElementById('disciplines');
+      if (disciplinesSection) {
+        const headerHeight = header?.offsetHeight || 0;
+        const sectionPosition = disciplinesSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        
+        window.scrollTo({
+          top: sectionPosition,
+          behavior: 'smooth'
+        });
+        
+        // Cerrar menú móvil si está abierto
+        closeMenu();
+      }
+    }
+  }
+
+  // Añadir event listeners a los enlaces de movimiento cuando el DOM esté listo
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href*="#disciplines"]').forEach(link => {
+      link.addEventListener('click', scrollToDisciplines);
+    });
+
+    // Manejar scroll cuando se carga la página con hash
+    if (window.location.hash === '#disciplines') {
+      setTimeout(() => {
+        const disciplinesSection = document.getElementById('disciplines');
+        if (disciplinesSection) {
+          const headerHeight = header?.offsetHeight || 0;
+          const sectionPosition = disciplinesSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          
+          window.scrollTo({
+            top: sectionPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  }
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSmoothScroll);
+  } else {
+    initSmoothScroll();
+  }
+  
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     
@@ -144,6 +196,10 @@ const movementLink = `/${lang}/#disciplines`;
 </script>
 
 <style>
+  html {
+    scroll-behavior: smooth;
+  }
+
   .header-home {
     position: fixed;
     top: 0;

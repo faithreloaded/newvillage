@@ -388,7 +388,7 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
           </div>
             <div class="discipline-item" data-discipline="funcional">
               <div class="discipline-image-wrapper">
-                <img src="/images/funcional.webp" alt="Funcional" class="discipline-image discipline-image-right" />
+                <img src="/images/pilates.webp" alt="Funcional" class="discipline-image discipline-image-right" />
                 <div class="discipline-overlay">
                   <h3 class="discipline-overlay-title">{t('disciplines.functionalTitle')}</h3>
                   <p class="discipline-overlay-tags">{t('disciplines.functionalTags')}</p>
@@ -421,7 +421,7 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
       </div>
             <div class="discipline-item" data-discipline="pilates">
               <div class="discipline-image-wrapper">
-                <img src="/images/pilates.webp" alt="Pilates" class="discipline-image discipline-image-right" />
+                <img src="/images/funcional.webp" alt="Pilates" class="discipline-image discipline-image-right" />
                 <div class="discipline-overlay">
                   <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
                   <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
@@ -656,7 +656,7 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
                 }
               })()}
             </h2>
-            <a href="#" class="cta-button">{t('disciplines.ctaSection.button')}</a>
+            <a href={`/${lang}/booking`} class="cta-button">{t('disciplines.ctaSection.button')}</a>
             </div>
     </div>
   </section>
@@ -1377,6 +1377,11 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
     object-position: 25% center;
   }
 
+  .discipline-item[data-discipline="yoga"] .discipline-image {
+    transform: scale(1.55);
+    object-position: center center;
+  }
+
   .discipline-overlay {
     position: absolute;
     top: 0;
@@ -1405,6 +1410,12 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
   .discipline-item.active .discipline-image,
   .discipline-image-wrapper:hover .discipline-image {
     transform: scale(1.05);
+  }
+
+  .discipline-item[data-discipline="yoga"]:hover .discipline-image,
+  .discipline-item[data-discipline="yoga"].active .discipline-image,
+  .discipline-item[data-discipline="yoga"] .discipline-image-wrapper:hover .discipline-image {
+    transform: scale(1.6);
   }
 
   .discipline-gradient-overlay {
@@ -2107,10 +2118,21 @@ function processFAQ8(text: string): { list: Array<string | {type: string, desc: 
       transform: none !important; /* Sin zoom en móvil */
     }
     
+    /* Aumentar imagen de YOGA en móvil */
+    .discipline-item[data-discipline="yoga"] .discipline-image {
+      transform: scale(1.2) !important;
+    }
+    
     /* Quitar hover en móvil */
     .discipline-item:hover .discipline-image,
     .discipline-item.active .discipline-image {
       transform: none !important;
+    }
+    
+    /* Mantener aumento de YOGA incluso en hover en móvil */
+    .discipline-item[data-discipline="yoga"]:hover .discipline-image,
+    .discipline-item[data-discipline="yoga"].active .discipline-image {
+      transform: scale(1.2) !important;
     }
     
     .discipline-overlay {

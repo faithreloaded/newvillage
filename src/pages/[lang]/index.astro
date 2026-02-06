@@ -7,6 +7,6 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: Locale };
 
-// Redirect a Coming Soon
-return Astro.redirect(`/${lang}/coming-soon`, 302);
+// Redirect a Home (Coming Soon oculto)
+return Astro.redirect(`/${lang}/home`, 302);
 ---
