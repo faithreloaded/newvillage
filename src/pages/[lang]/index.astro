@@ -1,12 +1,2450 @@
 ---
-import { LOCALES, type Locale } from '../../i18n';
+import { LOCALES, type Locale, getLangFromUrl, loadT } from '../../i18n';
+import HeaderHome from '../../components/HeaderHome.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
 }
 
 const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['home', 'header']);
 
-// Redirect a Home (Coming Soon oculto)
-return Astro.redirect(`/${lang}/home`, 302);
+// Función para obtener la URL con el idioma cambiado
+function getLangUrl(newLang: Locale): string {
+  const currentPath = Astro.url.pathname;
+  const pathWithoutLang = currentPath.replace(/^\/(es|en|ca)/, '');
+  return `/${newLang}${pathWithoutLang || '/'}`;
+}
+
+const langLabels: Record<Locale, string> = {
+  es: 'ESP',
+  en: 'ENG',
+  ca: 'CAT'
+};
+
+// Función para procesar texto con bullet points y convertirlo en HTML estructurado
+function processFAQText(text: string): { paragraphs: string[], lists: string[][] } {
+  const lines = text.split('\n').filter(line => line.trim());
+  const paragraphs: string[] = [];
+  const lists: string[][] = [];
+  let currentList: string[] = [];
+  
+  for (const line of lines) {
+    const trimmed = line.trim();
+    // Detectar si es un bullet point (empieza con • o -)
+    if (trimmed.startsWith('•') || trimmed.startsWith('-')) {
+      currentList.push(trimmed.replace(/^[•-]\s*/, ''));
+    } else {
+      // Si hay una lista acumulada, guardarla
+      if (currentList.length > 0) {
+        lists.push([...currentList]);
+        currentList = [];
+      }
+      // Si la línea contiene "•" en el medio, también es parte de una lista
+      if (trimmed.includes('•')) {
+        const parts = trimmed.split('•').map(p => p.trim()).filter(p => p);
+        currentList.push(...parts);
+      } else if (trimmed.length > 0) {
+        paragraphs.push(trimmed);
+      }
+    }
+  }
+  
+  // Guardar la última lista si existe
+  if (currentList.length > 0) {
+    lists.push([...currentList]);
+  }
+  
+  return { paragraphs, lists };
+}
+
+// Función específica para q5 (solo lista)
+function processFAQ5(text: string): string[] {
+  // Dividir por saltos de línea primero, luego por bullet points
+  const lines = text.split('\n');
+  const items: string[] = [];
+  
+  for (const line of lines) {
+    if (line.includes('•')) {
+      // Si la línea contiene bullet points, dividir por ellos
+      const parts = line.split('•').map(p => p.trim()).filter(p => p.length > 0);
+      items.push(...parts);
+    } else if (line.trim().startsWith('•')) {
+      items.push(line.trim().replace(/^[•-]\s*/, ''));
+    } else if (line.trim().length > 0) {
+      items.push(line.trim());
+    }
+  }
+  
+  return items.filter(item => item.length > 0);
+}
+
+// Función específica para q6 (párrafo + lista)
+function processFAQ6(text: string): { paragraph: string, list: string[] } {
+  // Buscar el separador según el idioma
+  const separators = [
+    'En el caso de las membresías:',
+    'En el cas de les membresies:',
+    'In case of memberships:'
+  ];
+  
+  let separator = '';
+  for (const sep of separators) {
+    if (text.includes(sep)) {
+      separator = sep;
+      break;
+    }
+  }
+  
+  if (separator) {
+    const parts = text.split(separator);
+    const paragraph = parts[0]?.trim() || '';
+    const listText = parts[1]?.trim() || '';
+    const list = listText.split(/•/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+    return { paragraph, list };
+  }
+  
+  // Si no hay separador, buscar bullet points al final
+  const bulletIndex = text.lastIndexOf('•');
+  if (bulletIndex > 0) {
+    const paragraph = text.substring(0, bulletIndex).trim();
+    const listText = text.substring(bulletIndex);
+    const list = listText.split(/•/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+    return { paragraph, list };
+  }
+  
+  return { paragraph: text, list: [] };
+}
+
+// Función específica para q7 (múltiples párrafos y listas)
+function processFAQ7(text: string): { paragraphs: string[], list1: string[], list2: string[] } {
+  // Buscar los separadores en cualquier idioma
+  const sep1Pattern = /(?:Todos los bonos tienen caducidad|Tots els bons tenen caducitat|All packages have an expiration date):/i;
+  const sep2Pattern = /(?:Las membresías son mensuales|Les membresies són mensuals|Memberships renew monthly)/i;
+  const sep3Pattern = /(?:La membresía incluye además|La membresia inclou, a més|Memberships also include):/i;
+  
+  const sep1Match = text.match(sep1Pattern);
+  const sep2Match = text.match(sep2Pattern);
+  const sep3Match = text.match(sep3Pattern);
+  
+  let intro = '';
+  let middleText = '';
+  let middleParagraph = '';
+  let list2Text = '';
+  
+  if (sep1Match) {
+    const sep1Index = sep1Match.index! + sep1Match[0].length;
+    intro = text.substring(0, sep1Match.index!).trim();
+    middleText = text.substring(sep1Index).trim();
+    
+    if (sep2Match && sep2Match.index! > sep1Index) {
+      middleText = text.substring(sep1Index, sep2Match.index!).trim();
+      const afterSep2 = text.substring(sep2Match.index! + sep2Match[0].length).trim();
+      
+      if (sep3Match && sep3Match.index! > sep2Match.index!) {
+        middleParagraph = afterSep2.substring(0, sep3Match.index! - sep2Match.index! - sep2Match[0].length).trim();
+        list2Text = text.substring(sep3Match.index! + sep3Match[0].length).trim();
+      } else {
+        middleParagraph = afterSep2;
+      }
+    }
+  } else {
+    intro = text;
+  }
+  
+  // Extraer lista 1 de middleText
+  const list1 = middleText ? middleText.split(/•/)
+    .map(item => item.trim())
+    .filter(item => item.length > 0 && !item.match(/^(meses|months|mesos|Valid)/i))
+    .filter(item => item.length > 3) : [];
+  
+  // Extraer lista 2 de list2Text
+  const list2 = list2Text ? list2Text.split(/•/)
+    .map(item => item.trim())
+    .filter(item => item.length > 0) : [];
+  
+  return { 
+    paragraphs: [intro, middleParagraph].filter(p => p && p.length > 0), 
+    list1, 
+    list2 
+  };
+}
+
+// Función específica para q8 (lista + párrafo final)
+function processFAQ8(text: string): { list: Array<string | {type: string, desc: string}>, finalParagraph: string } {
+  const finalMarkers = [
+    'Todo el material necesario',
+    'Tot el material necessari',
+    'All necessary equipment'
+  ];
+  
+  let finalMarker = '';
+  for (const marker of finalMarkers) {
+    if (text.includes(marker)) {
+      finalMarker = marker;
+      break;
+    }
+  }
+  
+  if (finalMarker) {
+    const parts = text.split(finalMarker);
+    const listText = parts[0]?.trim() || '';
+    const finalParagraph = finalMarker + (parts[1]?.trim() || '');
+    
+    const list = listText.split(/•/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0)
+      .map(item => {
+        if (item.includes(':')) {
+          const [type, ...descParts] = item.split(':');
+          return { type: type.trim(), desc: descParts.join(':').trim() };
+        }
+        return item;
+      });
+    
+    return { list, finalParagraph };
+  }
+  
+  // Fallback: dividir por bullet points
+  const bulletIndex = text.lastIndexOf('Todo');
+  if (bulletIndex > 0) {
+    const listText = text.substring(0, bulletIndex).trim();
+    const finalParagraph = text.substring(bulletIndex).trim();
+    const list = listText.split(/•/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0)
+      .map(item => {
+        if (item.includes(':')) {
+          const [type, ...descParts] = item.split(':');
+          return { type: type.trim(), desc: descParts.join(':').trim() };
+        }
+        return item;
+      });
+    return { list, finalParagraph };
+  }
+  
+  return { list: [], finalParagraph: text };
+}
 ---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta name="description" content="New Village Studio. Barre, Pilates, Functional & Yoga in Barcelona. Join the movement." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://www.newvillagestudio.com/${lang}/`} />
+    <meta property="og:title" content="NewVillage | Movement Studio" />
+    <meta property="og:description" content="New Village Studio. Barre, Pilates, Functional & Yoga in Barcelona. Join the movement." />
+    <meta property="og:image" content="/images/herobg.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={`https://www.newvillagestudio.com/${lang}/`} />
+    <meta property="twitter:title" content="NewVillage | Movement Studio" />
+    <meta property="twitter:description" content="New Village Studio. Barre, Pilates, Functional & Yoga in Barcelona. Join the movement." />
+    <meta property="twitter:image" content="/images/herobg.jpg" />
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+    </style>
+    <title>NewVillage | Movement Studio</title>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- Header -->
+      <HeaderHome lang={lang} />
+
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-background">
+          <video 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="hero-bg-video"
+          >
+            <source src="/images/videohero.mp4" type="video/mp4" />
+            <img src="/images/herobg.jpg" alt="Background" class="hero-bg-image" />
+          </video>
+    </div>
+    
+      <div class="container">
+          <div class="hero-content">
+            <!-- Texto izquierda -->
+            <div class="hero-text">
+              <h1 class="hero-title">
+                <span class="hero-line-1">{t('hero.title_line1')}</span>
+                <span class="hero-line-2">{t('hero.title_line2')}</span>
+                <span class="hero-line-3">{t('hero.title_line3')}</span>
+              </h1>
+        </div>
+      </div>
+    </div>
+    
+        <!-- Logo rotado derecha - INCORPORADO SVG INLINE -->
+        <div class="hero-logo-container">
+          <svg 
+            version="1.2" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 610 259" 
+            class="logo-rotated-svg"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <path 
+              d="m510.23 0l-80.36 131.62 1.37-131.62h-83.42-16.06l-75.72 124.02 1.29-124.02h-83.42-16.06l-157.85 258.53h101.12l72.79-120.46v120.46h80.72 20.4l72.79-120.46v120.46h4.55 76.17 24.96l156.21-258.53z" 
+              fill="#A53716" 
+              fill-opacity="0.3"
+            />
+      </svg>
+    </div>
+  </section>
+
+      <!-- Disciplines Section -->
+      <section class="disciplines-section" id="disciplines">
+        <div class="disciplines-container">
+          <h2 class="disciplines-title">{t('disciplines.sectionTitle')}</h2>
+          <p class="disciplines-subtitle">
+            {(() => {
+              const text = t('disciplines.sectionSubtitle');
+              // Dividir el texto según el idioma para mantener las dos líneas
+              if (lang === 'ca') {
+                // "QUATRE DISCIPLINES QUE ES COMPLEMENTEN PER CREAR UN ENTRENAMENT COMPLET, CONSCIENT I ACTUAL."
+                const parts = text.split('PER CREAR UN ');
+                return parts.length > 1 ? (
+                  <>
+                    {parts[0]}PER CREAR UN <br />
+                    {parts[1]}
+                  </>
+                ) : text;
+              } else if (lang === 'es') {
+                // "CUATRO DISCIPLINAS QUE SE COMPLEMENTAN PARA CREAR UN ENTRENAMIENTO COMPLETO, CONSCIENTE Y ACTUAL."
+                const parts = text.split('PARA CREAR ');
+                return parts.length > 1 ? (
+                  <>
+                    {parts[0]}PARA CREAR <br />
+                    {parts[1]}
+                  </>
+                ) : text;
+              } else {
+                // "FOUR DISCIPLINES THAT COMPLEMENT EACH OTHER TO CREATE A COMPLETE, CONSCIOUS AND CURRENT TRAINING."
+                const parts = text.split('TO CREATE A ');
+                return parts.length > 1 ? (
+                  <>
+                    {parts[0]}TO CREATE A <br />
+                    {parts[1]}
+                  </>
+                ) : text;
+              }
+            })()}
+          </p>
+          
+          <div class="disciplines-carousel-wrapper">
+            <button class="carousel-nav-btn carousel-prev mobile-only" aria-label="Previous discipline">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="disciplines-grid">
+            <div class="discipline-item" data-discipline="barre">
+              <div class="discipline-image-wrapper">
+                <img src="/images/barre.webp" alt="Barre" class="discipline-image" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.barreTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.barreTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mobile-accordion-content">
+                <div class="mobile-accordion-text">
+                  <h4 class="mobile-discipline-subtitle">{t('disciplines.barreDetailSubtitle')}</h4>
+                  <p class="mobile-discipline-description">{t('disciplines.barreDetailText')}</p>
+                  <ul class="mobile-discipline-programs">
+                    <li><strong>{t('disciplines.barreProgram1Title')}:</strong> {t('disciplines.barreProgram1Text').replace(/\n/g, ' ')}</li>
+                    <li><strong>{t('disciplines.barreProgram2Title')}:</strong> {t('disciplines.barreProgram2Text').replace(/\n/g, ' ')}</li>
+                    <li><strong>{t('disciplines.barreProgram3Title')}:</strong> {t('disciplines.barreProgram3Text').replace(/\n/g, ' ')}</li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+            <div class="discipline-item" data-discipline="funcional">
+              <div class="discipline-image-wrapper">
+                <img src="/images/pilates.webp" alt="Funcional" class="discipline-image discipline-image-right" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.functionalTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.functionalTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mobile-accordion-content">
+                <div class="mobile-accordion-text">
+                  <h4 class="mobile-discipline-subtitle">{t('disciplines.functionalDetailSubtitle')}</h4>
+                  <p class="mobile-discipline-description">{t('disciplines.functionalDetailText')}</p>
+                  <ul class="mobile-discipline-programs">
+                    <li><strong>{t('disciplines.functionalProgram1Title')}:</strong> {t('disciplines.functionalProgram1Text')}</li>
+                    <li><strong>{t('disciplines.functionalProgram2Title')}:</strong> {t('disciplines.functionalProgram2Text')}</li>
+                    <li><strong>{t('disciplines.functionalProgram3Title')}:</strong> {t('disciplines.functionalProgram3Text')}</li>
+                    <li><strong>{t('disciplines.functionalProgram4Title')}:</strong> {t('disciplines.functionalProgram4Text')}</li>
+                    <li><strong>{t('disciplines.functionalProgram5Title')}:</strong> {t('disciplines.functionalProgram5Text')}</li>
+                  </ul>
+                </div>
+              </div>
+      </div>
+            <div class="discipline-item" data-discipline="pilates">
+              <div class="discipline-image-wrapper">
+                <img src="/images/funcional.webp" alt="Pilates" class="discipline-image discipline-image-right" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.pilatesTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.pilatesTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mobile-accordion-content">
+                <div class="mobile-accordion-text">
+                  <h4 class="mobile-discipline-subtitle">{t('disciplines.pilatesDetailSubtitle')}</h4>
+                  <p class="mobile-discipline-description">{t('disciplines.pilatesDetailText')}</p>
+                  <ul class="mobile-discipline-programs">
+                    <li><strong>{t('disciplines.pilatesProgram1Title')}:</strong> {t('disciplines.pilatesProgram1Text').replace(/\n/g, ' ')}</li>
+                    <li><strong>{t('disciplines.pilatesProgram2Title')}:</strong> {t('disciplines.pilatesProgram2Text').replace(/\n/g, ' ')}</li>
+                    <li><strong>{t('disciplines.pilatesProgram3Title')}:</strong> {t('disciplines.pilatesProgram3Text').replace(/\n/g, ' ')}</li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+            <div class="discipline-item" data-discipline="yoga">
+              <div class="discipline-image-wrapper">
+                <img src="/images/yoga.webp" alt="Yoga" class="discipline-image discipline-image-right" />
+                <div class="discipline-overlay">
+                  <h3 class="discipline-overlay-title">{t('disciplines.yogaTitle')}</h3>
+                  <p class="discipline-overlay-tags">{t('disciplines.yogaTags')}</p>
+                  <button class="discipline-view-more-btn mobile-only mobile-accordion-trigger" data-view-more={t('disciplines.viewMore')} data-view-less={t('disciplines.viewLess')}>
+                    <span>{t('disciplines.viewMore')}</span>
+                  </button>
+                </div>
+                <div class="discipline-gradient-overlay">
+                  <button class="discipline-view-more-btn desktop-only">
+                    <span>{t('disciplines.viewMore')}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mobile-accordion-content">
+                <div class="mobile-accordion-text">
+                  <h4 class="mobile-discipline-subtitle">{t('disciplines.yogaDetailSubtitle')}</h4>
+                  <p class="mobile-discipline-description">{t('disciplines.yogaDetailText')}</p>
+                  <ul class="mobile-discipline-programs">
+                    <li><strong>{t('disciplines.yogaProgram1Title')}:</strong> {t('disciplines.yogaProgram1Text')}</li>
+                    <li><strong>{t('disciplines.yogaProgram2Title')}:</strong> {t('disciplines.yogaProgram2Text')}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barre Detail Section -->
+          <div class="discipline-detail" id="barre-detail">
+            <button class="mobile-close-detail mobile-only" aria-label="Cerrar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="discipline-detail-content">
+              <h2 class="discipline-detail-title">{t('disciplines.barreDetailTitle')}</h2>
+              <h3 class="discipline-detail-subtitle">{t('disciplines.barreDetailSubtitle')}</h3>
+              <p class="discipline-detail-text">{t('disciplines.barreDetailText')}</p>
+              
+              <div class="discipline-programs">
+                <div class="program-box program-box-1">
+                  <h4 class="program-title">{t('disciplines.barreProgram1Title')}</h4>
+                  <p class="program-text">{t('disciplines.barreProgram1Text')}</p>
+            </div>
+                <div class="program-box program-box-2">
+                  <h4 class="program-title">{t('disciplines.barreProgram2Title')}</h4>
+                  <p class="program-text">{t('disciplines.barreProgram2Text')}</p>
+          </div>
+                <div class="program-box program-box-3">
+                  <h4 class="program-title">{t('disciplines.barreProgram3Title')}</h4>
+                  <p class="program-text">{t('disciplines.barreProgram3Text')}</p>
+            </div>
+          </div>
+        </div>
+        </div>
+
+          <!-- Pilates Detail Section -->
+          <div class="discipline-detail" id="pilates-detail">
+            <button class="mobile-close-detail mobile-only" aria-label="Cerrar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="discipline-detail-content">
+              <h2 class="discipline-detail-title">{t('disciplines.pilatesDetailTitle')}</h2>
+              <h3 class="discipline-detail-subtitle">{t('disciplines.pilatesDetailSubtitle')}</h3>
+              <p class="discipline-detail-text">{t('disciplines.pilatesDetailText')}</p>
+              
+              <div class="discipline-programs">
+                <div class="program-box program-box-1">
+                  <h4 class="program-title">{t('disciplines.pilatesProgram1Title')}</h4>
+                  <p class="program-text">{t('disciplines.pilatesProgram1Text')}</p>
+              </div>
+                <div class="program-box program-box-2">
+                  <h4 class="program-title">{t('disciplines.pilatesProgram2Title')}</h4>
+                  <p class="program-text">{t('disciplines.pilatesProgram2Text')}</p>
+              </div>
+                <div class="program-box program-box-3">
+                  <h4 class="program-title">{t('disciplines.pilatesProgram3Title')}</h4>
+                  <p class="program-text">{t('disciplines.pilatesProgram3Text')}</p>
+            </div>
+              </div>
+              </div>
+            </div>
+
+          <!-- Funcional Detail Section -->
+          <div class="discipline-detail" id="funcional-detail">
+            <button class="mobile-close-detail mobile-only" aria-label="Cerrar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="discipline-detail-content">
+              <h2 class="discipline-detail-title">{t('disciplines.functionalDetailTitle')}</h2>
+              <h3 class="discipline-detail-subtitle">{t('disciplines.functionalDetailSubtitle')}</h3>
+              <p class="discipline-detail-text">{t('disciplines.functionalDetailText')}</p>
+          
+              <div class="discipline-programs discipline-programs-5">
+                <div class="program-row program-row-top">
+                  <div class="program-box program-box-1">
+                    <h4 class="program-title">{t('disciplines.functionalProgram1Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram1Text')}</p>
+              </div>
+                  <div class="program-box program-box-2">
+                    <h4 class="program-title">{t('disciplines.functionalProgram2Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram2Text')}</p>
+              </div>
+                  <div class="program-box program-box-3">
+                    <h4 class="program-title">{t('disciplines.functionalProgram3Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram3Text')}</p>
+            </div>
+          </div>
+                <div class="program-row program-row-bottom">
+                  <div class="program-box program-box-4">
+                    <h4 class="program-title">{t('disciplines.functionalProgram4Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram4Text')}</p>
+          </div>
+                  <div class="program-box program-box-5">
+                    <h4 class="program-title">{t('disciplines.functionalProgram5Title')}</h4>
+                    <p class="program-text">{t('disciplines.functionalProgram5Text')}</p>
+        </div>
+        </div>
+      </div>
+    </div>
+      </div>
+
+          <!-- Yoga Detail Section -->
+          <div class="discipline-detail" id="yoga-detail">
+            <button class="mobile-close-detail mobile-only" aria-label="Cerrar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+            </button>
+            <div class="discipline-detail-content">
+              <h2 class="discipline-detail-title">{t('disciplines.yogaDetailTitle')}</h2>
+              <h3 class="discipline-detail-subtitle">{t('disciplines.yogaDetailSubtitle')}</h3>
+              <p class="discipline-detail-text">{t('disciplines.yogaDetailText')}</p>
+              
+              <div class="discipline-programs discipline-programs-2">
+                <div class="program-box program-box-yoga-1">
+                  <h4 class="program-title">{t('disciplines.yogaProgram1Title')}</h4>
+                  <p class="program-text">{t('disciplines.yogaProgram1Text')}</p>
+        </div>
+                <div class="program-box program-box-yoga-2">
+                  <h4 class="program-title">{t('disciplines.yogaProgram2Title')}</h4>
+                  <p class="program-text">{t('disciplines.yogaProgram2Text')}</p>
+              </div>
+            </div>
+          </div>
+              </div>
+            <button class="carousel-nav-btn carousel-next mobile-only" aria-label="Next discipline">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <div class="container" style="height: 100%; display: flex; align-items: center; justify-content: center;">
+          <div class="cta-content">
+            <h2 class="cta-text">
+              {(() => {
+                const text = t('disciplines.ctaSection.text');
+                // Dividir el texto según el idioma para mantener las dos líneas
+                if (lang === 'es') {
+                  // "MOVERTE MEJOR EMPIEZA POR ELEGIR DÓNDE"
+                  const parts = text.split('EMPIEZA ');
+                  return parts.length > 1 ? (
+                    <>
+                      {parts[0]}EMPIEZA <br />
+                      {parts[1]}
+                    </>
+                  ) : text;
+                } else if (lang === 'ca') {
+                  // "MOU-TE MILLOR COMENÇA PER TRIAR ON"
+                  const parts = text.split('COMENÇA ');
+                  return parts.length > 1 ? (
+                    <>
+                      {parts[0]}COMENÇA <br />
+                      {parts[1]}
+                    </>
+                  ) : text;
+                } else {
+                  // Inglés: "MOVE BETTER STARTS BY CHOOSING WHERE"
+                  const parts = text.split('STARTS ');
+                  return parts.length > 1 ? (
+                    <>
+                      {parts[0]}STARTS <br />
+                      {parts[1]}
+                    </>
+                  ) : text;
+                }
+              })()}
+            </h2>
+            <a href={`/${lang}/booking`} class="cta-button">{t('disciplines.ctaSection.button')}</a>
+            </div>
+    </div>
+  </section>
+
+      <!-- Local Image Section - Carousel -->
+      <section class="local-image-section">
+        <div class="carousel-container">
+          <button class="carousel-arrow carousel-arrow-left" aria-label="Previous image">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <div class="carousel-images">
+            <img src="/images/carrousel/1.webp" alt="NewVillage Local 1" class="carousel-image active" />
+            <img src="/images/carrousel/2.webp" alt="NewVillage Local 2" class="carousel-image" />
+            <img src="/images/carrousel/3.webp" alt="NewVillage Local 3" class="carousel-image" />
+            <img src="/images/carrousel/4.webp" alt="NewVillage Local 4" class="carousel-image" />
+          </div>
+          <button class="carousel-arrow carousel-arrow-right" aria-label="Next image">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- FAQs Modal -->
+      <div id="faqs-modal" class="faqs-modal">
+        <div class="faqs-modal-content">
+          <button class="faqs-modal-close" aria-label="Close modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+              </button>
+          
+          <h2 class="faqs-title">{t('faqs.title')}</h2>
+          <div class="faqs-accordion">
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q1')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a1')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q2')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                  </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a2')}</p>
+          </div>
+        </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q3')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a3')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q4')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a4')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q5')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <ul class="faq-list">
+                  {processFAQ5(t('faqs.a5')).map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q6')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                {(() => {
+                  const processed = processFAQ6(t('faqs.a6'));
+                  return (
+                    <>
+                      <p>{processed.paragraph}</p>
+                      {processed.list.length > 0 && (
+                        <>
+                          <p>{lang === 'es' ? 'En el caso de las membresías:' : lang === 'ca' ? 'En el cas de les membresies:' : 'In case of memberships:'}</p>
+                          <ul class="faq-list">
+                            {processed.list.map((item, idx) => (
+                              <li key={idx}>{item}</li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q7')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                {(() => {
+                  const processed = processFAQ7(t('faqs.a7'));
+                  return (
+                    <>
+                      {processed.paragraphs.map((para, idx) => (
+                        para && <p key={idx}>{para}</p>
+                      ))}
+                      {processed.list1.length > 0 && (
+                        <>
+                          <p>{lang === 'es' ? 'Todos los bonos tienen caducidad:' : lang === 'ca' ? 'Tots els bons tenen caducitat:' : 'All packages have an expiration date:'}</p>
+                          <ul class="faq-list">
+                            {processed.list1.map((item, idx) => (
+                              <li key={idx}>{item}</li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                      {processed.list2.length > 0 && (
+                        <>
+                          <p>{lang === 'es' ? 'La membresía incluye además:' : lang === 'ca' ? 'La membresia inclou, a més:' : 'Memberships also include:'}</p>
+                          <ul class="faq-list">
+                            {processed.list2.map((item, idx) => (
+                              <li key={idx}>{item}</li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q8')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                {(() => {
+                  const processed = processFAQ8(t('faqs.a8'));
+                  return (
+                    <>
+                      <ul class="faq-list">
+                        {processed.list.map((item, idx) => {
+                          if (typeof item === 'object' && 'type' in item && item.type) {
+                            return (
+                              <li key={idx}>
+                                <strong>{item.type}:</strong> {item.desc}
+                              </li>
+                            );
+                          }
+                          return <li key={idx}>{typeof item === 'string' ? item : item.desc}</li>;
+                        })}
+                      </ul>
+                      <p>{processed.finalParagraph}</p>
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q9')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a9')}</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>{t('faqs.q10')}</span>
+                <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faqs.a10')}</p>
+              </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+      <!-- Footer -->
+      <footer class="custom-footer">
+        <div class="container" style="display: block;">
+          <div class="footer-top">
+            <div class="footer-left">
+              <img src="/images/logofooter.svg" alt="NewVillage Logo" class="footer-logo-img" />
+        </div>
+            <div class="footer-right">
+              <nav class="footer-links">
+                <button id="faqs-trigger" class="footer-link faq-scroll-trigger" style="background:none; border:none; padding:0; cursor:pointer;">{t('footerLinks.faqs')}</button>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/contact`} class="footer-link">{t('footerLinks.contact')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/legal`} class="footer-link">{t('footerLinks.legal')}</a>
+                <span class="footer-separator">|</span>
+                <a href={`/${lang}/privacy`} class="footer-link">{t('footerLinks.privacy')}</a>
+                <span class="footer-separator">|</span>
+                <a href="https://www.instagram.com/newvillagestudio" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+                  <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+              </nav>
+        </div>
+        </div>
+
+          <div class="footer-bottom">
+            <div class="footer-text-absolute">
+              <span class="footer-text-main">NEW VILLAGE STUDIO.</span>
+              <span class="footer-text-sub">MOVE, MEET & CONNECT</span>
+        </div>
+        </div>
+        </div>
+      </footer>
+      </div>
+
+    <script>
+      // Discipline Detail Toggle
+      function toggleDiscipline(disciplineName) {
+        const item = document.querySelector(`[data-discipline="${disciplineName}"]`);
+        const detail = document.getElementById(`${disciplineName}-detail`);
+        
+        if (!item || !detail) return;
+        
+        const isOpen = detail.classList.contains('active');
+        const isMobile = window.innerWidth <= 768;
+
+        // Cerrar otros detalles abiertos
+        document.querySelectorAll('.discipline-detail').forEach(d => {
+          if (d.id !== `${disciplineName}-detail`) {
+            d.classList.remove('active');
+            if (isMobile) d.style.display = 'none';
+          }
+        });
+        document.querySelectorAll('.discipline-item').forEach(i => {
+          if (i.dataset.discipline !== disciplineName) {
+            i.classList.remove('active');
+          }
+        });
+
+        if (isOpen) {
+          // Cerrar este detalle
+          detail.classList.remove('active');
+          if (isMobile) detail.style.display = 'none';
+          item.classList.remove('active');
+        } else {
+          // Abrir este detalle
+          detail.classList.add('active');
+          item.classList.add('active');
+          if (isMobile) detail.style.display = 'flex';
+          
+          // Scroll suave al detalle (solo en desktop o si queremos en móvil)
+          if (!isMobile) {
+            setTimeout(() => {
+              const detailRect = detail.getBoundingClientRect();
+              const absoluteTop = window.pageYOffset + detailRect.top;
+              const headerOffset = 80;
+              const windowHeight = window.innerHeight;
+              const detailHeight = detailRect.height;
+              const centerOffset = (windowHeight - detailHeight) / 2;
+              const scrollTop = absoluteTop - headerOffset - Math.max(centerOffset, 50);
+              window.scrollTo({
+                top: Math.max(scrollTop, 0),
+                behavior: 'smooth'
+              });
+            }, 350);
+          }
+        }
+      }
+
+      document.querySelectorAll('.mobile-close-detail').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const detail = btn.closest('.discipline-detail');
+            if (detail) {
+                const id = detail.id.replace('-detail', '');
+                toggleDiscipline(id);
+            }
+        });
+      });
+
+      document.addEventListener('click', function(e) {
+        const disciplineItem = e.target.closest('.discipline-item');
+        if (!disciplineItem) return;
+        
+        const disciplineName = disciplineItem.dataset.discipline;
+        if (!disciplineName) return;
+        
+        const isMobile = window.innerWidth <= 768;
+        
+        // Si es móvil y se hace clic en el botón Discover, permitir navegación
+        if (e.target.closest('.discipline-view-more-btn.mobile-only')) {
+          if (isMobile) {
+            // En móvil, permitir que el enlace funcione normalmente
+            return;
+          }
+          // En desktop, mantener el comportamiento de toggle
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDiscipline(disciplineName);
+          return;
+        }
+        
+        // Solo prevenir comportamiento por defecto si no es móvil
+        if (!isMobile) {
+          e.preventDefault();
+          toggleDiscipline(disciplineName);
+        }
+      });
+
+      function handleMobileLayout() {
+        const isMobile = window.innerWidth <= 768;
+        const container = document.querySelector('.disciplines-container');
+        const details = document.querySelectorAll('.discipline-detail');
+        
+        if (isMobile) {
+          details.forEach(detail => {
+            const id = detail.id.replace('-detail', '');
+            const item = document.querySelector(`.discipline-item[data-discipline="${id}"]`);
+            if (item && item.nextElementSibling !== detail) {
+               item.after(detail);
+            }
+          });
+        } else {
+          const order = ['barre-detail', 'pilates-detail', 'funcional-detail', 'yoga-detail'];
+          order.forEach(id => {
+            const detail = document.getElementById(id);
+            if (detail && detail.parentNode !== container) {
+              container.appendChild(detail);
+            }
+          });
+        }
+        
+        if (typeof updateCarousel === 'function') {
+          setTimeout(updateCarousel, 50);
+        }
+      }
+
+      window.addEventListener('resize', () => {
+        handleMobileLayout();
+      });
+      handleMobileLayout();
+
+      const faqTrigger = document.getElementById('faqs-trigger');
+      const faqModal = document.getElementById('faqs-modal');
+      const faqClose = document.querySelector('.faqs-modal-close');
+
+      function openFaqModal(e) {
+        e.preventDefault();
+        faqModal?.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeFaqModal() {
+        faqModal?.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      faqTrigger?.addEventListener('click', openFaqModal);
+      faqClose?.addEventListener('click', closeFaqModal);
+
+      faqModal?.addEventListener('click', (e) => {
+        if (e.target === faqModal) {
+          closeFaqModal();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && faqModal?.classList.contains('open')) {
+          closeFaqModal();
+        }
+      });
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const isActive = item.classList.contains('active');
+          
+          document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('active');
+            const icon = i.querySelector('.faq-icon');
+            if(icon) icon.style.transform = 'rotate(0deg)';
+          });
+
+          if (!isActive) {
+            item.classList.add('active');
+            const icon = item.querySelector('.faq-icon');
+            if(icon) icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+      const carouselItems = document.querySelectorAll('.discipline-item');
+      let currentCarouselIndex = 0;
+
+      function updateCarousel() {
+        const isMobile = window.innerWidth <= 768;
+        
+        // En móvil: mostrar todos los items (sin carrusel)
+        // En desktop: comportamiento normal
+        carouselItems.forEach(item => {
+          item.style.display = '';
+          item.classList.remove('active-slide');
+        });
+        
+        document.querySelectorAll('.discipline-detail').forEach(detail => {
+          if (!detail.classList.contains('active')) {
+            detail.style.display = isMobile ? 'none' : '';
+          }
+        });
+      }
+
+      window.addEventListener('resize', updateCarousel);
+      setTimeout(updateCarousel, 100);
+
+      // Mobile Accordion functionality
+      document.querySelectorAll('.mobile-accordion-trigger').forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const disciplineItem = this.closest('.discipline-item');
+          const accordionContent = disciplineItem.querySelector('.mobile-accordion-content');
+          const buttonText = this.querySelector('span');
+          const viewMoreText = this.dataset.viewMore;
+          const viewLessText = this.dataset.viewLess;
+          
+          const isOpen = accordionContent.classList.contains('open');
+          
+          // Close all other accordions
+          document.querySelectorAll('.mobile-accordion-content').forEach(content => {
+            if (content !== accordionContent) {
+              content.classList.remove('open');
+            }
+          });
+          document.querySelectorAll('.mobile-accordion-trigger').forEach(btn => {
+            if (btn !== this) {
+              btn.classList.remove('active');
+              const otherText = btn.querySelector('span');
+              otherText.textContent = btn.dataset.viewMore;
+            }
+          });
+          
+          // Toggle current accordion
+          if (isOpen) {
+            accordionContent.classList.remove('open');
+            this.classList.remove('active');
+            buttonText.textContent = viewMoreText;
+          } else {
+            accordionContent.classList.add('open');
+            this.classList.add('active');
+            buttonText.textContent = viewLessText;
+          }
+        });
+      });
+
+      // Carousel functionality
+      (function() {
+        const images = document.querySelectorAll('.carousel-image');
+        const leftArrow = document.querySelector('.carousel-arrow-left');
+        const rightArrow = document.querySelector('.carousel-arrow-right');
+        let currentIndex = 0;
+
+        function showImage(index) {
+          images.forEach((img, i) => {
+            if (i === index) {
+              img.classList.add('active');
+            } else {
+              img.classList.remove('active');
+            }
+          });
+        }
+
+        function nextImage() {
+          currentIndex = (currentIndex + 1) % images.length;
+          showImage(currentIndex);
+        }
+
+        function prevImage() {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          showImage(currentIndex);
+        }
+
+        if (leftArrow && rightArrow && images.length > 0) {
+          leftArrow.addEventListener('click', prevImage);
+          rightArrow.addEventListener('click', nextImage);
+        }
+      })();
+    </script>
+
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Oswald', sans-serif;
+    overflow-x: hidden;
+    background-color: #ffffff;
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+  }
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 4;
+  }
+
+  .hero-title {
+    font-family: 'Oswald', sans-serif;
+    color: #C6E1EA;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .hero-line-1 {
+    font-weight: 500;
+    font-size: 89.6px;
+    display: block;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.3s forwards;
+  }
+
+  .hero-line-2 {
+    font-weight: 500;
+    font-size: 92.7px;
+    display: block;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.5s forwards;
+  }
+
+  .hero-line-3 {
+    font-weight: 500;
+    font-size: 109px;
+    display: block;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.7s forwards;
+  }
+
+  .hero-logo-container {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(30%, -50%) rotate(90deg);
+    transform-origin: center center;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.9s forwards;
+  }
+
+  .logo-rotated-svg {
+    width: 105vh;
+    height: auto;
+    display: block;
+  }
+
+  .disciplines-section {
+    padding: 169px 0 0 0;
+    background: #ffffff;
+    margin-bottom: 0;
+  }
+
+  .disciplines-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .disciplines-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 47px;
+    line-height: 85px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 1rem 0;
+  }
+
+  .disciplines-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 38px;
+    line-height: 1.5;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    text-align: center;
+    max-width: 937px;
+    margin: 0 auto 169px auto;
+    hyphens: auto;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    orphans: 2;
+    widows: 2;
+  }
+
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .disciplines-subtitle {
+      font-size: 3.2vw;
+      max-width: 80vw;
+      width: 80vw;
+    }
+  }
+
+  .disciplines-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .discipline-item {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .discipline-image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .discipline-image {
+    width: 100%;
+    height: 485px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .discipline-image-right {
+    object-position: 25% center;
+  }
+
+  .discipline-item[data-discipline="yoga"] .discipline-image {
+    transform: scale(1.55);
+    object-position: center center;
+  }
+
+  .discipline-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #A53716;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .discipline-item:hover .discipline-overlay,
+  .discipline-item.active .discipline-overlay,
+  .discipline-image-wrapper:hover .discipline-overlay {
+    opacity: 0.7;
+  }
+
+  .discipline-item:hover .discipline-image,
+  .discipline-item.active .discipline-image,
+  .discipline-image-wrapper:hover .discipline-image {
+    transform: scale(1.05);
+  }
+
+  .discipline-item[data-discipline="yoga"]:hover .discipline-image,
+  .discipline-item[data-discipline="yoga"].active .discipline-image,
+  .discipline-item[data-discipline="yoga"] .discipline-image-wrapper:hover .discipline-image {
+    transform: scale(1.6);
+  }
+
+  .discipline-gradient-overlay {
+    display: none;
+  }
+
+  .discipline-view-more-btn {
+    display: none;
+  }
+
+  .discipline-overlay-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 45px;
+    line-height: 50px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0 0 1rem 0;
+  }
+
+  .discipline-overlay-tags {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .discipline-detail {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    padding: 0;
+  }
+
+  .discipline-detail.active {
+    max-height: 2000px;
+    opacity: 1;
+    padding: 6rem 0 4rem 0;
+  }
+
+  .discipline-detail-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+  }
+
+  .discipline-detail-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 60px;
+    line-height: 50px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    margin: 0 auto 54px auto;
+    text-decoration: underline;
+    text-decoration-color: #ED6D64;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.5rem;
+    display: inline-block;
+    letter-spacing: 0.05em;
+  }
+
+  .discipline-detail-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 50px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    margin: 0 auto 0 auto;
+    text-align: center;
+    letter-spacing: 0.07em;
+  }
+
+  .discipline-detail-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 50px;
+    color: #2c2c2c;
+    margin: 0 auto 81px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    letter-spacing: 0.05em;
+    box-sizing: border-box;
+  }
+
+  .discipline-programs {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .program-box {
+    flex: 1;
+    padding: 32px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 200px;
+    box-sizing: border-box;
+  }
+
+  .program-box-1 { background-color: #A53716; }
+  .program-box-2 { background-color: #DB5639; }
+  .program-box-3 { background-color: #ED6D64; }
+  .program-box-4 { background-color: #ED6D64; }
+  .program-box-5 { background-color: #ED6D64; }
+
+  .discipline-programs-5 .program-box-1 { background-color: #A53716; }
+  .discipline-programs-5 .program-box-2 { background-color: #D74220; }
+  .discipline-programs-5 .program-box-3 { background-color: #DB5639; }
+  .discipline-programs-5 .program-box-4 { background-color: #F85B50; }
+  .discipline-programs-5 .program-box-5 { background-color: #ED6D64; }
+
+  #barre-detail .discipline-programs .program-box-1 { background-color: #A53716; }
+  #barre-detail .discipline-programs .program-box-2 { background-color: #DB5639; }
+  #barre-detail .discipline-programs .program-box-3 { background-color: #ED6D64; }
+
+  #pilates-detail .discipline-programs .program-box-1 { background-color: #A53716; }
+  #pilates-detail .discipline-programs .program-box-2 { background-color: #DB5639; }
+  #pilates-detail .discipline-programs .program-box-3 { background-color: #ED6D64; }
+
+  .discipline-programs-5 {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .discipline-programs-5 .program-row {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .discipline-programs-5 .program-row-top .program-box {
+    flex: 0 0 calc((100% - 80px) / 3);
+    width: calc((100% - 80px) / 3);
+    max-width: 360px;
+    min-width: 280px;
+  }
+
+  .discipline-programs-5 .program-row-bottom .program-box {
+    flex: 0 0 calc((100% - 40px) / 2);
+    width: calc((100% - 40px) / 2);
+    max-width: 360px;
+    min-width: 280px;
+  }
+
+  .discipline-programs-2 {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .discipline-programs-2 .program-box {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 360px;
+    min-width: 280px;
+  }
+
+  .program-box-yoga-1 { background-color: #A53716; }
+  .program-box-yoga-2 { background-color: #ED6D64; }
+
+  .program-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 38px;
+    line-height: 42px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.1em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .program-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 30px;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.1em;
+    white-space: pre-line;
+  }
+
+  .cta-section {
+    background-color: #90BBC9;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4rem;
+    width: 100%;
+  }
+
+  .cta-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 48px;
+    color: #ffffff;
+    text-transform: uppercase;
+    max-width: 1000px;
+    margin: 0;
+  }
+
+  .cta-button {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 40px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.6rem 2rem;
+    border: 2px solid #ffffff;
+    border-radius: 50px;
+    background: transparent;
+    transition: all 0.3s ease;
+    display: inline-block;
+    letter-spacing: 0.05em;
+  }
+
+  .cta-button:hover {
+    background: #ffffff;
+    color: #90BBC9;
+  }
+
+  .local-image-section {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .carousel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .carousel-images {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+  }
+
+  .carousel-image.active {
+    opacity: 1;
+  }
+
+  .carousel-image:nth-child(1) {
+    object-position: center 40%;
+  }
+
+  .carousel-image:nth-child(3) {
+    object-position: center 30%;
+  }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.3s ease, opacity 0.3s ease;
+    color: #2c2c2c;
+  }
+
+  .carousel-arrow:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .carousel-arrow-left {
+    left: 20px;
+  }
+
+  .carousel-arrow-right {
+    right: 20px;
+  }
+
+  .carousel-arrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .faqs-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+
+  .faqs-modal.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .faqs-modal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: left;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .faqs-modal.open .faqs-modal-content {
+    transform: translateY(0);
+  }
+
+  .faqs-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #2c2c2c;
+    transition: color 0.3s ease;
+    padding: 0.5rem;
+    z-index: 10;
+  }
+
+  .faqs-modal-close:hover {
+    color: #ED6D64;
+  }
+
+  .faqs-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    width: 100%;
+  }
+
+  .faqs-accordion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.3s ease;
+  }
+
+  .faq-question span {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #2c2c2c;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-right: 1rem;
+  }
+
+  .faq-question:hover span {
+    color: #ED6D64;
+  }
+
+  .faq-icon {
+    transition: transform 0.3s ease;
+    color: #ED6D64;
+    flex-shrink: 0;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0;
+    text-align: left;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 800px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer p {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0 0 1rem 0;
+    text-align: left;
+  }
+
+  .faq-answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  .faq-list {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #666;
+    margin: 0.75rem 0 1rem 0;
+    padding-left: 0;
+    list-style: none;
+    text-align: left;
+  }
+
+  .faq-list li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    text-align: left;
+  }
+
+  .faq-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #ED6D64;
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .faq-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .faq-list li strong {
+    font-weight: 500;
+    color: #2c2c2c;
+  }
+
+  .custom-footer {
+    background-color: #ffffff;
+    padding: 50px 0 40px 0;
+    margin-top: 0;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 100px;
+  }
+
+  .footer-logo-img {
+    height: auto;
+    width: 140px;
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-link {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;
+    letter-spacing: 2px;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #ED6D64;
+  }
+
+  .footer-separator {
+    color: #ED6D64;
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 4px;
+  }
+
+  .footer-social-icon {
+    width: 35px;
+    height: 35px;
+    color: #000000;
+    margin-left: 8px;
+    transition: color 0.3s ease;
+  }
+
+  .footer-social-icon:hover {
+    color: #ED6D64;
+  }
+
+  .footer-bottom {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 280px;
+    width: 100%;
+    margin-top: 60px;
+    overflow: visible;
+  }
+
+  .footer-bottom::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    max-width: 1000px;
+    background-color: #ED6D64;
+    -webkit-mask-image: url('/images/logoicon.svg');
+    mask-image: url('/images/logoicon.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0.4;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .footer-text-absolute {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .footer-text-main {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .footer-text-sub {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: 2px;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  .mobile-accordion-content {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; }
+    .hero-line-1 { font-size: 60px; }
+    .hero-line-2 { font-size: 62px; }
+    .hero-line-3 { font-size: 72px; }
+    .hero-logo-container {
+      opacity: 0.2;
+      transform: translate(40%, -50%) rotate(90deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 1.5rem; }
+    .hero-line-1 { font-size: 56px; }
+    .hero-line-2 { font-size: 58px; }
+    .hero-line-3 { font-size: 68px; }
+    .logo-rotated-svg { width: 85vh; }
+    .logo-rotated-svg path { fill-opacity: 0.2 !important; }
+    .hero-logo-container {
+      transform: translate(45%, -50%) rotate(90deg);
+      opacity: 0.75;
+      right: 0;
+    }
+    
+    /* Disciplinas simplificadas para móvil */
+    .disciplines-section { padding: 60px 0 60px 0 !important; margin-bottom: 0 !important; }
+    .disciplines-title { font-size: 28px; line-height: 1.0; margin-bottom: 1.5rem; }
+    .disciplines-subtitle { 
+      font-size: 3.2vw;
+      line-height: 1.4; 
+      max-width: 90vw;
+      width: 90vw;
+      margin: 0 auto 40px auto;
+      padding: 0;
+      hyphens: none;
+      word-break: keep-all;
+      overflow-wrap: normal;
+      box-sizing: border-box;
+      text-align: center;
+      display: block;
+      word-spacing: 0.02em;
+      letter-spacing: 0.01em;
+      white-space: normal;
+    }
+    
+    .disciplines-subtitle br {
+      display: block;
+      content: "";
+      margin-top: 0.3em;
+    }
+    
+    @media (min-width: 360px) {
+      .disciplines-subtitle {
+        font-size: 3vw;
+        max-width: 88vw;
+        width: 88vw;
+      }
+    }
+    
+    @media (min-width: 480px) {
+      .disciplines-subtitle {
+        font-size: 2.8vw;
+        max-width: 85vw;
+        width: 85vw;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .disciplines-subtitle {
+        font-size: 38px;
+        line-height: 50px;
+        max-width: 937px;
+        width: auto;
+      }
+    }
+    
+    /* Ocultar botones de carrusel */
+    .carousel-nav-btn,
+    .carousel-prev,
+    .carousel-next { display: none !important; }
+    
+    /* Wrapper sin fondo naranja, sin padding lateral excesivo */
+    .disciplines-carousel-wrapper {
+      position: relative;
+      background-color: transparent;
+      padding: 0;
+      margin-left: 0;
+      width: 100%;
+      box-sizing: border-box;
+      min-height: auto;
+      display: block;
+    }
+    
+    /* Grid como lista vertical simple */
+    .disciplines-grid { 
+      display: flex !important; 
+      flex-direction: column !important; 
+      gap: 20px;
+      margin-bottom: 0;
+    }
+    
+    /* Cada disciplina visible */
+    .discipline-item { 
+      width: 100%; 
+      display: flex !important;
+      flex-direction: column;
+      position: relative;
+      border-radius: 0;
+      overflow: hidden;
+    }
+    
+    .discipline-image { 
+      height: 280px;
+      transform: none !important; /* Sin zoom en móvil */
+    }
+    
+    /* Aumentar imagen de YOGA en móvil */
+    .discipline-item[data-discipline="yoga"] .discipline-image {
+      transform: scale(1.2) !important;
+    }
+    
+    /* Quitar hover en móvil */
+    .discipline-item:hover .discipline-image,
+    .discipline-item.active .discipline-image {
+      transform: none !important;
+    }
+    
+    /* Mantener aumento de YOGA incluso en hover en móvil */
+    .discipline-item[data-discipline="yoga"]:hover .discipline-image,
+    .discipline-item[data-discipline="yoga"].active .discipline-image {
+      transform: scale(1.2) !important;
+    }
+    
+    .discipline-overlay {
+      opacity: 1 !important;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    
+    .discipline-overlay-title { font-size: 28px; line-height: 32px; margin-bottom: 0.5rem; }
+    .discipline-overlay-tags { font-size: 12px; line-height: 16px; margin-bottom: 1rem; }
+    
+    /* Sin cambio de fondo en active en móvil */
+    .discipline-item.active .discipline-overlay { background-color: rgba(0, 0, 0, 0.4); }
+    
+    /* Botón Descubre visible en móvil - bordes redondeados */
+    .mobile-only { display: flex; }
+    .discipline-view-more-btn.mobile-only {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 12px 28px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Ocultar gradient overlay en móvil */
+    .discipline-gradient-overlay { display: none !important; }
+    
+    /* Acordeón móvil */
+    .mobile-accordion-content {
+      display: block;
+      position: relative;
+      z-index: 10;
+      max-height: 0;
+      overflow: hidden;
+      background-color: #A53716;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+    
+    .mobile-accordion-content.open {
+      max-height: 600px;
+      padding: 1.5rem 1.5rem;
+    }
+    
+    .mobile-accordion-text {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #ffffff;
+      margin: 0;
+      text-align: left;
+      letter-spacing: 0.02em;
+    }
+
+    .mobile-discipline-subtitle {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.4;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin: 0 0 0.75rem 0;
+      letter-spacing: 0.5px;
+    }
+
+    .mobile-discipline-description {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #ffffff;
+      margin: 0 0 1rem 0;
+    }
+
+    .mobile-discipline-programs {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-discipline-programs li {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .mobile-discipline-programs li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #ED6D64;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .mobile-discipline-programs li strong {
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Ocultar detalles desplegables en móvil - el botón lleva a planes */
+    .discipline-detail { 
+      display: none !important; 
+    }
+    
+    /* Ocultar botón cerrar en móvil */
+    .mobile-close-detail { display: none !important; }
+    
+    /* Ocultar programas en móvil */
+    .discipline-programs,
+    .discipline-programs-5,
+    .discipline-programs-2,
+    .program-box,
+    .program-row { 
+      display: none !important; 
+    }
+    
+    .cta-section { height: auto; min-height: 350px; padding: 3rem 1.5rem; }
+    .cta-text { 
+      font-size: 5vw; 
+      line-height: 1.5; 
+      max-width: 90vw; 
+      width: 90vw;
+      margin: 0 auto;
+      padding: 0;
+      word-spacing: 0.02em;
+      letter-spacing: 0.01em;
+    }
+    
+    .cta-text br {
+      display: block;
+      content: "";
+      margin-top: 0.3em;
+    }
+    
+    @media (min-width: 360px) {
+      .cta-text {
+        font-size: 4.5vw;
+        max-width: 88vw;
+        width: 88vw;
+      }
+    }
+    
+    @media (min-width: 480px) {
+      .cta-text {
+        font-size: 4vw;
+        max-width: 85vw;
+        width: 85vw;
+      }
+    }
+    .local-image-section { height: 350px; }
+    
+    .carousel-arrow {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .carousel-arrow-left {
+      left: 10px;
+    }
+    
+    .carousel-arrow-right {
+      right: 10px;
+    }
+    
+    .carousel-arrow svg {
+      width: 20px;
+      height: 20px;
+    }
+    .custom-footer { padding: 60px 0; margin-top: 0; }
+    .footer-top { flex-direction: column; align-items: center; gap: 40px; margin-bottom: 60px; }
+    .footer-links { flex-direction: column; gap: 20px; }
+    .footer-link { font-size: 24px; line-height: 30px; }
+    .footer-separator { display: none; }
+    .footer-bottom { min-height: 200px; margin-top: 20px; }
+    .footer-text-absolute { flex-direction: column; gap: 0; }
+    .footer-text-main, .footer-text-sub { font-size: 24px; line-height: 32px; white-space: normal; }
+  }
+</style>
