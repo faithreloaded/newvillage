@@ -23,25 +23,6 @@ export const prerender = true;
     <meta property="twitter:description" content="New Village Studio. Barre, Pilates, Functional & Yoga in Barcelona. Join the movement." />
     <meta property="twitter:image" content="/images/herobg.jpg" />
 
-    <script>
-      (function() {
-        try {
-          var stored = localStorage.getItem('preferredLang');
-          var nav = ((navigator && navigator.language) ? navigator.language : 'en').toLowerCase();
-          var inferred = nav.indexOf('ca') === 0 ? 'ca' : (nav.indexOf('es') === 0 ? 'es' : 'en');
-          var lang = (stored === 'es' || stored === 'en' || stored === 'ca') ? stored : inferred;
-          if (lang !== 'en' && lang !== 'es' && lang !== 'ca') lang = 'es';
-          if (location.pathname === '/' || location.pathname === '') {
-            location.replace('/' + lang + '/home');
-          }
-        } catch (e) {
-          location.replace('/es/home');
-        }
-      })();
-    </script>
-    <noscript>
-      <meta http-equiv="refresh" content="0;url=/es/home" />
-    </noscript>
   </head>
   <body></body>
 </html>
