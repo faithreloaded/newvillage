@@ -43,7 +43,7 @@ const langLabels: Record<Locale, string> = {
       <!-- Hero Section -->
       <section class="plans-hero-section">
         <div class="hero-background">
-          <img src="/images/planeshero.jpg" alt="Plans Background" class="hero-bg-image" />
+          <img src="/images/planeshero.webp" alt="Plans Background" class="hero-bg-image" />
         </div>
         
         <div class="container">
@@ -416,7 +416,7 @@ const langLabels: Record<Locale, string> = {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center; /* Adjust if needed */
+    object-position: center 65%; /* Un poco más abajo en desktop */
   }
 
   .hero-background::after {
@@ -426,7 +426,7 @@ const langLabels: Record<Locale, string> = {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.2);
     z-index: 1;
   }
 
@@ -1350,7 +1350,7 @@ const langLabels: Record<Locale, string> = {
     }
 
     .hero-bg-image {
-      object-position: center right;
+      object-position: 40% center;
       opacity: 0.6; /* Reducir opacidad de la imagen en mobile */
     }
 
