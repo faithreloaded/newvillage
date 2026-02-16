@@ -51,7 +51,7 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
         </nav>
         
         <!-- Botón Reserva -->
-        <a href="https://newvillage.virtuagym.com/" target="_blank" rel="noopener noreferrer" class="btn-reserva">{t('actions.reserve')}</a>
+        <a href={`/${lang}/plans#bonds`} class="btn-reserva">{t('actions.reserve')}</a>
         
         <!-- Selector de idioma -->
         <div class="lang-dropdown">
@@ -106,7 +106,7 @@ const movementLink = isHome ? '#disciplines' : `/${lang}/#disciplines`;
       <a href={`/${lang}/booking`} class="mobile-nav-link">{t('nav.myAccount')}</a>
     </nav>
     
-    <a href="https://newvillage.virtuagym.com/" target="_blank" rel="noopener noreferrer" class="btn-reserva mobile-btn-reserva">{t('actions.reserve')}</a>
+    <a href={`/${lang}/plans#bonds`} class="btn-reserva mobile-btn-reserva">{t('actions.reserve')}</a>
     
     <div class="mobile-lang-selector">
       {(LOCALES as readonly Locale[]).map((locale) => (

@@ -12,7 +12,7 @@
   },
   "actions": {
     "bookNow": "Reserva ara",
-    "reserve": "LOGIN"
+    "reserve": "COMPRAR"
   },
   "lang": {
     "es": "ES",

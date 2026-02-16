@@ -12,7 +12,7 @@
   },
   "actions": {
     "bookNow": "Reservar ahora",
-    "reserve": "LOGIN"
+    "reserve": "COMPRAR"
   },
   "lang": {
     "es": "ES",
